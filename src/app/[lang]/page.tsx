@@ -108,6 +108,22 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       {/* ── LOGOS ────────────────────────────────────────────── */}
       <LogoMarquee lang={lang} title={dict.home.trusted} />
 
+      {/* ── SHOWCASE CAROUSEL ────────────────────────────────── */}
+      <Section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 dots-pattern opacity-50" aria-hidden />
+        <Container className="relative">
+          <SectionHeading
+            kicker={dict.home.showcase.kicker}
+            title={dict.home.showcase.title}
+            lead={dict.home.showcase.lead}
+            className="mb-12"
+          />
+          <FadeUp>
+            <ShowcaseCarousel dict={dict} lang={lang} />
+          </FadeUp>
+        </Container>
+      </Section>
+
       {/* ── AIRLINES ─────────────────────────────────────────── */}
       <Section className="overflow-hidden border-y border-border bg-bg-soft">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
@@ -271,22 +287,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               );
             })}
           </div>
-        </Container>
-      </Section>
-
-      {/* ── SHOWCASE CAROUSEL ────────────────────────────────── */}
-      <Section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 dots-pattern opacity-50" aria-hidden />
-        <Container className="relative">
-          <SectionHeading
-            kicker={dict.home.showcase.kicker}
-            title={dict.home.showcase.title}
-            lead={dict.home.showcase.lead}
-            className="mb-12"
-          />
-          <FadeUp>
-            <ShowcaseCarousel dict={dict} lang={lang} />
-          </FadeUp>
         </Container>
       </Section>
 
