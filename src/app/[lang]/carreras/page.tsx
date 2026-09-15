@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Clock, MapPin } from "lucide-react";
 import { getDictionary } from "@/i18n";
 import { PageHero } from "@/components/shared/PageHero";
-import { FadeUp, SpotlightCard, Stagger } from "@/components/motion/motion";
+import { FadeUp, Parallax, SpotlightCard, Stagger } from "@/components/motion/motion";
 import { Container, Section } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { href, routes, social } from "@/lib/utils";
@@ -13,11 +13,15 @@ export default async function CareersPage({ params }: { params: Promise<{ lang: 
 
   return (
     <>
-      <PageHero title={dict.careers.title} lead={dict.careers.lead} />
+      <PageHero title={dict.careers.title} lead={dict.careers.lead} leadScroll />
       <Section>
         <Container className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <FadeUp className="shot-frame">
-            <Image src="/images/pages/carreras.png" alt="" width={720} height={520} className="w-full object-cover" />
+          <FadeUp>
+            <Parallax speed={0.04}>
+              <div className="shot-frame">
+                <Image src="/images/pages/carreras.png" alt="" width={720} height={520} className="w-full object-cover" />
+              </div>
+            </Parallax>
           </FadeUp>
           <Stagger className="space-y-4">
             {dict.careers.jobs.map((job) => (

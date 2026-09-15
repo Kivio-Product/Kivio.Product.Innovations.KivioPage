@@ -14,7 +14,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
 
   return (
     <>
-      <PageHero title={dict.contact.title} lead={dict.contact.lead} />
+      <PageHero title={dict.contact.title} lead={dict.contact.lead} leadScroll />
       <Section className="pt-4">
         <Container className="grid gap-10 lg:grid-cols-2">
           <FadeUp>

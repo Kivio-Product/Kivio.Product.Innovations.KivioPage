@@ -4,7 +4,7 @@ import { getDictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
-import { FadeUp, SpotlightCard, Stagger } from "@/components/motion/motion";
+import { FadeUp, Parallax, ScrollText, SpotlightCard, Stagger } from "@/components/motion/motion";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { LogoMarquee } from "@/components/shared/LogoMarquee";
 import { ContactBlock } from "@/components/shared/ContactForm";
@@ -18,19 +18,21 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
 
   return (
     <>
-      <PageHero title={dict.services.title} lead={dict.services.lead} />
+      <PageHero title={dict.services.title} lead={dict.services.lead} leadScroll />
       <Section>
         <Container className="grid items-center gap-10 lg:grid-cols-2">
           <FadeUp>
-            <div className="shot-frame">
-              <Image
-                src="/images/pages/servicios-web-2.png"
-                alt=""
-                width={700}
-                height={500}
-                className="w-full object-cover"
-              />
-            </div>
+            <Parallax speed={0.04}>
+              <div className="shot-frame">
+                <Image
+                  src="/images/pages/servicios-web-2.png"
+                  alt=""
+                  width={700}
+                  height={500}
+                  className="w-full object-cover"
+                />
+              </div>
+            </Parallax>
           </FadeUp>
           <div className="grid gap-4">
             {dict.services.types.map((t) => (
@@ -64,7 +66,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
       <Section>
         <Container>
           <h2 className="font-display text-3xl text-fg">{dict.services.techTitle}</h2>
-          <p className="mt-4 max-w-2xl text-muted">{dict.services.techLead}</p>
+          <ScrollText text={dict.services.techLead} className="mt-4 max-w-2xl text-muted" />
           <div className="mt-8 flex flex-wrap gap-2">
             {dict.services.stack.map((s) => (
               <span key={s} className="rounded-full border border-border bg-surface px-4 py-2 text-sm text-fg">

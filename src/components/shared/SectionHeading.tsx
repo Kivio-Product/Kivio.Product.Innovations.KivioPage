@@ -1,10 +1,11 @@
 import { cn } from "@/lib/utils";
-import { FadeUp } from "@/components/motion/motion";
+import { FadeUp, ScrollText } from "@/components/motion/motion";
 
 export function SectionHeading({
   kicker,
   title,
   lead,
+  leadScroll,
   align = "left",
   className,
   titleClassName,
@@ -12,6 +13,7 @@ export function SectionHeading({
   kicker?: string;
   title: string;
   lead?: string;
+  leadScroll?: boolean;
   align?: "left" | "center";
   className?: string;
   titleClassName?: string;
@@ -27,7 +29,12 @@ export function SectionHeading({
       <h2 className={cn("font-display text-3xl leading-[1.12] text-fg sm:text-4xl lg:text-[2.75rem]", titleClassName)}>
         {title}
       </h2>
-      {lead && <p className={cn("mt-4 max-w-2xl text-muted", align === "center" && "mx-auto")}>{lead}</p>}
+      {lead &&
+        (leadScroll ? (
+          <ScrollText text={lead} className={cn("mt-4 max-w-2xl text-muted", align === "center" && "mx-auto")} />
+        ) : (
+          <p className={cn("mt-4 max-w-2xl text-muted", align === "center" && "mx-auto")}>{lead}</p>
+        ))}
     </FadeUp>
   );
 }

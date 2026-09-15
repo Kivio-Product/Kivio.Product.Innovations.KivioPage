@@ -44,6 +44,7 @@ export const en = {
     rights: "All rights reserved",
     language: "Language",
     theme: "Theme",
+    scroll: "Scroll to explore",
     light: "Light",
     dark: "Dark",
     openMenu: "Open menu",
@@ -70,7 +71,7 @@ export const en = {
       disclaimer: "Illustrative demo · In production KIVI answers from YOUR knowledge base",
     },
     stats: [
-      { value: 15, prefix: "", suffix: "", label: "specialists on the team" },
+      { value: 4, prefix: "", suffix: "+", label: "years building custom software" },
       { value: 5, prefix: "", suffix: "+", label: "products and featured cases" },
       { value: 4, prefix: "", suffix: "", label: "verticals: software, commerce, airlines, AI" },
       { value: 100, prefix: "", suffix: "%", label: "remote, global team" },

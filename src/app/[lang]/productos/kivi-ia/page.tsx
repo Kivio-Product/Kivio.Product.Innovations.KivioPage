@@ -1,4 +1,5 @@
 import { getDictionary } from "@/i18n";
+import { ScrollText } from "@/components/motion/motion";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
@@ -11,7 +12,7 @@ export default async function KiviPage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
-      <PageHero kicker={dict.nav.products} title={dict.kivi.title} lead={dict.kivi.lead}>
+      <PageHero kicker={dict.nav.products} title={dict.kivi.title} lead={dict.kivi.lead} leadScroll>
         <p className="mb-6 text-lg font-medium text-fg">{dict.kivi.subtitle}</p>
         <div className="flex flex-wrap gap-3">
           <Button href={social.kiviExternal} external>
@@ -31,7 +32,7 @@ export default async function KiviPage({ params }: { params: Promise<{ lang: str
       <Section className="diagonal-band bg-bg-soft">
         <Container className="max-w-3xl">
           <h2 className="font-display text-3xl text-fg">{dict.kivi.whyTitle}</h2>
-          <p className="mt-4 text-lg text-muted">{dict.kivi.whyLead}</p>
+          <ScrollText text={dict.kivi.whyLead} className="mt-4 text-lg text-muted" />
         </Container>
       </Section>
       <ContactBlock dict={dict} />

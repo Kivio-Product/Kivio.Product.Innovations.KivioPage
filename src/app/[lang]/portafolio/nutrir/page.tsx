@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getDictionary } from "@/i18n";
+import { Parallax } from "@/components/motion/motion";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import { PageHero } from "@/components/shared/PageHero";
@@ -11,7 +12,7 @@ export default async function NutrirPage({ params }: { params: Promise<{ lang: s
 
   return (
     <>
-      <PageHero title={dict.nutrir.title} lead={dict.nutrir.lead}>
+      <PageHero title={dict.nutrir.title} lead={dict.nutrir.lead} leadScroll>
         <Image src="/images/pages/nutrir-logo-big.png" alt="Nutrir" width={220} height={160} className="mb-6 h-28 w-auto object-contain" />
         <Button href="https://www.nutrirong.com/" external>
           {dict.common.viewResult}
@@ -40,15 +41,17 @@ export default async function NutrirPage({ params }: { params: Promise<{ lang: s
         <Container>
           <h2 className="font-display text-3xl text-fg">{dict.nutrir.sectionsTitle}</h2>
           <p className="mt-3 max-w-2xl text-muted">{dict.nutrir.sections}</p>
-          <div className="shot-frame mt-8">
-            <Image
-              src="/images/pages/nutrir-mockup-big.png"
-              alt="Nutrir"
-              width={1200}
-              height={700}
-              className="w-full object-cover"
-            />
-          </div>
+          <Parallax speed={0.035}>
+            <div className="shot-frame mt-8">
+              <Image
+                src="/images/pages/nutrir-mockup-big.png"
+                alt="Nutrir"
+                width={1200}
+                height={700}
+                className="w-full object-cover"
+              />
+            </div>
+          </Parallax>
           <Button href="https://www.nutrirong.com/" external className="mt-8">
             {dict.common.viewResult}
           </Button>

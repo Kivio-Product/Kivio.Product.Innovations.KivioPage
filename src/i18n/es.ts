@@ -41,6 +41,7 @@ export const es = {
     rights: "Todos los derechos reservados",
     language: "Idioma",
     theme: "Tema",
+    scroll: "Desliza para explorar",
     light: "Claro",
     dark: "Oscuro",
     openMenu: "Abrir menú",
@@ -67,7 +68,7 @@ export const es = {
       disclaimer: "Demo ilustrativa · En producción KIVI responde con TU base de conocimiento",
     },
     stats: [
-      { value: 15, prefix: "", suffix: "", label: "especialistas en el equipo" },
+      { value: 4, prefix: "", suffix: "+", label: "años construyendo software a la medida" },
       { value: 5, prefix: "", suffix: "+", label: "productos y casos destacados" },
       { value: 4, prefix: "", suffix: "", label: "verticales: software, comercio, aerolíneas, IA" },
       { value: 100, prefix: "", suffix: "%", label: "equipo remoto y global" },

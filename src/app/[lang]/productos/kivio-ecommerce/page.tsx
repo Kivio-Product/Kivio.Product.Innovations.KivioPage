@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getDictionary } from "@/i18n";
+import { Parallax } from "@/components/motion/motion";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
@@ -19,21 +20,23 @@ export default async function EcommercePage({ params }: { params: Promise<{ lang
 
   return (
     <>
-      <PageHero kicker={dict.nav.products} title={dict.ecommerce.title} lead={dict.ecommerce.lead}>
+      <PageHero kicker={dict.nav.products} title={dict.ecommerce.title} lead={dict.ecommerce.lead} leadScroll>
         <p className="mb-6 max-w-xl text-lg font-medium text-fg">{dict.ecommerce.subtitle}</p>
         <Button href="#contacto">{dict.common.requestDemo}</Button>
       </PageHero>
       <Section>
         <Container className="grid items-center gap-10 lg:grid-cols-2">
-          <div className="shot-frame">
-            <Image
-              src="/images/pages/ecommerce-pc.png"
-              alt="Kivio eCommerce"
-              width={800}
-              height={560}
-              className="w-full object-contain"
-            />
-          </div>
+          <Parallax speed={0.04}>
+            <div className="shot-frame">
+              <Image
+                src="/images/pages/ecommerce-pc.png"
+                alt="Kivio eCommerce"
+                width={800}
+                height={560}
+                className="w-full object-contain"
+              />
+            </div>
+          </Parallax>
           <div>
             <h2 className="font-display text-3xl text-fg">{dict.ecommerce.includesTitle}</h2>
             <ul className="mt-6 space-y-3">

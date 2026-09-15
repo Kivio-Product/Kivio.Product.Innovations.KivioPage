@@ -344,10 +344,12 @@ export function RotatingWord({
   words,
   interval = 3000,
   className,
+  gradient = false,
 }: {
   words: string[];
   interval?: number;
   className?: string;
+  gradient?: boolean;
 }) {
   const [index, setIndex] = useState(0);
 
@@ -367,7 +369,11 @@ export function RotatingWord({
           <span
             key={word}
             aria-hidden={i !== index}
-            className="block h-[1.16em] overflow-hidden leading-[1.16em] whitespace-nowrap"
+            className={cn(
+              "block h-[1.16em] overflow-hidden leading-[1.16em] whitespace-nowrap",
+              /* gradient lives on the row: a translated descendant breaks parent background-clip:text */
+              gradient && "text-gradient",
+            )}
           >
             {word}
           </span>

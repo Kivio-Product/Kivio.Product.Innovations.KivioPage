@@ -4,7 +4,17 @@ import { ArrowRight, ArrowUpRight, Brain, Compass, Shield, Sparkles } from "luci
 import { getDictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
-import { FadeUp, Magnetic, Parallax, RotatingWord, SpotlightCard, Stagger, Typewriter } from "@/components/motion/motion";
+import {
+  FadeUp,
+  Magnetic,
+  Parallax,
+  RotatingWord,
+  ScrollCue,
+  ScrollText,
+  SpotlightCard,
+  Stagger,
+  Typewriter,
+} from "@/components/motion/motion";
 import { HeroVisual } from "@/components/shared/HeroVisual";
 import { LogoMarquee } from "@/components/shared/LogoMarquee";
 import { SectionHeading } from "@/components/shared/SectionHeading";
@@ -44,7 +54,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               <h1 className="mt-7 font-display text-4xl leading-[1.06] text-fg sm:text-6xl lg:text-7xl">
                 {dict.home.heroTitleStatic}
                 <span className="mt-1 block sm:mt-2">
-                  <RotatingWord words={dict.home.heroRotating} className="text-gradient" />
+                  <RotatingWord words={dict.home.heroRotating} gradient />
                 </span>
               </h1>
             </FadeUp>
@@ -70,8 +80,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </Container>
         <Container className="relative mt-14 sm:mt-20">
           <FadeUp delay={120} y={32}>
-            <HeroVisual labels={dict.home.heroCards} />
+            <Parallax speed={0.045}>
+              <HeroVisual labels={dict.home.heroCards} />
+            </Parallax>
           </FadeUp>
+          <ScrollCue label={dict.common.scroll} />
         </Container>
       </section>
 
@@ -105,13 +118,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </FadeUp>
           <div>
             <SectionHeading kicker={dict.nav.airlines} title={dict.home.airlinesTitle} className="mb-5" />
-            <FadeUp delay={120}>
-              <p className="text-muted">{dict.home.airlinesP1}</p>
-              <p className="mt-3 text-muted">{dict.home.airlinesP2}</p>
+            <div>
+              <ScrollText text={dict.home.airlinesP1} className="text-muted" />
+              <ScrollText text={dict.home.airlinesP2} className="mt-3 text-muted" />
               <Button href={href(lang, routes.airlines)} className="mt-8">
                 {dict.common.moreInfo}
               </Button>
-            </FadeUp>
+            </div>
           </div>
         </Container>
       </Section>

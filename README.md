@@ -68,7 +68,21 @@ El skill `ui-ux-pro-max` (`.opencode/skills/`) aporta la capa de motion y estilo
 | Motion | Motion-Driven + Kinetic Typography | Reveals, stagger, parallax, máquina de escribir |
 | Detalle | Micro-interactions + acento offset | Botones, cards spotlight, hover |
 
-**Componentes de motion** (`src/components/motion/motion.tsx`): `FadeUp` (300–400 ms), `Stagger` (delay 80 ms), `Counter`, `Magnetic` (máx. 1–2 por vista), `SpotlightCard`, `Tilt`, `Typewriter`, `Parallax` (capas decorativas), `ScrollProgress`.
+**Componentes de motion** (`src/components/motion/motion.tsx`):
+| Componente | Qué hace | Preset del skill |
+| --- | --- | --- |
+| `FadeUp` / `Stagger` | Reveals de entrada (300–500 ms, stagger 80 ms) | motion #4/#5 |
+| `ScrollText` | Texto que se revela palabra a palabra **al ritmo del scroll** (scrub, rAF, sin re-renders) | motion #6/#9 |
+| `RotatingWord` | Palabra rotativa del hero con rollo vertical recortado (sin solapamiento) | motion #5 |
+| `ActiveCard` / `ScrollSteps` | Tarjetas de pasos que se iluminan al pasar por el centro del viewport | motion #4 |
+| `Parallax` | Capas decorativas (solo desktop ≥1024 px, yPercent 4–6) | motion #13 |
+| `Counter` | Métricas que cuentan al entrar en vista | — |
+| `Magnetic` | CTA magnético (máx. 1–2 por vista) | motion #3 |
+| `SpotlightCard` | Halo que sigue el cursor | micro-interacciones |
+| `Typewriter` | Texto progresivo (hero IA + manifiesto) | Kinetic Typography |
+| `ScrollCue` / `ScrollProgress` | Indicador de scroll del hero + barra superior | — |
+
+> Nota técnica: el degradado de la palabra rotativa vive en cada palabra (no en la ventana) porque un descendiente con `transform` real rompe `background-clip: text` en Chromium.
 
 **Utilidades CSS** (`globals.css`): `.aurora` (gradient mesh 12–16 s), `.glass`, `.gradient-border`, `.grain`, `.dots-pattern`, `.watermark-number`, `.typing-dot`, `.shadow-accent-hard`.
 

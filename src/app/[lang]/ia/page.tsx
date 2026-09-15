@@ -2,7 +2,7 @@ import { ArrowUpRight, Brain, Compass, Database, Radar, ShieldCheck, Workflow } 
 import { getDictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
-import { FadeUp, SpotlightCard, Stagger, Typewriter } from "@/components/motion/motion";
+import { ActiveCard, FadeUp, SpotlightCard, Stagger, Typewriter } from "@/components/motion/motion";
 import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ChatDemo } from "@/components/shared/ChatDemo";
@@ -17,7 +17,7 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
 
   return (
     <>
-      <PageHero kicker={dict.ai.kicker} title={dict.ai.title} lead={dict.ai.lead}>
+      <PageHero kicker={dict.ai.kicker} title={dict.ai.title} lead={dict.ai.lead} leadScroll>
         <div className="flex flex-wrap gap-3">
           <Button href={href(lang, routes.contact)}>{dict.common.contactUs}</Button>
           <Button href={href(lang, routes.kivi)} variant="outline">
@@ -47,7 +47,7 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
       <Section className="border-y border-border bg-bg-soft">
         <Container className="grid items-start gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="min-w-0 lg:sticky lg:top-28">
-            <SectionHeading kicker={dict.nav.kivi} title={dict.kivi.whyTitle} lead={dict.kivi.whyLead} />
+            <SectionHeading kicker={dict.nav.kivi} title={dict.kivi.whyTitle} lead={dict.kivi.whyLead} leadScroll />
             <FadeUp delay={120} className="mt-8">
               <ChatDemo labels={dict.home.aiChat} />
             </FadeUp>
@@ -56,7 +56,10 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
             <SectionHeading kicker={dict.ai.kicker} title={dict.ai.methodTitle} className="mb-8" />
             <Stagger className="grid gap-4">
               {dict.ai.method.map((m, i) => (
-                <SpotlightCard key={m.title} className="card-lift rounded-[20px] border border-border bg-surface p-6">
+                <ActiveCard
+                  key={m.title}
+                  className="card-lift rounded-[20px] border border-border bg-surface p-6"
+                >
                   <div className="flex items-start gap-4">
                     <span className="watermark-number shrink-0 text-4xl leading-none">0{i + 1}</span>
                     <div>
@@ -64,7 +67,7 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
                       <p className="mt-2 text-sm leading-relaxed text-muted">{m.body}</p>
                     </div>
                   </div>
-                </SpotlightCard>
+                </ActiveCard>
               ))}
             </Stagger>
           </div>

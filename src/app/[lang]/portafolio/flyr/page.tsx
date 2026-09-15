@@ -12,7 +12,7 @@ export default async function FlyrPage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
-      <PageHero title={dict.flyr.title} lead={dict.flyr.lead}>
+      <PageHero title={dict.flyr.title} lead={dict.flyr.lead} leadScroll>
         <div className="mb-8 flex flex-wrap items-center gap-8">
           <Image src="/images/pages/flyr-logo-big.png" alt="FLYR" width={220} height={40} className="h-8 w-auto object-contain dark:invert-0" />
           <Image src="/images/pages/newshore-logo.png" alt="Newshore" width={220} height={48} className="h-10 w-auto object-contain" />

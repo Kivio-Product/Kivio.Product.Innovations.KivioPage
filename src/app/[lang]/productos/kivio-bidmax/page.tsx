@@ -2,7 +2,8 @@ import Image from "next/image";
 import { getDictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
-import { PageHero, FeatureGrid, Steps } from "@/components/shared/PageHero";
+import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
+import { ScrollSteps } from "@/components/motion/motion";
 import { ProductGrid } from "@/components/shared/ProductGrid";
 import { ContactBlock } from "@/components/shared/ContactForm";
 
@@ -12,7 +13,7 @@ export default async function BidmaxPage({ params }: { params: Promise<{ lang: s
 
   return (
     <>
-      <PageHero kicker={dict.nav.products} title={dict.bidmax.title} lead={dict.bidmax.lead}>
+      <PageHero kicker={dict.nav.products} title={dict.bidmax.title} lead={dict.bidmax.lead} leadScroll>
         <div className="flex flex-wrap gap-3">
           <Button href="#contacto">{dict.common.requestDemo}</Button>
           <Button href="#contacto" variant="outline">
@@ -51,7 +52,7 @@ export default async function BidmaxPage({ params }: { params: Promise<{ lang: s
       <Section className="bg-bg-soft">
         <Container>
           <h2 className="mb-10 font-display text-3xl text-fg">{dict.bidmax.flowTitle}</h2>
-          <Steps items={dict.bidmax.flow} />
+          <ScrollSteps items={dict.bidmax.flow} />
         </Container>
       </Section>
       <Section>

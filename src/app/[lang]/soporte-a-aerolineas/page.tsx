@@ -2,7 +2,8 @@ import Image from "next/image";
 import { getDictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
-import { PageHero, FeatureGrid, Steps } from "@/components/shared/PageHero";
+import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
+import { Parallax, ScrollSteps, ScrollText } from "@/components/motion/motion";
 import { ContactBlock } from "@/components/shared/ContactForm";
 
 export default async function AirlinesPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -11,7 +12,7 @@ export default async function AirlinesPage({ params }: { params: Promise<{ lang:
 
   return (
     <>
-      <PageHero title={dict.airlines.title} lead={dict.airlines.lead}>
+      <PageHero title={dict.airlines.title} lead={dict.airlines.lead} leadScroll>
         <Button href="#contacto">{dict.common.requestConsult}</Button>
       </PageHero>
       <Section>
@@ -40,21 +41,23 @@ export default async function AirlinesPage({ params }: { params: Promise<{ lang:
         <Container>
           <Eyebrow>{dict.airlines.ecosystemTitle}</Eyebrow>
           <h2 className="max-w-3xl font-display text-3xl text-fg sm:text-4xl">{dict.airlines.supportTitle}</h2>
-          <p className="mt-4 max-w-2xl text-muted">{dict.airlines.supportLead}</p>
-          <Image
-            src="/images/pages/kivio-avion.png"
-            alt=""
-            width={900}
-            height={400}
-            className="my-10 w-full max-w-lg object-contain"
-          />
+          <ScrollText text={dict.airlines.supportLead} className="mt-4 max-w-2xl text-muted" />
+          <Parallax speed={0.06}>
+            <Image
+              src="/images/pages/kivio-avion.png"
+              alt=""
+              width={900}
+              height={400}
+              className="my-10 w-full max-w-lg object-contain"
+            />
+          </Parallax>
           <FeatureGrid items={dict.airlines.solutions} />
         </Container>
       </Section>
       <Section>
         <Container>
           <h2 className="mb-10 font-display text-3xl text-fg">{dict.airlines.flowTitle}</h2>
-          <Steps items={dict.airlines.flow} />
+          <ScrollSteps items={dict.airlines.flow} />
         </Container>
       </Section>
       <Section className="bg-bg-soft">

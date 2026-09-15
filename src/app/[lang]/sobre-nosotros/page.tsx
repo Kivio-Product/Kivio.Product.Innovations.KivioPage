@@ -3,7 +3,7 @@ import { Heart, Lightbulb, Medal, Monitor, Scale, Sparkles } from "lucide-react"
 import { getDictionary } from "@/i18n";
 import { Container, Section } from "@/components/ui/Container";
 import { PageHero } from "@/components/shared/PageHero";
-import { FadeUp, Parallax, SpotlightCard, Stagger } from "@/components/motion/motion";
+import { FadeUp, Parallax, ScrollText, SpotlightCard, Stagger } from "@/components/motion/motion";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ProductGrid } from "@/components/shared/ProductGrid";
 import { ContactBlock } from "@/components/shared/ContactForm";
@@ -16,7 +16,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
 
   return (
     <>
-      <PageHero title={dict.about.title} lead={dict.about.lead} />
+      <PageHero title={dict.about.title} lead={dict.about.lead} leadScroll />
       <Section>
         <Container className="grid items-center gap-12 lg:grid-cols-2">
           <div>
@@ -26,7 +26,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
                 {dict.about.teamNote}
               </p>
               <h2 className="font-display text-3xl text-fg sm:text-4xl">{dict.about.storyTitle}</h2>
-              <p className="mt-4 text-muted">{dict.about.story}</p>
+              <ScrollText text={dict.about.story} className="mt-4 text-muted" />
             </FadeUp>
             <Stagger className="mt-10 grid gap-6 sm:grid-cols-2">
               <div className="gradient-border-soft h-full rounded-[20px] p-6">

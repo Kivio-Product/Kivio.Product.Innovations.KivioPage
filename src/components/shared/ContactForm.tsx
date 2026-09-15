@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Dictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
+import { FadeUp, ScrollText } from "@/components/motion/motion";
 import { social } from "@/lib/utils";
 
 export function ContactForm({ dict, id = "contacto" }: { dict: Dictionary; id?: string }) {
@@ -85,16 +86,18 @@ export function ContactBlock({ dict }: { dict: Dictionary }) {
     <section id="contacto" className="relative overflow-hidden py-20 sm:py-24">
       <div className="pointer-events-none absolute inset-0 hero-glow" />
       <div className="mx-auto grid w-full max-w-[1180px] gap-10 px-5 sm:px-8 lg:grid-cols-[1fr_1.15fr] lg:items-start">
-        <div>
+        <FadeUp>
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
             {dict.common.contactUs}
           </p>
           <h2 className="font-display text-4xl leading-tight text-fg sm:text-5xl">{dict.home.contactTitle}</h2>
-          <p className="mt-4 max-w-md text-muted">{dict.home.contactLead}</p>
-        </div>
-        <div className="rounded-[25px] border border-border bg-surface p-6 shadow-(--card-shadow) sm:p-8">
-          <ContactForm dict={dict} />
-        </div>
+          <ScrollText text={dict.home.contactLead} className="mt-4 max-w-md text-muted" />
+        </FadeUp>
+        <FadeUp delay={100}>
+          <div className="glass rounded-[25px] p-6 shadow-(--card-shadow) sm:p-8">
+            <ContactForm dict={dict} />
+          </div>
+        </FadeUp>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getDictionary } from "@/i18n";
+import { Parallax } from "@/components/motion/motion";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import { PageHero } from "@/components/shared/PageHero";
@@ -11,7 +12,7 @@ export default async function MerkkoPage({ params }: { params: Promise<{ lang: s
 
   return (
     <>
-      <PageHero title={dict.merkko.title} lead={dict.merkko.lead}>
+      <PageHero title={dict.merkko.title} lead={dict.merkko.lead} leadScroll>
         <Image src="/images/pages/merkko-logo-big.png" alt="Merkko" width={320} height={100} className="mb-6 h-16 w-auto object-contain" />
         <Button href="https://merkko.com.co/" external>
           {dict.common.viewResult}
@@ -34,15 +35,17 @@ export default async function MerkkoPage({ params }: { params: Promise<{ lang: s
         <Container>
           <h2 className="font-display text-3xl text-fg">{dict.merkko.sectionsTitle}</h2>
           <p className="mt-3 max-w-2xl text-muted">{dict.merkko.sections}</p>
-          <div className="shot-frame mt-8">
-            <Image
-              src="/images/pages/merkko-mockup-big.png"
-              alt="Merkko"
-              width={1200}
-              height={700}
-              className="w-full object-cover"
-            />
-          </div>
+          <Parallax speed={0.035}>
+            <div className="shot-frame mt-8">
+              <Image
+                src="/images/pages/merkko-mockup-big.png"
+                alt="Merkko"
+                width={1200}
+                height={700}
+                className="w-full object-cover"
+              />
+            </div>
+          </Parallax>
         </Container>
       </Section>
       <Section>

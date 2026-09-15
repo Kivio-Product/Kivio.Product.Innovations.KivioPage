@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getDictionary } from "@/i18n";
+import { Parallax } from "@/components/motion/motion";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
@@ -12,21 +13,23 @@ export default async function CmsPage({ params }: { params: Promise<{ lang: stri
 
   return (
     <>
-      <PageHero kicker={dict.nav.products} title={dict.cms.title} lead={dict.cms.lead}>
+      <PageHero kicker={dict.nav.products} title={dict.cms.title} lead={dict.cms.lead} leadScroll>
         <p className="mb-6 max-w-xl text-lg font-medium text-fg">{dict.cms.subtitle}</p>
         <Button href="#contacto">{dict.common.requestDemo}</Button>
       </PageHero>
       <Section>
         <Container className="grid items-center gap-10 lg:grid-cols-2">
-          <div className="shot-frame">
-            <Image
-              src="/images/pages/cms-laptop.webp"
-              alt="Kivio CMS"
-              width={900}
-              height={620}
-              className="w-full object-contain"
-            />
-          </div>
+          <Parallax speed={0.04}>
+            <div className="shot-frame">
+              <Image
+                src="/images/pages/cms-laptop.webp"
+                alt="Kivio CMS"
+                width={900}
+                height={620}
+                className="w-full object-contain"
+              />
+            </div>
+          </Parallax>
           <div>
             <h2 className="font-display text-3xl text-fg">{dict.cms.canDoTitle}</h2>
             <ul className="mt-6 space-y-3">
