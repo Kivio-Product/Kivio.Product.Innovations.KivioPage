@@ -84,7 +84,7 @@
   --radius-card-sm: 16px;
   --radius-card-lg: 25px;
 
-  --animate-marquee: marquee 42s linear infinite;
+  --animate-marquee: marquee 75s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
   --animate-pulse-soft: pulse-soft 3.2s ease-in-out infinite;
 
@@ -260,19 +260,18 @@ p {
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
-/* Client logo cells: gray → color on hover */
+/* Client logos — color in light theme, bright grayscale in dark theme, color reveal on hover */
 .logo-cell img {
-  filter: grayscale(1) brightness(1.35);
-  opacity: 0.62;
-  transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+  opacity: 0.92;
+  transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
 }
 .dark .logo-cell img {
-  filter: grayscale(1) brightness(2.1);
+  filter: grayscale(1) brightness(1.85);
+  opacity: 0.72;
 }
 .logo-cell:hover img {
-  filter: grayscale(0);
+  filter: none;
   opacity: 1;
-  transform: scale(1.04);
 }
 
 /* ── Aurora / gradient mesh background (styles: Gradient Mesh #65, 2025+ era) ── */
