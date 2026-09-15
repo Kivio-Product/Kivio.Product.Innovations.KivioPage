@@ -13,7 +13,7 @@ const map: Record<string, { to: string; img: string; bg: string }> = {
     bg: "/images/products/card-ecommerce-bg.png",
   },
   bidmax: { to: routes.bidmax, img: "/images/products/bidmax-demo.png", bg: "/images/products/card-bidmax-bg.png" },
-  kivi: { to: routes.kivi, img: "/brand/zorro-lockup.png", bg: "/images/pages/diagonal-coral.jpg" },
+  kivi: { to: routes.kivi, img: "/brand/kivi-ai-logo.png", bg: "/images/pages/diagonal-coral.jpg" },
 };
 
 export function ProductGrid({

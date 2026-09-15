@@ -12,7 +12,13 @@ export default async function KiviPage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
-      <PageHero kicker={dict.nav.products} title={dict.kivi.title} lead={dict.kivi.lead} leadScroll>
+      <PageHero
+        iconSrc="/brand/kivi-ai-logo.png"
+        kicker={dict.nav.products}
+        title={dict.kivi.title}
+        lead={dict.kivi.lead}
+        leadScroll
+      >
         <p className="mb-6 text-lg font-medium text-fg">{dict.kivi.subtitle}</p>
         <div className="flex flex-wrap gap-3">
           <Button href={social.kiviExternal} external>

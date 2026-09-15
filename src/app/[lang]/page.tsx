@@ -15,12 +15,12 @@ import {
   Stagger,
   Typewriter,
 } from "@/components/motion/motion";
-import { HeroVisual } from "@/components/shared/HeroVisual";
+import { HeroDiagram } from "@/components/shared/HeroDiagram";
 import { LogoMarquee } from "@/components/shared/LogoMarquee";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { StatsRow } from "@/components/shared/SocialProof";
 import { ContactBlock } from "@/components/shared/ContactForm";
-import { href, routes } from "@/lib/utils";
+import { href, routes, social } from "@/lib/utils";
 
 const featureIcons = [Sparkles, Compass, Shield, Brain];
 
@@ -28,7 +28,7 @@ const productMeta: Record<string, { to: string; img: string; bg: string; span: s
   cms: { to: routes.cms, img: "/images/products/cms-demo.png", bg: "/images/products/card-cms-bg.png", span: "lg:col-span-3" },
   ecommerce: { to: routes.ecommerce, img: "/images/products/ecommerce-demo.png", bg: "/images/products/card-ecommerce-bg.png", span: "lg:col-span-3" },
   bidmax: { to: routes.bidmax, img: "/images/products/bidmax-demo.png", bg: "/images/products/card-bidmax-bg.png", span: "lg:col-span-2" },
-  kivi: { to: routes.kivi, img: "/brand/zorro-lockup.png", bg: "/images/pages/diagonal-coral.jpg", span: "lg:col-span-4", tall: true },
+  kivi: { to: routes.kivi, img: "/brand/kivi-ai-logo.png", bg: "/images/pages/diagonal-coral.jpg", span: "lg:col-span-4", tall: true },
 };
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
@@ -80,9 +80,25 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </Container>
         <Container className="relative mt-14 sm:mt-20">
           <FadeUp delay={120} y={32}>
-            <Parallax speed={0.045}>
-              <HeroVisual labels={dict.home.heroCards} />
-            </Parallax>
+            <HeroDiagram labels={dict.home.heroCards} flow={dict.home.heroDiagram} />
+          </FadeUp>
+          {/* post-diagram CTAs: try KIVI AI · explore the rest of the portfolio */}
+          <FadeUp delay={160} className="mt-12 text-center">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Button href={social.kiviExternal} external>
+                <Image
+                  src="/brand/kivi-ai-logo.png"
+                  alt=""
+                  width={22}
+                  height={22}
+                  className="h-[22px] w-[22px]"
+                />
+                {dict.home.kiviCta}
+              </Button>
+              <Button href={href(lang, routes.services)} variant="outline">
+                {dict.home.productsCta} <ArrowRight size={16} aria-hidden />
+              </Button>
+            </div>
           </FadeUp>
           <ScrollCue label={dict.common.scroll} />
         </Container>

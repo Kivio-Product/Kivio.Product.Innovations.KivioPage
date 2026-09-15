@@ -430,6 +430,46 @@ p {
   animation: float 7s ease-in-out infinite;
 }
 
+/* ── Architecture diagram: light beams traveling the connectors (transform/opacity only) ── */
+.pulse-beam-x {
+  background: linear-gradient(90deg, transparent, rgba(246, 110, 76, 0.95));
+  box-shadow: 0 0 10px 1px rgba(246, 110, 76, 0.5);
+  animation: beam-x 2.6s linear infinite;
+}
+.pulse-beam-y {
+  background: linear-gradient(180deg, transparent, rgba(246, 110, 76, 0.95));
+  box-shadow: 0 0 10px 1px rgba(246, 110, 76, 0.5);
+  animation: beam-y 2.6s linear infinite;
+}
+@keyframes beam-x {
+  0% { transform: translateX(-24px); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(66px); opacity: 0; }
+}
+@keyframes beam-y {
+  0% { transform: translateY(-24px); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(46px); opacity: 0; }
+}
+
+/* Engine reasoning log: steps arrive one by one */
+.step-log-item {
+  animation: step-in 0.45s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+}
+@keyframes step-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.node-glow {
+  animation: node-glow 3.4s ease-in-out infinite;
+}
+@keyframes node-glow {
+  0%, 100% { box-shadow: 0 0 26px -8px rgba(246, 110, 76, 0.55); }
+  50% { box-shadow: 0 0 46px -6px rgba(246, 110, 76, 0.85); }
+}
+
 /* Form controls */
 .form-control {
   width: 100%;

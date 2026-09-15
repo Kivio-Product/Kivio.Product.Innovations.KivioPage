@@ -1,13 +1,16 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { FadeUp, ScrollText, SpotlightCard, Stagger } from "@/components/motion/motion";
 
 export function PageHero({
+  iconSrc,
   kicker,
   title,
   lead,
   leadScroll,
   children,
 }: {
+  iconSrc?: string;
   kicker?: string;
   title: string;
   lead?: string;
@@ -20,6 +23,15 @@ export function PageHero({
       <div className="pointer-events-none absolute inset-0 grid-pattern opacity-40" aria-hidden />
       <Container className="relative">
         <FadeUp>
+          {iconSrc && (
+            <Image
+              src={iconSrc}
+              alt=""
+              width={72}
+              height={72}
+              className="mb-5 h-16 w-16 drop-shadow-[0_10px_28px_rgba(246,110,76,0.35)] sm:h-[72px] sm:w-[72px]"
+            />
+          )}
           {kicker && (
             <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
               <span className="inline-block h-px w-6 bg-accent" aria-hidden />

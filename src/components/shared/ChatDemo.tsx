@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Bot, Plane, Sparkles, Ticket } from "lucide-react";
+import Image from "next/image";
+import { Plane, Sparkles, Ticket } from "lucide-react";
 
 type Msg = {
   from: "user" | "ai";
@@ -76,8 +77,8 @@ export function ChatDemo({ labels }: { labels: { title: string; subtitle: string
   return (
     <div ref={ref} className="glass rounded-[25px] p-4 shadow-(--card-shadow) sm:p-5">
       <div className="mb-4 flex items-center gap-3 border-b border-border pb-4">
-        <span className="relative grid h-10 w-10 place-items-center rounded-full bg-linear-to-br from-accent to-accent-2 text-white">
-          <Bot size={19} />
+        <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white ring-1 ring-black/5 dark:ring-white/15">
+          <Image src="/brand/kivi-ai-logo.png" alt="" width={32} height={32} className="h-8 w-8" />
           <span className="absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2 border-surface bg-emerald-400" />
         </span>
         <div className="min-w-0">
