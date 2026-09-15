@@ -17,6 +17,7 @@ import {
 } from "@/components/motion/motion";
 import { HeroDiagram } from "@/components/shared/HeroDiagram";
 import { LogoMarquee } from "@/components/shared/LogoMarquee";
+import { ShowcaseCarousel } from "@/components/shared/ShowcaseCarousel";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { StatsRow } from "@/components/shared/SocialProof";
 import { ContactBlock } from "@/components/shared/ContactForm";
@@ -270,6 +271,22 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               );
             })}
           </div>
+        </Container>
+      </Section>
+
+      {/* ── SHOWCASE CAROUSEL ────────────────────────────────── */}
+      <Section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 dots-pattern opacity-50" aria-hidden />
+        <Container className="relative">
+          <SectionHeading
+            kicker={dict.home.showcase.kicker}
+            title={dict.home.showcase.title}
+            lead={dict.home.showcase.lead}
+            className="mb-12"
+          />
+          <FadeUp>
+            <ShowcaseCarousel dict={dict} lang={lang} />
+          </FadeUp>
         </Container>
       </Section>
 
