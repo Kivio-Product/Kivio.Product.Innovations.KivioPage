@@ -10,7 +10,8 @@ export function LangSwitcher({ lang }: { lang: Locale }) {
   function switchTo(next: Locale) {
     const parts = pathname.split("/");
     parts[1] = next;
-    document.cookie = `kivio-lang=${next}; path=/; max-age=31536000`;
+    const secure = window.location.protocol === "https:" ? "; secure" : "";
+    document.cookie = `kivio-lang=${next}; path=/; max-age=31536000; samesite=lax${secure}`;
     router.push(parts.join("/") || `/${next}`);
   }
 

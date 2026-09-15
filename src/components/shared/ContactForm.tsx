@@ -44,38 +44,50 @@ export function ContactForm({ dict, id = "contacto" }: { dict: Dictionary; id?: 
         <span className="mb-1.5 block text-sm font-medium text-muted">
           {dict.form.firstName} *
         </span>
-        <input required name="firstName" className="form-control" />
+        <input required name="firstName" autoComplete="given-name" maxLength={80} className="form-control" />
       </label>
       <label className="block">
         <span className="mb-1.5 block text-sm font-medium text-muted">
           {dict.form.lastName} *
         </span>
-        <input required name="lastName" className="form-control" />
+        <input required name="lastName" autoComplete="family-name" maxLength={80} className="form-control" />
       </label>
       <label className="block">
         <span className="mb-1.5 block text-sm font-medium text-muted">
           {dict.form.phone} *
         </span>
-        <input required name="phone" type="tel" className="form-control" />
+        <input required name="phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={30} className="form-control" />
       </label>
       <label className="block">
         <span className="mb-1.5 block text-sm font-medium text-muted">
           {dict.form.email} *
         </span>
-        <input required name="email" type="email" className="form-control" />
+        <input required name="email" type="email" autoComplete="email" maxLength={254} className="form-control" />
+      </label>
+      <label className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+        <span>Company</span>
+        <input name="company" tabIndex={-1} autoComplete="off" />
       </label>
       <label className="block sm:col-span-2">
         <span className="mb-1.5 block text-sm font-medium text-muted">
           {dict.form.message} *
         </span>
-        <textarea required name="message" rows={5} className="form-control resize-y min-h-[140px]" />
+        <textarea
+          required
+          name="message"
+          rows={5}
+          maxLength={3000}
+          className="form-control resize-y min-h-[140px]"
+        />
       </label>
       <div className="sm:col-span-2 flex flex-wrap items-center gap-4">
         <Button type="submit" disabled={status === "sending"}>
           {status === "sending" ? dict.common.sending : dict.common.send}
         </Button>
-        {status === "sent" && <p className="text-sm text-accent">{dict.common.sent}</p>}
-        {status === "error" && <p className="text-sm text-muted">{dict.common.sendError}</p>}
+        <p role="status" aria-live="polite" className="text-sm">
+          {status === "sent" && <span className="text-accent">{dict.common.sent}</span>}
+          {status === "error" && <span className="text-muted">{dict.common.sendError}</span>}
+        </p>
       </div>
     </form>
   );

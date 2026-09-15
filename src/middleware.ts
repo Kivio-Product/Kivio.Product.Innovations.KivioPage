@@ -24,7 +24,12 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, req.url));
   }
   const res = NextResponse.next();
-  res.cookies.set("kivio-lang", first, { path: "/", maxAge: 31536000 });
+  res.cookies.set("kivio-lang", first, {
+    path: "/",
+    maxAge: 31536000,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+  });
   return res;
 }
 
