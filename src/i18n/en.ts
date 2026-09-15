@@ -63,9 +63,30 @@ export const en = {
   },
   home: {
     heroKicker: "Software · AI · Measurable results",
+    aiChat: {
+      title: "KIVI AI Assistant",
+      subtitle: "Connected to your operation and knowledge",
+      online: "Online",
+      disclaimer: "Illustrative demo · In production KIVI answers from YOUR knowledge base",
+    },
+    stats: [
+      { value: 15, prefix: "", suffix: "", label: "specialists on the team" },
+      { value: 5, prefix: "", suffix: "+", label: "products and featured cases" },
+      { value: 4, prefix: "", suffix: "", label: "verticals: software, commerce, airlines, AI" },
+      { value: 100, prefix: "", suffix: "%", label: "remote, global team" },
+    ],
     heroTitle: "We turn ideas into Software",
     heroLead:
       "We develop custom software around your needs, with a focus on quality and scalability. We go further, embedding Artificial Intelligence to power your company — delivering real, measurable results.",
+    heroTitleStatic: "We turn ideas into",
+    heroRotating: ["Software", "AI", "eCommerce"],
+    heroNote: "Reply within 24 hours · No strings attached",
+    heroCards: {
+      ai: { title: "AI · 24/7", sub: "120 queries resolved" },
+      deploy: { title: "Successful deploy", sub: "Stable production" },
+      metric: { title: "+18% conversion", sub: "in eCommerce" },
+      flight: { title: "MDE → BOG", sub: "Booking confirmed" },
+    },
     heroCta: "Contact us",
     heroSecondary: "About us",
     airlinesTitle: "Technology for the digital operation of airlines",

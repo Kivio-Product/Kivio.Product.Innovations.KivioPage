@@ -25,13 +25,15 @@ export default async function EcommercePage({ params }: { params: Promise<{ lang
       </PageHero>
       <Section>
         <Container className="grid items-center gap-10 lg:grid-cols-2">
-          <Image
-            src="/images/pages/ecommerce-pc.png"
-            alt="Kivio eCommerce"
-            width={800}
-            height={560}
-            className="w-full object-contain"
-          />
+          <div className="shot-frame">
+            <Image
+              src="/images/pages/ecommerce-pc.png"
+              alt="Kivio eCommerce"
+              width={800}
+              height={560}
+              className="w-full object-contain"
+            />
+          </div>
           <div>
             <h2 className="font-display text-3xl text-fg">{dict.ecommerce.includesTitle}</h2>
             <ul className="mt-6 space-y-3">

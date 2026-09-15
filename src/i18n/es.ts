@@ -60,9 +60,30 @@ export const es = {
   },
   home: {
     heroKicker: "Software · IA · Resultados medibles",
+    aiChat: {
+      title: "KIVI IA Assistant",
+      subtitle: "Conectado a tu operación y conocimiento",
+      online: "En línea",
+      disclaimer: "Demo ilustrativa · En producción KIVI responde con TU base de conocimiento",
+    },
+    stats: [
+      { value: 15, prefix: "", suffix: "", label: "especialistas en el equipo" },
+      { value: 5, prefix: "", suffix: "+", label: "productos y casos destacados" },
+      { value: 4, prefix: "", suffix: "", label: "verticales: software, comercio, aerolíneas, IA" },
+      { value: 100, prefix: "", suffix: "%", label: "equipo remoto y global" },
+    ],
     heroTitle: "Transformamos ideas en Software",
     heroLead:
       "Desarrollamos software a la medida de tus necesidades, con enfoque en calidad y escalabilidad. Vamos más allá, incorporando Inteligencia Artificial para potenciar tu compañía, garantizando resultados reales y medibles.",
+    heroTitleStatic: "Transformamos ideas en",
+    heroRotating: ["Software", "IA", "eCommerce"],
+    heroNote: "Respuesta en menos de 24 horas · Sin compromiso",
+    heroCards: {
+      ai: { title: "IA · 24/7", sub: "120 consultas resueltas" },
+      deploy: { title: "Deploy exitoso", sub: "Producción estable" },
+      metric: { title: "+18% conversión", sub: "en eCommerce" },
+      flight: { title: "MDE → BOG", sub: "Reserva confirmada" },
+    },
     heroCta: "Contáctanos",
     heroSecondary: "Sobre nosotros",
     airlinesTitle: "Soluciones tecnológicas para la operación digital de aerolíneas",

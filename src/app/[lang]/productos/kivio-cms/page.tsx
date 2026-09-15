@@ -18,13 +18,15 @@ export default async function CmsPage({ params }: { params: Promise<{ lang: stri
       </PageHero>
       <Section>
         <Container className="grid items-center gap-10 lg:grid-cols-2">
-          <Image
-            src="/images/pages/cms-laptop.webp"
-            alt="Kivio CMS"
-            width={900}
-            height={620}
-            className="w-full rounded-[25px] object-contain"
-          />
+          <div className="shot-frame">
+            <Image
+              src="/images/pages/cms-laptop.webp"
+              alt="Kivio CMS"
+              width={900}
+              height={620}
+              className="w-full object-contain"
+            />
+          </div>
           <div>
             <h2 className="font-display text-3xl text-fg">{dict.cms.canDoTitle}</h2>
             <ul className="mt-6 space-y-3">
@@ -47,7 +49,7 @@ export default async function CmsPage({ params }: { params: Promise<{ lang: stri
         <Container>
           <Eyebrow>{dict.cms.exampleTitle}</Eyebrow>
           <h2 className="mb-6 font-display text-3xl text-fg">{dict.cms.exampleName}</h2>
-          <a href="https://www.nutrirong.com/" target="_blank" rel="noreferrer" className="block overflow-hidden rounded-[25px] border border-border">
+          <a href="https://www.nutrirong.com/" target="_blank" rel="noreferrer" className="shot-frame block">
             <Image src="/images/pages/nutrir-mockup.webp" alt="Nutrir" width={1200} height={700} className="w-full object-cover" />
           </a>
           <Button href={href(lang, routes.nutrir)} variant="outline" className="mt-6">

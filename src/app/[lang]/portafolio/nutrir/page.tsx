@@ -40,13 +40,15 @@ export default async function NutrirPage({ params }: { params: Promise<{ lang: s
         <Container>
           <h2 className="font-display text-3xl text-fg">{dict.nutrir.sectionsTitle}</h2>
           <p className="mt-3 max-w-2xl text-muted">{dict.nutrir.sections}</p>
-          <Image
-            src="/images/pages/nutrir-mockup-big.png"
-            alt="Nutrir"
-            width={1200}
-            height={700}
-            className="mt-8 w-full rounded-[25px] object-cover"
-          />
+          <div className="shot-frame mt-8">
+            <Image
+              src="/images/pages/nutrir-mockup-big.png"
+              alt="Nutrir"
+              width={1200}
+              height={700}
+              className="w-full object-cover"
+            />
+          </div>
           <Button href="https://www.nutrirong.com/" external className="mt-8">
             {dict.common.viewResult}
           </Button>

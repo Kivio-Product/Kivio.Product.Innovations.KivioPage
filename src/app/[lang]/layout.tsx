@@ -4,6 +4,7 @@ import { getDictionary, getLocale } from "@/i18n";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { HtmlLang } from "@/components/layout/HtmlLang";
+import { ScrollProgress } from "@/components/motion/motion";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -36,6 +37,7 @@ export default async function LangLayout({
   return (
     <>
       <HtmlLang lang={locale} />
+      <ScrollProgress />
       <Header lang={locale} dict={dict} />
       <main>{children}</main>
       <Footer lang={locale} dict={dict} />

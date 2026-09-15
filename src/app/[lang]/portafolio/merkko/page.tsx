@@ -34,13 +34,15 @@ export default async function MerkkoPage({ params }: { params: Promise<{ lang: s
         <Container>
           <h2 className="font-display text-3xl text-fg">{dict.merkko.sectionsTitle}</h2>
           <p className="mt-3 max-w-2xl text-muted">{dict.merkko.sections}</p>
-          <Image
-            src="/images/pages/merkko-mockup-big.png"
-            alt="Merkko"
-            width={1200}
-            height={700}
-            className="mt-8 w-full rounded-[25px] object-cover"
-          />
+          <div className="shot-frame mt-8">
+            <Image
+              src="/images/pages/merkko-mockup-big.png"
+              alt="Merkko"
+              width={1200}
+              height={700}
+              className="w-full object-cover"
+            />
+          </div>
         </Container>
       </Section>
       <Section>

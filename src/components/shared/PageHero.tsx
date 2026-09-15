@@ -1,28 +1,45 @@
-import { Container, Eyebrow } from "@/components/ui/Container";
-import { Reveal } from "@/components/ui/Reveal";
+import { Container } from "@/components/ui/Container";
+import { FadeUp, ScrollText, SpotlightCard, Stagger } from "@/components/motion/motion";
 
 export function PageHero({
   kicker,
   title,
   lead,
+  leadScroll,
   children,
 }: {
   kicker?: string;
   title: string;
   lead?: string;
+  leadScroll?: boolean;
   children?: React.ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden pt-16 pb-12 sm:pt-24 sm:pb-16">
-      <div className="pointer-events-none absolute inset-0 hero-glow" />
-      <div className="pointer-events-none absolute inset-0 grid-pattern opacity-40" />
+    <section className="relative overflow-hidden pt-16 pb-14 sm:pt-24 sm:pb-18">
+      <div className="aurora" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 grid-pattern opacity-40" aria-hidden />
       <Container className="relative">
-        <Reveal>
-          {kicker && <Eyebrow>{kicker}</Eyebrow>}
-          <h1 className="max-w-4xl font-display text-4xl leading-[1.1] text-fg sm:text-5xl lg:text-6xl">{title}</h1>
-          {lead && <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">{lead}</p>}
+        <FadeUp>
+          {kicker && (
+            <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+              <span className="inline-block h-px w-6 bg-accent" aria-hidden />
+              {kicker}
+            </p>
+          )}
+          <h1 className="max-w-4xl font-display text-4xl leading-[1.08] text-fg sm:text-5xl lg:text-6xl">
+            {title}
+          </h1>
+          {lead &&
+            (leadScroll ? (
+              <ScrollText
+                text={lead}
+                className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg"
+              />
+            ) : (
+              <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">{lead}</p>
+            ))}
           {children && <div className="mt-8">{children}</div>}
-        </Reveal>
+        </FadeUp>
       </Container>
     </section>
   );
@@ -36,35 +53,19 @@ export function FeatureGrid({
   numbered?: boolean;
 }) {
   return (
-    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((item, i) => (
-        <article
+        <SpotlightCard
           key={item.title}
-          className="card-lift rounded-[20px] border border-border bg-surface p-6 sm:p-7"
+          className="card-lift h-full rounded-[20px] border border-border bg-surface p-6 sm:p-7"
         >
           {numbered && (
             <p className="mb-4 font-display text-3xl text-muted-2">{item.n ?? String(i + 1).padStart(2, "0")}</p>
           )}
           <h3 className="text-lg font-semibold text-fg">{item.title}</h3>
           <p className="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
-        </article>
+        </SpotlightCard>
       ))}
-    </div>
-  );
-}
-
-export function Steps({ items }: { items: { title: string; body: string }[] }) {
-  return (
-    <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {items.map((item, i) => (
-        <li key={item.title} className="relative rounded-[20px] border border-border bg-surface p-6">
-          <span className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
-            {i + 1}
-          </span>
-          <h3 className="text-base font-semibold text-fg">{item.title}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
-        </li>
-      ))}
-    </ol>
+    </Stagger>
   );
 }

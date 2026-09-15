@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { Heart, Lightbulb, Medal, Monitor, Scale, Sparkles } from "lucide-react";
 import { getDictionary } from "@/i18n";
-import { Container, Eyebrow, Section } from "@/components/ui/Container";
+import { Container, Section } from "@/components/ui/Container";
 import { PageHero } from "@/components/shared/PageHero";
-import { Reveal } from "@/components/ui/Reveal";
+import { FadeUp, Parallax, SpotlightCard, Stagger } from "@/components/motion/motion";
+import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ProductGrid } from "@/components/shared/ProductGrid";
 import { ContactBlock } from "@/components/shared/ContactForm";
 
@@ -18,67 +19,76 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
       <PageHero title={dict.about.title} lead={dict.about.lead} />
       <Section>
         <Container className="grid items-center gap-12 lg:grid-cols-2">
-          <Reveal>
-            <Eyebrow>{dict.about.teamNote}</Eyebrow>
-            <h2 className="font-display text-3xl text-fg sm:text-4xl">{dict.about.storyTitle}</h2>
-            <p className="mt-4 text-muted">{dict.about.story}</p>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2">
-              <div className="rounded-[20px] border border-border bg-surface p-6">
-                <p className="font-display text-3xl text-muted-2">{dict.about.missionN}</p>
+          <div>
+            <FadeUp>
+              <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+                <span className="inline-block h-px w-6 bg-accent" aria-hidden />
+                {dict.about.teamNote}
+              </p>
+              <h2 className="font-display text-3xl text-fg sm:text-4xl">{dict.about.storyTitle}</h2>
+              <p className="mt-4 text-muted">{dict.about.story}</p>
+            </FadeUp>
+            <Stagger className="mt-10 grid gap-6 sm:grid-cols-2">
+              <div className="gradient-border-soft h-full rounded-[20px] p-6">
+                <p className="watermark-number text-4xl">{dict.about.missionN}</p>
                 <h3 className="mt-3 font-semibold text-fg">{dict.about.missionTitle}</h3>
                 <p className="mt-2 text-sm text-muted">{dict.about.mission}</p>
               </div>
-              <div className="rounded-[20px] border border-border bg-surface p-6">
-                <p className="font-display text-3xl text-muted-2">{dict.about.visionN}</p>
+              <div className="gradient-border-soft h-full rounded-[20px] p-6">
+                <p className="watermark-number text-4xl">{dict.about.visionN}</p>
                 <h3 className="mt-3 font-semibold text-fg">{dict.about.visionTitle}</h3>
                 <p className="mt-2 text-sm text-muted">{dict.about.vision}</p>
               </div>
+            </Stagger>
+          </div>
+          <FadeUp delay={80}>
+            <div className="relative overflow-hidden rounded-[25px] grain">
+              <Parallax speed={0.05}>
+                <Image
+                  src="/images/pages/sobre-nosotros-equipo.png"
+                  alt=""
+                  width={900}
+                  height={760}
+                  className="w-full scale-105 object-cover"
+                />
+              </Parallax>
+              <div className="glass absolute bottom-5 left-5 rounded-2xl px-5 py-3.5 text-xs font-medium text-fg">
+                Manizales · Colombia
+              </div>
             </div>
-          </Reveal>
-          <Reveal delay={80}>
-            <Image
-              src="/images/pages/sobre-nosotros-equipo.png"
-              alt=""
-              width={900}
-              height={700}
-              className="w-full rounded-[25px] object-cover"
-            />
-          </Reveal>
+          </FadeUp>
         </Container>
       </Section>
 
-      <Section className="bg-bg-soft">
-        <Container>
-          <Reveal>
-            <Eyebrow>{dict.about.valuesKicker}</Eyebrow>
-            <h2 className="max-w-2xl font-display text-3xl text-fg sm:text-4xl">{dict.about.valuesTitle}</h2>
-            <p className="mt-4 max-w-2xl text-muted">{dict.about.valuesLead}</p>
-          </Reveal>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <Section className="relative overflow-hidden bg-bg-soft">
+        <div className="pointer-events-none absolute inset-0 dots-pattern opacity-50" aria-hidden />
+        <Container className="relative">
+          <SectionHeading
+            kicker={dict.about.valuesKicker}
+            title={dict.about.valuesTitle}
+            lead={dict.about.valuesLead}
+            className="mb-12"
+          />
+          <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {dict.about.values.map((v, i) => {
-              const Icon = icons[i];
+              const Icon = icons[i % icons.length];
               return (
-                <Reveal key={v.title} delay={i * 50}>
-                  <article className="card-lift h-full rounded-[16px] border border-border bg-surface p-6">
-                    <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-accent-soft text-accent">
-                      <Icon size={20} />
-                    </div>
-                    <h3 className="font-semibold text-fg">{v.title}</h3>
-                    <p className="mt-2 text-sm text-muted">{v.body}</p>
-                  </article>
-                </Reveal>
+                <SpotlightCard key={v.title} className="card-lift h-full rounded-[16px] border border-border bg-surface p-6">
+                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-accent-soft text-accent">
+                    <Icon size={20} />
+                  </div>
+                  <h3 className="font-semibold text-fg">{v.title}</h3>
+                  <p className="mt-2 text-sm text-muted">{v.body}</p>
+                </SpotlightCard>
               );
             })}
-          </div>
+          </Stagger>
         </Container>
       </Section>
 
       <Section>
         <Container>
-          <Reveal>
-            <Eyebrow>{dict.home.productsKicker}</Eyebrow>
-            <h2 className="mb-10 font-display text-3xl text-fg">{dict.home.productsTitle}</h2>
-          </Reveal>
+          <SectionHeading kicker={dict.home.productsKicker} title={dict.home.productsTitle} className="mb-10" />
           <ProductGrid lang={lang} dict={dict} />
         </Container>
       </Section>
