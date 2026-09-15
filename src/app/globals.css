@@ -8,28 +8,28 @@
    Light theme derived from the same seed.
    ───────────────────────────────────────────── */
 :root {
-  --bg: #ffffff;
-  --bg-soft: #faf8f7;
+  --bg: #fbf8f5;
+  --bg-soft: #f3ece5;
   --surface: #ffffff;
-  --surface-2: #f5f3f2;
+  --surface-2: #f6f1ec;
   --fg: #0b0b0c;
   --fg-strong: #000000;
   --muted: #5c5652;
-  --muted-2: #8a837e;
-  --border: #e8e2de;
-  --border-strong: #d8d1cc;
+  --muted-2: #6f6862;
+  --border: #e9e0d7;
+  --border-strong: #d6c9bd;
   --accent: #f66e4c;
   --accent-2: #ff5722;
   --accent-3: #ff9a76;
-  --accent-ink: #d14a28;
-  --accent-soft: #fdeee8;
+  --accent-ink: #bd4020;
+  --accent-soft: #fbe7de;
   --night: #0b1526;
   --night-2: #12233f;
-  --nav-bg: rgba(255, 255, 255, 0.72);
-  --nav-border: rgba(11, 11, 12, 0.1);
-  --glow: rgba(246, 110, 76, 0.22);
-  --card-shadow: 0 1px 2px rgba(16, 10, 7, 0.05), 0 12px 32px -12px rgba(16, 10, 7, 0.12);
-  --card-shadow-hover: 0 2px 4px rgba(16, 10, 7, 0.06), 0 24px 48px -16px rgba(246, 110, 76, 0.28);
+  --nav-bg: rgba(255, 255, 255, 0.78);
+  --nav-border: rgba(11, 11, 12, 0.12);
+  --glow: rgba(246, 110, 76, 0.32);
+  --card-shadow: 0 1px 2px rgba(64, 34, 20, 0.06), 0 18px 40px -18px rgba(64, 34, 20, 0.22);
+  --card-shadow-hover: 0 2px 6px rgba(64, 34, 20, 0.08), 0 32px 64px -22px rgba(246, 110, 76, 0.38);
 }
 
 .dark {
@@ -308,7 +308,7 @@ p {
 }
 :root:not(.dark) .aurora::before,
 :root:not(.dark) .aurora::after {
-  opacity: 0.55;
+  opacity: 0.7;
 }
 
 @keyframes aurora-flow {
@@ -390,6 +390,25 @@ p {
   background-size: 22px 22px;
   mask-image: radial-gradient(65% 60% at 50% 45%, #000 0%, transparent 100%);
   -webkit-mask-image: radial-gradient(65% 60% at 50% 45%, #000 0%, transparent 100%);
+}
+
+/* ── Light theme depth layer ──────────────────────────────
+   On white, elevation and glow disappear: tint the page base,
+   deepen shadows/borders (tokens above) and lean on texture here. */
+:root:not(.dark) .glass-nav {
+  box-shadow: 0 1px 0 rgba(64, 34, 20, 0.05), 0 16px 40px -32px rgba(64, 34, 20, 0.5);
+}
+:root:not(.dark) .dots-pattern {
+  background-image: radial-gradient(color-mix(in srgb, var(--fg) 18%, transparent) 1px, transparent 1px);
+}
+:root:not(.dark) .grain::after {
+  opacity: 0.055;
+}
+/* Coral at brand brightness reads washed out as small text on light; swap foreground accents to the ink tone */
+:root:not(.dark) .text-accent,
+:root:not(.dark) [class~="hover:text-accent"]:hover,
+:root:not(.dark) [class~="group-hover:text-accent"]:is(:where(.group):hover *) {
+  color: var(--accent-ink);
 }
 
 /* ── Typing dots (AI-Native UI #43) ── */

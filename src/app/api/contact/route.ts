@@ -96,9 +96,18 @@ function validate(body: unknown): Lead | null {
   return { firstName, lastName, phone, email, message };
 }
 
+function parseRecipients(value: string | undefined) {
+  const list = (value ?? "")
+    .split(",")
+    .map((entry) => entry.trim().toLowerCase())
+    .filter((entry) => EMAIL_RE.test(entry));
+  return list.length ? list.slice(0, 10) : ["admin@kivio.com.co"];
+}
+
 async function deliver(lead: Lead) {
   const resendKey = process.env.RESEND_API_KEY;
   if (resendKey) {
+    const [primary, ...copy] = parseRecipients(process.env.CONTACT_TO);
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -107,7 +116,8 @@ async function deliver(lead: Lead) {
       },
       body: JSON.stringify({
         from: process.env.CONTACT_FROM ?? "KIVIO Web <onboarding@resend.dev>",
-        to: [process.env.CONTACT_TO ?? "admin@kivio.com.co"],
+        to: [primary],
+        bcc: copy.length ? copy : undefined,
         reply_to: lead.email,
         subject: `Nuevo contacto web — ${lead.firstName} ${lead.lastName}`,
         text: [

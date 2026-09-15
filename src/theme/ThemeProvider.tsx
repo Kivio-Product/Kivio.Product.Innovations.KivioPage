@@ -24,12 +24,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const stored = localStorage.getItem("kivio-theme") as Theme | null;
-    const initial =
-      stored === "light" || stored === "dark"
-        ? stored
-        : window.matchMedia("(prefers-color-scheme: light)").matches
-          ? "light"
-          : "dark";
+    // Dark-first brand: ignore OS preference until the visitor picks a theme.
+    const initial: Theme = stored === "light" || stored === "dark" ? stored : "dark";
     setThemeState(initial);
     applyTheme(initial);
   }, []);

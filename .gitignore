@@ -6,6 +6,10 @@
 # testing
 /coverage
 
+# python bytecode (opencode skill scripts)
+__pycache__/
+*.py[cod]
+
 # next.js
 /.next/
 /out/
