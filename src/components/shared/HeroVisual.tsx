@@ -17,18 +17,30 @@ export function HeroVisual({ labels }: { labels: CardLabels }) {
         aria-hidden
       />
 
-      {/* Main device canvas */}
-      <div className="gradient-border-soft grain relative overflow-hidden rounded-[25px] bg-linear-to-b from-surface to-bg-soft p-3 shadow-(--card-shadow) sm:p-6 lg:p-8">
-        <div className="pointer-events-none absolute inset-0 dots-pattern opacity-40" aria-hidden />
-        <Image
-          src="/images/pages/ecommerce-pc.png"
-          alt="Plataforma KIVIO eCommerce"
-          width={1114}
-          height={708}
-          priority
-          sizes="(max-width: 1024px) 100vw, 980px"
-          className="relative w-full drop-shadow-2xl"
-        />
+      {/* Editorial photo plate */}
+      <div className="relative overflow-hidden rounded-[25px] border border-border shadow-(--card-shadow)">
+        <div className="relative aspect-[16/11] sm:aspect-[16/9.5] lg:aspect-[16/8.8]">
+          <Image
+            src="/images/pages/hero-workspace.jpg"
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 980px"
+            className="object-cover object-center"
+          />
+          {/* legibility scrim */}
+          <div
+            className="absolute inset-0 bg-[radial-gradient(100%_85%_at_50%_42%,transparent_28%,rgba(0,0,0,0.52)_100%)]"
+            aria-hidden
+          />
+          {/* brand warmth + depth */}
+          <div
+            className="absolute inset-0 bg-linear-to-tr from-black/35 via-transparent to-accent/18"
+            aria-hidden
+          />
+          {/* accent ribbon */}
+          <div className="absolute inset-x-0 bottom-0 h-[3px] bg-linear-to-r from-accent via-accent-2 to-accent-3" aria-hidden />
+        </div>
       </div>
 
       {/* Floating cards */}

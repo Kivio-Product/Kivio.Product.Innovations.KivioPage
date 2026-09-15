@@ -48,8 +48,10 @@ Tokens y voz de `KIVIO-SAS---Inicio` (DESIGN.md): negro Kivio, naranja `#f66e4c`
 ### Hero (inspirado en Shopify)
 
 - Titular centrado con **palabra rotativa** (`RotatingWord`: Software → IA → eCommerce) en una línea propia con degradado de marca. Sin layout shift: las palabras se apilan en la misma celda de grid.
-- Visual de producto ancho con **tarjetas flotantes de cristal** (IA 24/7, deploy, conversión, reserva) animadas con `float` (se detienen con `prefers-reduced-motion`).
+- Visual editorial con **foto de workspace** + **tarjetas flotantes de cristal** ("IA que no duerme", "Deploy sin drama", "Resultados medibles", "Pasajeros primero") animadas con `float` (se detienen con `prefers-reduced-motion`).
 - Sin logos de clientes en el hero (viven en el marquee de abajo) y sin demo de chat (vive en `/es/ia`).
+
+> Crédito de imagen: foto de Jakub Żerdzicki vía [Unsplash](https://unsplash.com/photos/coding-on-dual-monitors-S8E1yLUNAw8) (Unsplash License, uso comercial libre).
 
 ### QA visual
 
