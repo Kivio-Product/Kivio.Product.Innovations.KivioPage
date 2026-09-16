@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { FadeUp, ScrollText, SpotlightCard, Stagger } from "@/components/motion/motion";
+import { AmbientVideo } from "@/components/shared/AmbientVideo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo";
 import { getDictionary } from "@/i18n";
@@ -13,6 +14,7 @@ export function PageHero({
   title,
   lead,
   leadScroll,
+  video,
   children,
 }: {
   lang?: string;
@@ -22,13 +24,21 @@ export function PageHero({
   title: string;
   lead?: string;
   leadScroll?: boolean;
+  video?: { lg: string; md: string; poster: string };
   children?: React.ReactNode;
 }) {
   const dict = lang ? getDictionary(lang) : null;
   return (
-    <section className="relative overflow-hidden pt-16 pb-14 sm:pt-24 sm:pb-18">
+    <section
+      className={
+        video
+          ? "relative overflow-hidden pt-20 pb-20 sm:pt-28 sm:pb-28"
+          : "relative overflow-hidden pt-16 pb-14 sm:pt-24 sm:pb-18"
+      }
+    >
       <div className="aurora" aria-hidden />
-      <div className="pointer-events-none absolute inset-0 grid-pattern opacity-40" aria-hidden />
+      {video && <AmbientVideo lg={video.lg} md={video.md} poster={video.poster} intensity="hero" />}
+      <div className="pointer-events-none absolute inset-0 grid-pattern opacity-30" aria-hidden />
       {lang && path !== undefined && (
         <JsonLd
           data={breadcrumbSchema(lang, [

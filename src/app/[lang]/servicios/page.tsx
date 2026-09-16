@@ -37,7 +37,18 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
           serviceType: "Diseño y desarrollo de software a la medida",
         })}
       />
-      <PageHero lang={lang} path="servicios" title={dict.services.title} lead={dict.services.lead} leadScroll />
+      <PageHero
+        lang={lang}
+        path="servicios"
+        title={dict.services.title}
+        lead={dict.services.lead}
+        leadScroll
+        video={{
+          lg: "/media/glass-corridor-lg.mp4",
+          md: "/media/glass-corridor-md.mp4",
+          poster: "/media/glass-corridor-poster.jpg",
+        }}
+      />
       <Section>
         <Container className="grid items-center gap-10 lg:grid-cols-2">
           <FadeUp>

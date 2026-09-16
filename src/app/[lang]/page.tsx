@@ -16,6 +16,7 @@ import {
   Stagger,
   Typewriter,
 } from "@/components/motion/motion";
+import { AmbientVideo } from "@/components/shared/AmbientVideo";
 import { HeroDiagram } from "@/components/shared/HeroDiagram";
 import { LogoMarquee } from "@/components/shared/LogoMarquee";
 import { ShowcaseCarousel } from "@/components/shared/ShowcaseCarousel";
@@ -51,7 +52,18 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       {/* ── HERO (centered, Shopify-style) ───────────────────── */}
       <section className="relative overflow-hidden pt-14 pb-20 sm:pt-20 sm:pb-28">
         <div className="aurora" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 grid-pattern opacity-40" aria-hidden />
+        <AmbientVideo
+          lg="/media/hero-geometric-lg.mp4"
+          md="/media/hero-geometric-md.mp4"
+          poster="/media/hero-geometric-poster.jpg"
+          lightLg="/media/space-lg.mp4"
+          lightMd="/media/space-md.mp4"
+          lightPoster="/media/space-poster.jpg"
+          mediaClassName="scale-[1.3] origin-bottom"
+          videoOpacity={0.8}
+          priority
+        />
+        <div className="pointer-events-none absolute inset-0 grid-pattern opacity-30" aria-hidden />
         <Container className="relative">
           <div className="mx-auto max-w-3xl text-center">
             <FadeUp>
@@ -119,7 +131,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
       {/* ── SHOWCASE CAROUSEL ────────────────────────────────── */}
       <Section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 dots-pattern opacity-50" aria-hidden />
+        <AmbientVideo
+          lg="/media/abstract-blue-lg.mp4"
+          md="/media/abstract-blue-md.mp4"
+          poster="/media/abstract-blue-poster.jpg"
+          intensity="section"
+        />
+        <div className="pointer-events-none absolute inset-0 dots-pattern opacity-40" aria-hidden />
         <Container className="relative">
           <SectionHeading
             kicker={dict.home.showcase.kicker}
@@ -173,8 +191,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
       {/* ── AI-NATIVE (signature bento) ──────────────────────── */}
       <Section className="relative overflow-hidden">
+        <AmbientVideo
+          lg="/media/ai-chat-lg.mp4"
+          md="/media/ai-chat-md.mp4"
+          poster="/media/ai-chat-poster.jpg"
+          intensity="section"
+        />
         <div className="pointer-events-none absolute inset-0 section-glow" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 dots-pattern opacity-50" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 dots-pattern opacity-40" aria-hidden />
         <Container className="relative">
           <SectionHeading kicker={dict.home.aiKicker} title={dict.home.aiTitle} className="mb-12 max-w-3xl" />
           <div className="grid gap-5 lg:grid-cols-12">
@@ -304,7 +328,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <StatsRow items={dict.home.stats} />
       </Section>
 
-      <ContactBlock dict={dict} />
+      <ContactBlock
+        dict={dict}
+        video={{
+          lg: "/media/night-phone-lg.mp4",
+          md: "/media/night-phone-md.mp4",
+          poster: "/media/night-phone-poster.jpg",
+        }}
+      />
     </>
   );
 }

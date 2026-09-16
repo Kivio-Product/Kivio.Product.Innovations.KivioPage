@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Dictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { FadeUp, ScrollText } from "@/components/motion/motion";
+import { AmbientVideo } from "@/components/shared/AmbientVideo";
 import { social } from "@/lib/utils";
 
 export function ContactForm({ dict, id = "contacto" }: { dict: Dictionary; id?: string }) {
@@ -93,9 +94,16 @@ export function ContactForm({ dict, id = "contacto" }: { dict: Dictionary; id?: 
   );
 }
 
-export function ContactBlock({ dict }: { dict: Dictionary }) {
+export function ContactBlock({
+  dict,
+  video,
+}: {
+  dict: Dictionary;
+  video?: { lg: string; md: string; poster: string };
+}) {
   return (
     <section id="contacto" className="relative overflow-hidden py-20 sm:py-24">
+      {video && <AmbientVideo lg={video.lg} md={video.md} poster={video.poster} intensity="section" />}
       <div className="pointer-events-none absolute inset-0 hero-glow" />
       <div className="mx-auto grid w-full max-w-[1180px] gap-10 px-5 sm:px-8 lg:grid-cols-[1fr_1.15fr] lg:items-start">
         <FadeUp>

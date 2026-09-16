@@ -2,9 +2,10 @@ import { getDictionary } from "@/i18n";
 import { pageMetadata } from "@/lib/page-seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { softwareAppSchema } from "@/lib/seo";
-import { ScrollText } from "@/components/motion/motion";
+import { FadeUp, ScrollText } from "@/components/motion/motion";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
+import { AmbientVideo } from "@/components/shared/AmbientVideo";
 import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
 import { ContactBlock } from "@/components/shared/ContactForm";
 import { href, routes, social } from "@/lib/utils";
@@ -52,9 +53,22 @@ export default async function KiviPage({ params }: { params: Promise<{ lang: str
         </Container>
       </Section>
       <Section className="diagonal-band bg-bg-soft">
-        <Container className="max-w-3xl">
-          <h2 className="font-display text-3xl text-fg">{dict.kivi.whyTitle}</h2>
-          <ScrollText text={dict.kivi.whyLead} className="mt-4 text-lg text-muted" />
+        <Container className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+          <FadeUp>
+            <div className="relative mx-auto aspect-[9/16] w-full max-w-[320px] overflow-hidden rounded-[30px] border border-border opacity-0 shadow-(--card-shadow) [animation:step-in_0.6s_cubic-bezier(.215,.61,.355,1)_0.15s_forwards] motion-reduce:opacity-100">
+              <AmbientVideo
+                lg="/media/ai-brain-lg.mp4"
+                md="/media/ai-brain-md.mp4"
+                poster="/media/ai-brain-poster.jpg"
+                veil="none"
+                blend={false}
+              />
+            </div>
+          </FadeUp>
+          <div className="max-w-3xl">
+            <h2 className="font-display text-3xl text-fg sm:text-4xl">{dict.kivi.whyTitle}</h2>
+            <ScrollText text={dict.kivi.whyLead} className="mt-5 text-lg text-muted" />
+          </div>
         </Container>
       </Section>
       <ContactBlock dict={dict} />

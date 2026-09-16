@@ -36,7 +36,15 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
           serviceType: "Inteligencia Artificial y transformación IA-Native",
         })}
       />
-      <PageHero lang={lang} path="ia" kicker={dict.ai.kicker} title={dict.ai.title} lead={dict.ai.lead} leadScroll>
+      <PageHero
+        lang={lang}
+        path="ia"
+        kicker={dict.ai.kicker}
+        title={dict.ai.title}
+        lead={dict.ai.lead}
+        leadScroll
+        video={{ lg: "/media/ai-chat-lg.mp4", md: "/media/ai-chat-md.mp4", poster: "/media/ai-chat-poster.jpg" }}
+      >
         <div className="flex flex-wrap gap-3">
           <Button href={href(lang, routes.contact)}>{dict.common.contactUs}</Button>
           <Button href={href(lang, routes.kivi)} variant="outline">

@@ -31,7 +31,14 @@ export default async function AirlinesPage({ params }: { params: Promise<{ lang:
           serviceType: "Soporte y desarrollo de sistemas para aerolíneas (PSS/IBE)",
         })}
       />
-      <PageHero lang={lang} path="soporte-a-aerolineas" title={dict.airlines.title} lead={dict.airlines.lead} leadScroll>
+      <PageHero
+        lang={lang}
+        path="soporte-a-aerolineas"
+        title={dict.airlines.title}
+        lead={dict.airlines.lead}
+        leadScroll
+        video={{ lg: "/media/servers-lg.mp4", md: "/media/servers-md.mp4", poster: "/media/servers-poster.jpg" }}
+      >
         <Button href="#contacto">{dict.common.requestConsult}</Button>
       </PageHero>
       <Section>
