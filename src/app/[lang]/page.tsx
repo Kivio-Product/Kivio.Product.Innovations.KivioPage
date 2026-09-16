@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Brain, Compass, Shield, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Brain, Check, Compass, Network, Rocket, Shield, ShieldCheck, Sparkles, Users } from "lucide-react";
 import { getDictionary } from "@/i18n";
 import { pageMetadata } from "@/lib/page-seo";
+import { SITE_NAME } from "@/lib/seo";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import {
@@ -19,24 +20,30 @@ import {
 import { AmbientVideo } from "@/components/shared/AmbientVideo";
 import { HeroDiagram } from "@/components/shared/HeroDiagram";
 import { LogoMarquee } from "@/components/shared/LogoMarquee";
-import { ShowcaseCarousel } from "@/components/shared/ShowcaseCarousel";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { StatsRow } from "@/components/shared/SocialProof";
 import { ContactBlock } from "@/components/shared/ContactForm";
-import { href, routes, social } from "@/lib/utils";
+import { href, routes } from "@/lib/utils";
 
-const featureIcons = [Sparkles, Compass, Shield, Brain];
+const solutionIcons = [ShieldCheck, Users, Network, Rocket];
 
-const productMeta: Record<string, { to: string; img: string; bg: string; span: string; tall?: boolean }> = {
-  cms: { to: routes.cms, img: "/images/products/cms-demo.png", bg: "/images/products/card-cms-bg.png", span: "lg:col-span-3" },
-  ecommerce: { to: routes.ecommerce, img: "/images/products/ecommerce-demo.png", bg: "/images/products/card-ecommerce-bg.png", span: "lg:col-span-3" },
-  bidmax: { to: routes.bidmax, img: "/images/products/bidmax-demo.png", bg: "/images/products/card-bidmax-bg.png", span: "lg:col-span-2" },
-  kivi: { to: routes.kivi, img: "/brand/kivi-ai-logo.png", bg: "/images/pages/diagonal-coral.jpg", span: "lg:col-span-4", tall: true },
+const caseMeta: Record<string, { img: string }> = {
+  flyr: { img: "/images/pages/flyr-equipo.png" },
+  merkko: { img: "/images/pages/merkko-mockup-big.png" },
+  nutrir: { img: "/images/pages/nutrir-mockup-big.png" },
+};
+
+const productMeta: Record<string, { to: string; img: string; bg: string }> = {
+  cms: { to: routes.cms, img: "/images/products/cms-demo.png", bg: "/images/products/card-cms-bg.png" },
+  ecommerce: { to: routes.ecommerce, img: "/images/products/ecommerce-demo.png", bg: "/images/products/card-ecommerce-bg.png" },
+  bidmax: { to: routes.bidmax, img: "/images/products/bidmax-demo.png", bg: "/images/products/card-bidmax-bg.png" },
+  kivi: { to: routes.kivi, img: "/brand/kivi-ai-logo.png", bg: "/images/pages/diagonal-coral.jpg" },
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   return pageMetadata(params, (d) => ({
-    title: d.home.heroTitle,
+    /* the layout's title.template does not apply to the page in its own segment */
+    title: `${SITE_NAME} - ${d.home.heroTitle}`,
     description: d.meta.description,
     path: "",
   }));
@@ -92,7 +99,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                     {dict.home.heroCta} <ArrowRight size={16} aria-hidden />
                   </Button>
                 </Magnetic>
-                <Button href={href(lang, routes.about)} variant="outline">
+                <Button href={href(lang, routes.portfolio)} variant="outline">
                   {dict.home.heroSecondary}
                 </Button>
               </div>
@@ -104,23 +111,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <FadeUp delay={120} y={32}>
             <HeroDiagram labels={dict.home.heroCards} flow={dict.home.heroDiagram} />
           </FadeUp>
-          {/* post-diagram CTAs: try KIVI AI · explore the rest of the portfolio */}
+          {/* post-diagram CTA: leads into the solutions portfolio */}
           <FadeUp delay={160} className="mt-12 text-center">
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <Button href={social.kiviExternal} external>
-                <Image
-                  src="/brand/kivi-ai-logo.png"
-                  alt=""
-                  width={22}
-                  height={22}
-                  className="h-[22px] w-[22px]"
-                />
-                {dict.home.kiviCta}
-              </Button>
-              <Button href={href(lang, routes.services)} variant="outline">
-                {dict.home.productsCta} <ArrowRight size={16} aria-hidden />
-              </Button>
-            </div>
+            <Button href={href(lang, routes.services)}>
+              {dict.home.solutionsCta} <ArrowRight size={16} aria-hidden />
+            </Button>
           </FadeUp>
           <ScrollCue label={dict.common.scroll} />
         </Container>
@@ -129,30 +124,162 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       {/* ── LOGOS ────────────────────────────────────────────── */}
       <LogoMarquee lang={lang} title={dict.home.trusted} />
 
-      {/* ── SHOWCASE CAROUSEL ────────────────────────────────── */}
+      {/* ── SOLUTIONS (core offer) ───────────────────────────── */}
       <Section className="relative overflow-hidden">
-        <AmbientVideo
-          lg="/media/abstract-blue-lg.mp4"
-          md="/media/abstract-blue-md.mp4"
-          poster="/media/abstract-blue-poster.jpg"
-          intensity="section"
-        />
         <div className="pointer-events-none absolute inset-0 dots-pattern opacity-40" aria-hidden />
         <Container className="relative">
           <SectionHeading
-            kicker={dict.home.showcase.kicker}
-            title={dict.home.showcase.title}
-            lead={dict.home.showcase.lead}
+            kicker={dict.home.solutionsKicker}
+            title={dict.home.solutionsTitle}
+            lead={dict.home.solutionsLead}
             className="mb-12"
           />
-          <FadeUp>
-            <ShowcaseCarousel dict={dict} lang={lang} />
+          <Stagger className="grid gap-5 lg:grid-cols-2">
+            {dict.home.solutions.map((s, i) => {
+              const Icon = solutionIcons[i % solutionIcons.length];
+              return (
+                <SpotlightCard
+                  key={s.title}
+                  className="card-lift h-full rounded-[20px] border border-border bg-surface p-7 sm:p-8"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-accent-soft text-accent">
+                      <Icon size={20} />
+                    </div>
+                    <span className="watermark-number text-4xl leading-none">0{i + 1}</span>
+                  </div>
+                  <h3 className="mt-5 text-lg font-semibold text-fg">{s.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{s.body}</p>
+                  <p className="mt-5 flex items-start gap-2 border-t border-border pt-4 text-sm font-medium text-fg">
+                    <ArrowRight size={16} className="mt-0.5 shrink-0 text-accent" aria-hidden />
+                    {s.result}
+                  </p>
+                </SpotlightCard>
+              );
+            })}
+          </Stagger>
+          <FadeUp delay={120} className="mt-10 text-center">
+            <Button href={href(lang, routes.services)}>
+              {dict.home.solutionsCta} <ArrowRight size={16} aria-hidden />
+            </Button>
           </FadeUp>
         </Container>
       </Section>
 
-      {/* ── AIRLINES ─────────────────────────────────────────── */}
-      <Section className="overflow-hidden border-y border-border bg-bg-soft">
+      {/* ── CASE STUDIES + OWN PRODUCTS ──────────────────────── */}
+      <Section className="border-y border-border bg-bg-soft">
+        <Container>
+          <SectionHeading
+            kicker={dict.home.resultsKicker}
+            title={dict.home.resultsTitle}
+            lead={dict.home.resultsLead}
+            className="mb-12"
+          />
+
+          <Stagger className="grid gap-5 lg:grid-cols-3">
+            {dict.home.results.map((c) => (
+              <Link
+                key={c.title}
+                href={href(lang, routes[c.href as keyof typeof routes])}
+                className="card-lift group flex h-full flex-col overflow-hidden rounded-[25px] border border-border bg-surface"
+              >
+                <div className="relative h-48 overflow-hidden bg-surface-2">
+                  <Image
+                    src={caseMeta[c.href].img}
+                    alt=""
+                    fill
+                    sizes="(max-width: 1024px) 90vw, 380px"
+                    className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                  />
+                  <span className="absolute left-4 top-4 rounded-full bg-black/55 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur">
+                    {c.tag}
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-xl font-semibold text-fg">{c.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{c.body}</p>
+                  <ul className="mt-4 space-y-1.5 text-xs leading-relaxed text-muted">
+                    {c.highlights.map((h) => (
+                      <li key={h} className="flex items-start gap-2">
+                        <Check size={14} className="mt-0.5 shrink-0 text-accent" aria-hidden />
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="mt-auto inline-flex items-center gap-1 pt-6 text-sm font-semibold text-accent">
+                    {dict.common.seeMore}{" "}
+                    <ArrowUpRight
+                      size={16}
+                      className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </Stagger>
+
+          {/* own products */}
+          <div className="mt-16 border-t border-border pt-12">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+                  <span className="inline-block h-px w-6 bg-accent" aria-hidden />
+                  {dict.home.productsKicker}
+                </p>
+                <h3 className="mt-3 font-display text-2xl text-fg sm:text-3xl">{dict.home.productsTitle}</h3>
+              </div>
+              <p className="max-w-md text-sm leading-relaxed text-muted">{dict.home.showcase.lead}</p>
+            </div>
+            <Stagger className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {dict.home.products.map((p) => {
+                const meta = productMeta[p.href];
+                return (
+                  <Link
+                    key={p.href}
+                    href={href(lang, meta.to)}
+                    className="card-lift group flex h-full flex-col overflow-hidden rounded-[20px] border border-border bg-surface"
+                  >
+                    <div className="relative h-36 overflow-hidden bg-surface-2">
+                      <Image
+                        src={meta.bg}
+                        alt=""
+                        fill
+                        className="object-cover opacity-50 transition duration-700 group-hover:scale-105"
+                      />
+                      <Image
+                        src={meta.img}
+                        alt={p.title}
+                        fill
+                        className="object-contain p-5 transition duration-500 group-hover:scale-[1.06] group-hover:-rotate-1"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col p-5">
+                      <h4 className="text-base font-semibold text-fg">{p.title}</h4>
+                      <p className="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
+                      <span className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold text-accent">
+                        {dict.common.seeMore}{" "}
+                        <ArrowUpRight
+                          size={16}
+                          className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        />
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </Stagger>
+          </div>
+
+          <FadeUp delay={120} className="mt-12 text-center">
+            <Button href={href(lang, routes.portfolio)} variant="outline">
+              {dict.home.resultsCta}
+            </Button>
+          </FadeUp>
+        </Container>
+      </Section>
+
+      {/* ── CRITICAL SYSTEMS / SECTORS ───────────────────────── */}
+      <Section className="overflow-hidden">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
           <FadeUp>
             <div className="relative overflow-hidden rounded-[25px] grain">
@@ -167,30 +294,30 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               </Parallax>
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
               <div className="glass absolute bottom-5 left-5 right-5 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-2xl px-5 py-3.5 text-xs font-medium text-white">
-                <span className="inline-flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-emerald-400" /> PSS
-                </span>
-                <span>IBE</span>
-                <span>Reservas B2C</span>
-                <span>Operaciones irregulares</span>
+                {dict.home.criticalSectors.map((s, i) => (
+                  <span key={s} className="inline-flex items-center gap-2">
+                    {i === 0 && <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-emerald-400" />}
+                    {s}
+                  </span>
+                ))}
               </div>
             </div>
           </FadeUp>
           <div>
-            <SectionHeading kicker={dict.nav.airlines} title={dict.home.airlinesTitle} className="mb-5" />
+            <SectionHeading kicker={dict.home.criticalKicker} title={dict.home.criticalTitle} className="mb-5" />
             <div>
-              <ScrollText text={dict.home.airlinesP1} className="text-muted" />
-              <ScrollText text={dict.home.airlinesP2} className="mt-3 text-muted" />
+              <ScrollText text={dict.home.criticalP1} className="text-muted" />
+              <ScrollText text={dict.home.criticalP2} className="mt-3 text-muted" />
               <Button href={href(lang, routes.airlines)} className="mt-8">
-                {dict.common.moreInfo}
+                {dict.home.criticalCta}
               </Button>
             </div>
           </div>
         </Container>
       </Section>
 
-      {/* ── AI-NATIVE (signature bento) ──────────────────────── */}
-      <Section className="relative overflow-hidden">
+      {/* ── AI-NATIVE (modernization capability) ─────────────── */}
+      <Section className="relative overflow-hidden border-y border-border">
         <AmbientVideo
           lg="/media/ai-chat-lg.mp4"
           md="/media/ai-chat-md.mp4"
@@ -233,92 +360,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                 );
               })}
             </Stagger>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── SERVICE FEATURES ─────────────────────────────────── */}
-      <Section className="border-y border-border bg-bg-soft">
-        <Container>
-          <SectionHeading kicker={dict.nav.services} title={dict.home.featuresTitle} className="mb-12" />
-          <Stagger className="grid gap-5 sm:grid-cols-2">
-            {dict.home.features.map((f, i) => {
-              const Icon = featureIcons[i];
-              return (
-                <SpotlightCard key={f.title} className="card-lift h-full rounded-[20px] border border-border bg-surface p-7">
-                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-accent-soft text-accent">
-                    <Icon size={20} />
-                  </div>
-                  <h3 className="text-lg font-semibold text-fg">{f.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{f.body}</p>
-                </SpotlightCard>
-              );
-            })}
-          </Stagger>
-        </Container>
-      </Section>
-
-      {/* ── WHY US ───────────────────────────────────────────── */}
-      <Section id="whyUs">
-        <Container>
-          <SectionHeading kicker={dict.home.whyKicker} title={dict.home.whyTitle} className="mb-12 max-w-2xl" />
-          <Stagger className="grid gap-5 lg:grid-cols-3">
-            {dict.home.why.map((w) => (
-              <SpotlightCard
-                key={w.n}
-                className="card-lift group h-full rounded-[16px] border border-border bg-surface p-8 transition-colors duration-300 hover:border-accent/40"
-              >
-                <span className="watermark-number text-5xl">{w.n}</span>
-                <h3 className="mt-6 text-xl font-semibold text-fg transition-colors group-hover:text-accent">
-                  {w.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{w.body}</p>
-                <Link
-                  href={href(lang, routes.about)}
-                  className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-accent"
-                >
-                  {dict.common.seeMore} <ArrowUpRight size={15} />
-                </Link>
-              </SpotlightCard>
-            ))}
-          </Stagger>
-        </Container>
-      </Section>
-
-      {/* ── PRODUCTS (bento) ─────────────────────────────────── */}
-      <Section className="border-y border-border bg-bg-soft">
-        <Container>
-          <SectionHeading kicker={dict.home.productsKicker} title={dict.home.productsTitle} className="mb-12" />
-          <div className="grid gap-5 lg:grid-cols-6">
-            {dict.home.products.map((p, i) => {
-              const meta = productMeta[p.href];
-              return (
-                <FadeUp key={p.href} delay={i * 70} className={meta.span}>
-                  <Link
-                    href={href(lang, meta.to)}
-                    className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[20px] border border-border bg-surface"
-                  >
-                    <div className={`relative overflow-hidden bg-surface-2 ${meta.tall ? "h-56" : "h-44"}`}>
-                      <Image src={meta.bg} alt="" fill className="object-cover opacity-50 transition duration-700 group-hover:scale-105" />
-                      <Image
-                        src={meta.img}
-                        alt={p.title}
-                        fill
-                        className="object-contain p-6 transition duration-500 group-hover:scale-[1.06] group-hover:-rotate-1"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col p-5">
-                      <h3 className="text-lg font-semibold text-fg">{p.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
-                      <span className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
-                        {dict.common.seeMore}{" "}
-                        <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </span>
-                    </div>
-                  </Link>
-                </FadeUp>
-              );
-            })}
           </div>
         </Container>
       </Section>

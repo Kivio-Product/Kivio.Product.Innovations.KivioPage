@@ -329,6 +329,26 @@ p {
   border-color: rgba(255, 255, 255, 0.12);
 }
 
+/* ── Chat demo scroll area: thin, unobtrusive scrollbar ── */
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border: none;
+  border-radius: 999px;
+}
+.chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
 /* ── Gradient border (for featured cards) ── */
 .gradient-border {
   position: relative;

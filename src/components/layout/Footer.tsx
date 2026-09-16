@@ -7,7 +7,7 @@ import { href, routes, social } from "@/lib/utils";
 export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const colA = [
     { label: dict.nav.home, to: routes.home },
-    { label: dict.nav.why, to: `${routes.home}#whyUs` },
+    { label: dict.nav.portfolio, to: routes.portfolio },
     { label: dict.nav.cms, to: routes.cms },
     { label: dict.nav.ecommerce, to: routes.ecommerce },
     { label: dict.nav.bidmax, to: routes.bidmax },

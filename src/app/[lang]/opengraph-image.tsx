@@ -4,7 +4,7 @@ import { locales } from "@/i18n/config";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "KIVIO SAS — Transformamos ideas en Software";
+export const alt = "KIVIO SAS — Sistemas críticos, siempre en operación";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));

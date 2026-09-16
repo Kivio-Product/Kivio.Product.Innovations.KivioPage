@@ -1,32 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { Plane, Sparkles, Ticket } from "lucide-react";
 
-type Msg = {
-  from: "user" | "ai";
+type ChatCard = { kind: string; title: string; lines: string[] };
+type ChatScriptItem = {
+  from: string;
   text: string;
-  card?: { kind: "flight" | "ticket"; title: string; lines: string[] };
+  delay: number;
+  cardDelay?: number;
+  card?: ChatCard;
 };
-
-const script: Msg[] = [
-  { from: "user", text: "¿Tienen vuelos a Medellín mañana para 2 pasajeros?" },
-  {
-    from: "ai",
-    text: "Sí. Encontré 3 opciones en tu ruta, conectadas con el sistema de reservas:",
-    card: {
-      kind: "flight",
-      title: "MDE · Medellín",
-      lines: ["07:20 · Directo · 58 min", "12:45 · Directo · 61 min", "18:10 · Directo · 55 min"],
-    },
-  },
-  {
-    from: "ai",
-    text: "Puedo cotizar y dejar la reserva lista en el IBE. ¿Confirmo la más temprana?",
-    card: { kind: "ticket", title: "Cotización generada", lines: ["2 pasajeros · Ida", "Tarifa flexible", "Asientos 12A · 12B"] },
-  },
-];
+type ChatLabels = { title: string; subtitle: string; online: string; disclaimer: string };
 
 function useSequencer(times: number[], trigger: boolean) {
   const [step, setStep] = useState(0);
@@ -53,10 +39,45 @@ function useSequencer(times: number[], trigger: boolean) {
   return step;
 }
 
-export function ChatDemo({ labels }: { labels: { title: string; subtitle: string; online: string; disclaimer: string } }) {
+export function ChatDemo({ labels, script }: { labels: ChatLabels; script: ChatScriptItem[] }) {
   const ref = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
-  const step = useSequencer([700, 1300, 1600, 1400], active);
+
+  /* one step per message, plus one per card: the timeline must stay referentially
+     stable or the sequencer effect restarts on every render and never advances. */
+  const times = useMemo(() => {
+    const t: number[] = [];
+    script.forEach((m) => {
+      t.push(m.delay);
+      if (m.card) t.push(m.cardDelay ?? 900);
+    });
+    return t;
+  }, [script]);
+
+  const step = useSequencer(times, active);
+
+  const { msgs, cards, typing } = useMemo(() => {
+    const msgVisible: boolean[] = [];
+    const cardVisible: boolean[] = [];
+    let consumed = 0;
+    let pending: string | null = null;
+    for (const item of script) {
+      const msgAt = consumed;
+      msgVisible.push(step > msgAt);
+      if (pending === null && step <= msgAt) pending = item.from;
+      consumed += 1;
+      if (item.card) {
+        const cardAt = consumed;
+        cardVisible.push(step > cardAt);
+        if (pending === null && step <= cardAt) pending = "ai";
+        consumed += 1;
+      } else {
+        cardVisible.push(false);
+      }
+    }
+    return { msgs: msgVisible, cards: cardVisible, typing: pending === "ai" };
+  }, [script, step]);
 
   useEffect(() => {
     const el = ref.current;
@@ -73,6 +94,13 @@ export function ChatDemo({ labels }: { labels: { title: string; subtitle: string
     io.observe(el);
     return () => io.disconnect();
   }, []);
+
+  /* keep the newest bubble in view inside the capped chat area */
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || step === 0) return;
+    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  }, [step]);
 
   return (
     <div ref={ref} className="glass rounded-[25px] p-4 shadow-(--card-shadow) sm:p-5">
@@ -91,31 +119,35 @@ export function ChatDemo({ labels }: { labels: { title: string; subtitle: string
         </span>
       </div>
 
-      <div className="space-y-3" aria-live="polite">
-        {script.map((m, i) => {
-          const visible = step > i;
-          if (!visible) return null;
+      <div
+        ref={scrollRef}
+        className="chat-scroll space-y-3 lg:max-h-[430px] lg:overflow-y-auto lg:pr-1"
+        aria-live="polite"
+      >
+        {script.map((message, i) => {
+          if (!msgs[i]) return null;
+          const isUser = message.from === "user";
           return (
-            <div key={i} className={`flex ${m.from === "user" ? "justify-end" : "justify-start"}`}>
-              <div className={`max-w-[88%] ${m.from === "user" ? "text-right" : ""}`}>
+            <div key={`${message.from}-${i}`} className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
+              <div className={`max-w-[88%] ${isUser ? "text-right" : ""}`}>
                 <div
                   className={
-                    m.from === "user"
+                    isUser
                       ? "rounded-2xl rounded-br-md bg-linear-to-br from-accent to-accent-2 px-4 py-2.5 text-sm text-white"
                       : "rounded-2xl rounded-bl-md border border-border bg-surface-2 px-4 py-2.5 text-sm text-fg"
                   }
                 >
-                  {m.text}
+                  {message.text}
                 </div>
-                {m.card && step > i + 1 && (
+                {message.card && cards[i] && (
                   <div className="mt-2 flex items-start gap-3 rounded-xl border-l-2 border-l-accent border-y border-r border-border bg-surface px-3.5 py-3 text-left">
                     <span className="mt-0.5 text-accent">
-                      {m.card.kind === "flight" ? <Plane size={16} /> : <Ticket size={16} />}
+                      {message.card.kind === "flight" ? <Plane size={16} /> : <Ticket size={16} />}
                     </span>
                     <div className="min-w-0">
-                      <p className="text-xs font-semibold text-fg">{m.card.title}</p>
+                      <p className="text-xs font-semibold text-fg">{message.card.title}</p>
                       <ul className="mt-1 space-y-0.5 text-[11px] leading-relaxed text-muted">
-                        {m.card.lines.map((l) => (
+                        {message.card.lines.map((l) => (
                           <li key={l}>{l}</li>
                         ))}
                       </ul>
@@ -126,7 +158,7 @@ export function ChatDemo({ labels }: { labels: { title: string; subtitle: string
             </div>
           );
         })}
-        {step >= 1 && step < script.length + 1 && (
+        {typing && (
           <div className="flex justify-start">
             <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-md border border-border bg-surface-2 px-4 py-3.5">
               <span className="typing-dot" />

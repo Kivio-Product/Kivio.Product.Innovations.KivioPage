@@ -64,10 +64,10 @@ export function organizationSchema() {
     },
     email: social.email,
     telephone: "+573012839049",
-    foundingDate: "2022",
-    slogan: "Transformamos ideas en Software",
+    foundingDate: "2023",
+    slogan: "Sistemas críticos, siempre en operación",
     description:
-      "Empresa colombiana de desarrollo de software a la medida: inteligencia artificial, eCommerce, soluciones para aerolíneas (PSS/IBE) y productos propios.",
+      "KIVIO SAS sostiene sistemas críticos para compañías que no pueden detenerse: continuidad operacional, equipos dedicados, integración de plataformas y modernización, con experiencia en aviación, comercio digital y otros sectores de alta exigencia.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Cl. 7b #12",

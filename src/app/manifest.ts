@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "KIVIO SAS — Transformamos ideas en Software",
+    name: "KIVIO SAS — Sistemas críticos, siempre en operación",
     short_name: "KIVIO",
     description:
-      "Software a la medida, inteligencia artificial, eCommerce y soluciones para aerolíneas.",
+      "Continuidad operacional, equipos dedicados, integración y modernización de sistemas críticos. Experiencia en aerolíneas, turismo, logística y comercio digital.",
     start_url: "/es",
     display: "standalone",
     background_color: "#000000",

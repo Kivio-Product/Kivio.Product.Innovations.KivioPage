@@ -76,7 +76,7 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
           <div className="min-w-0 lg:sticky lg:top-28">
             <SectionHeading kicker={dict.nav.kivi} title={dict.kivi.whyTitle} lead={dict.kivi.whyLead} leadScroll />
             <FadeUp delay={120} className="mt-8">
-              <ChatDemo labels={dict.home.aiChat} />
+              <ChatDemo labels={dict.home.aiChat} script={dict.home.aiChat.script} />
             </FadeUp>
           </div>
           <div>

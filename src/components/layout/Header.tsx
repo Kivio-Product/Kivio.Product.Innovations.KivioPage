@@ -39,9 +39,9 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
 
   const links = [
     { label: dict.nav.home, to: routes.home },
-    { label: dict.nav.ai, to: routes.ai },
     { label: dict.nav.services, to: routes.services },
     { label: dict.nav.airlines, to: routes.airlines },
+    { label: dict.nav.ai, to: routes.ai },
     { label: dict.nav.about, to: routes.about },
     { label: dict.nav.portfolio, to: routes.portfolio, wide: true },
     { label: dict.nav.careers, to: routes.careers, wide: true },

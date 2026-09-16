@@ -41,15 +41,22 @@ export default async function AirlinesPage({ params }: { params: Promise<{ lang:
       >
         <Button href="#contacto">{dict.common.requestConsult}</Button>
       </PageHero>
-      <Section>
-        <Container className="grid items-center gap-10 lg:grid-cols-2">
+      <Section className="relative overflow-hidden">
+        {/* desktop: the plane emerges from the right edge of the page */}
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] max-w-[720px] items-center lg:flex"
+          aria-hidden
+        >
           <Image
             src="/images/pages/avion-atardecer.png"
             alt=""
             width={900}
-            height={600}
-            className="h-[380px] w-full rounded-[25px] object-cover grayscale-[30%] contrast-125"
+            height={737}
+            sizes="46vw"
+            className="h-auto w-full"
           />
+        </div>
+        <Container className="relative grid items-center gap-10 lg:grid-cols-2">
           <div>
             <h2 className="mb-6 font-display text-3xl text-fg">{dict.airlines.featuresTitle}</h2>
             <div className="grid gap-4">
@@ -61,6 +68,13 @@ export default async function AirlinesPage({ params }: { params: Promise<{ lang:
               ))}
             </div>
           </div>
+          <Image
+            src="/images/pages/avion-atardecer.png"
+            alt=""
+            width={900}
+            height={737}
+            className="h-auto w-full lg:hidden"
+          />
         </Container>
       </Section>
       <Section className="bg-bg-soft">
@@ -72,9 +86,9 @@ export default async function AirlinesPage({ params }: { params: Promise<{ lang:
             <Image
               src="/images/pages/kivio-avion.png"
               alt=""
-              width={900}
-              height={400}
-              className="my-10 w-full max-w-lg object-contain"
+              width={1025}
+              height={328}
+              className="my-10 w-full object-contain"
             />
           </Parallax>
           <FeatureGrid items={dict.airlines.solutions} />
@@ -95,9 +109,9 @@ export default async function AirlinesPage({ params }: { params: Promise<{ lang:
           <Image
             src="/images/pages/kivio-avion-2.png"
             alt=""
-            width={700}
-            height={360}
-            className="mt-8 w-full max-w-md object-contain"
+            width={1240}
+            height={453}
+            className="mt-8 w-full object-contain"
           />
         </Container>
       </Section>
