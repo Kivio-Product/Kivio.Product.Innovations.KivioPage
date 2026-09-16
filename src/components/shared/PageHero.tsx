@@ -1,8 +1,13 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { FadeUp, ScrollText, SpotlightCard, Stagger } from "@/components/motion/motion";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/seo";
+import { getDictionary } from "@/i18n";
 
 export function PageHero({
+  lang,
+  path,
   iconSrc,
   kicker,
   title,
@@ -10,6 +15,8 @@ export function PageHero({
   leadScroll,
   children,
 }: {
+  lang?: string;
+  path?: string;
   iconSrc?: string;
   kicker?: string;
   title: string;
@@ -17,10 +24,19 @@ export function PageHero({
   leadScroll?: boolean;
   children?: React.ReactNode;
 }) {
+  const dict = lang ? getDictionary(lang) : null;
   return (
     <section className="relative overflow-hidden pt-16 pb-14 sm:pt-24 sm:pb-18">
       <div className="aurora" aria-hidden />
       <div className="pointer-events-none absolute inset-0 grid-pattern opacity-40" aria-hidden />
+      {lang && path !== undefined && (
+        <JsonLd
+          data={breadcrumbSchema(lang, [
+            { name: dict?.nav.home ?? "Inicio", path: "" },
+            { name: title, path },
+          ])}
+        />
+      )}
       <Container className="relative">
         <FadeUp>
           {iconSrc && (

@@ -1,6 +1,9 @@
 import Image from "next/image";
 import { Brain, Layout, MonitorSmartphone, Sparkles } from "lucide-react";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { serviceSchema } from "@/lib/seo";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
@@ -12,13 +15,29 @@ import { href } from "@/lib/utils";
 
 const traitIcons = [Layout, Sparkles, MonitorSmartphone, Brain];
 
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: d.services.title,
+    description: d.services.lead,
+    path: "servicios",
+  }));
+}
+
 export default async function ServicesPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (
     <>
-      <PageHero title={dict.services.title} lead={dict.services.lead} leadScroll />
+      <JsonLd
+        data={serviceSchema({
+          name: dict.services.title,
+          description: dict.services.lead,
+          path: "servicios",
+          serviceType: "Diseño y desarrollo de software a la medida",
+        })}
+      />
+      <PageHero lang={lang} path="servicios" title={dict.services.title} lead={dict.services.lead} leadScroll />
       <Section>
         <Container className="grid items-center gap-10 lg:grid-cols-2">
           <FadeUp>

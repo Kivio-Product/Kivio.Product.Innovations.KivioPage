@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Brain, Compass, Shield, Sparkles } from "lucide-react";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import {
@@ -31,6 +32,14 @@ const productMeta: Record<string, { to: string; img: string; bg: string; span: s
   bidmax: { to: routes.bidmax, img: "/images/products/bidmax-demo.png", bg: "/images/products/card-bidmax-bg.png", span: "lg:col-span-2" },
   kivi: { to: routes.kivi, img: "/brand/kivi-ai-logo.png", bg: "/images/pages/diagonal-coral.jpg", span: "lg:col-span-4", tall: true },
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: d.home.heroTitle,
+    description: d.meta.description,
+    path: "",
+  }));
+}
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

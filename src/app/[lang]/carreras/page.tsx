@@ -1,11 +1,22 @@
 import Image from "next/image";
 import { Clock, MapPin } from "lucide-react";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { jobPostingSchema } from "@/lib/seo";
 import { PageHero } from "@/components/shared/PageHero";
 import { FadeUp, Parallax, SpotlightCard, Stagger } from "@/components/motion/motion";
 import { Container, Section } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { href, routes, social } from "@/lib/utils";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: d.careers.title,
+    description: d.careers.lead,
+    path: "carreras",
+  }));
+}
 
 export default async function CareersPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -13,7 +24,18 @@ export default async function CareersPage({ params }: { params: Promise<{ lang: 
 
   return (
     <>
-      <PageHero title={dict.careers.title} lead={dict.careers.lead} leadScroll />
+      {dict.careers.jobs.map((job) => (
+        <JsonLd
+          key={job.title}
+          data={jobPostingSchema({
+            title: job.title,
+            description: job.body,
+            city: job.city.split(",")[0],
+            datePosted: "2026-01-15",
+          })}
+        />
+      ))}
+      <PageHero lang={lang} path="carreras" title={dict.careers.title} lead={dict.careers.lead} leadScroll />
       <Section>
         <Container className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <FadeUp>

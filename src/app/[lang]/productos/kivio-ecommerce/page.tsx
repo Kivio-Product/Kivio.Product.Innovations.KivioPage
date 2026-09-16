@@ -1,5 +1,8 @@
 import Image from "next/image";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { softwareAppSchema } from "@/lib/seo";
 import { Parallax } from "@/components/motion/motion";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
@@ -14,13 +17,28 @@ const resultImgs = [
   "/images/pages/result-visibilidad.png",
 ];
 
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: `${d.ecommerce.title} — ${d.ecommerce.subtitle}`,
+    description: d.ecommerce.lead,
+    path: "productos/kivio-ecommerce",
+  }));
+}
+
 export default async function EcommercePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (
     <>
-      <PageHero kicker={dict.nav.products} title={dict.ecommerce.title} lead={dict.ecommerce.lead} leadScroll>
+      <JsonLd
+        data={softwareAppSchema({
+          name: dict.ecommerce.title,
+          description: dict.ecommerce.lead,
+          path: "productos/kivio-ecommerce",
+        })}
+      />
+      <PageHero lang={lang} path="productos/kivio-ecommerce" kicker={dict.nav.products} title={dict.ecommerce.title} lead={dict.ecommerce.lead} leadScroll>
         <p className="mb-6 max-w-xl text-lg font-medium text-fg">{dict.ecommerce.subtitle}</p>
         <Button href="#contacto">{dict.common.requestDemo}</Button>
       </PageHero>

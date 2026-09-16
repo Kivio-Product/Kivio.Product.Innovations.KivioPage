@@ -1,5 +1,8 @@
 import Image from "next/image";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { softwareAppSchema } from "@/lib/seo";
 import { Parallax } from "@/components/motion/motion";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
@@ -7,13 +10,24 @@ import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
 import { ContactBlock } from "@/components/shared/ContactForm";
 import { href, routes } from "@/lib/utils";
 
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: `${d.cms.title} — ${d.cms.subtitle}`,
+    description: d.cms.lead,
+    path: "productos/kivio-cms",
+  }));
+}
+
 export default async function CmsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (
     <>
-      <PageHero kicker={dict.nav.products} title={dict.cms.title} lead={dict.cms.lead} leadScroll>
+      <JsonLd
+        data={softwareAppSchema({ name: dict.cms.title, description: dict.cms.lead, path: "productos/kivio-cms" })}
+      />
+      <PageHero lang={lang} path="productos/kivio-cms" kicker={dict.nav.products} title={dict.cms.title} lead={dict.cms.lead} leadScroll>
         <p className="mb-6 max-w-xl text-lg font-medium text-fg">{dict.cms.subtitle}</p>
         <Button href="#contacto">{dict.common.requestDemo}</Button>
       </PageHero>

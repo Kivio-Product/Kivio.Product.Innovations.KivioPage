@@ -1,10 +1,21 @@
 import Image from "next/image";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { serviceSchema } from "@/lib/seo";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
 import { Parallax, ScrollSteps, ScrollText } from "@/components/motion/motion";
 import { ContactBlock } from "@/components/shared/ContactForm";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: d.airlines.title,
+    description: d.airlines.lead,
+    path: "soporte-a-aerolineas",
+  }));
+}
 
 export default async function AirlinesPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -12,7 +23,15 @@ export default async function AirlinesPage({ params }: { params: Promise<{ lang:
 
   return (
     <>
-      <PageHero title={dict.airlines.title} lead={dict.airlines.lead} leadScroll>
+      <JsonLd
+        data={serviceSchema({
+          name: dict.airlines.title,
+          description: dict.airlines.lead,
+          path: "soporte-a-aerolineas",
+          serviceType: "Soporte y desarrollo de sistemas para aerolíneas (PSS/IBE)",
+        })}
+      />
+      <PageHero lang={lang} path="soporte-a-aerolineas" title={dict.airlines.title} lead={dict.airlines.lead} leadScroll>
         <Button href="#contacto">{dict.common.requestConsult}</Button>
       </PageHero>
       <Section>

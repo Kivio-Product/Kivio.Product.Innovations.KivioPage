@@ -1,5 +1,8 @@
 import Image from "next/image";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { softwareAppSchema } from "@/lib/seo";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
@@ -7,13 +10,28 @@ import { ScrollSteps } from "@/components/motion/motion";
 import { ProductGrid } from "@/components/shared/ProductGrid";
 import { ContactBlock } from "@/components/shared/ContactForm";
 
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: d.bidmax.title,
+    description: d.bidmax.lead,
+    path: "productos/kivio-bidmax",
+  }));
+}
+
 export default async function BidmaxPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (
     <>
-      <PageHero kicker={dict.nav.products} title={dict.bidmax.title} lead={dict.bidmax.lead} leadScroll>
+      <JsonLd
+        data={softwareAppSchema({
+          name: dict.bidmax.title,
+          description: dict.bidmax.lead,
+          path: "productos/kivio-bidmax",
+        })}
+      />
+      <PageHero lang={lang} path="productos/kivio-bidmax" kicker={dict.nav.products} title={dict.bidmax.title} lead={dict.bidmax.lead} leadScroll>
         <div className="flex flex-wrap gap-3">
           <Button href="#contacto">{dict.common.requestDemo}</Button>
           <Button href="#contacto" variant="outline">

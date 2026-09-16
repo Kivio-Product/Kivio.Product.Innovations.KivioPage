@@ -58,6 +58,23 @@ Tokens y voz de `KIVIO-SAS---Inicio` (DESIGN.md): negro Kivio, naranja `#f66e4c`
 `npm run shots` captura screenshots en 375/768/1024/1440 (claro y oscuro) y reporta scroll horizontal.
 Requiere instalar Playwright aparte: `npm i -D playwright && npx playwright install chromium` (no está en `package.json` para que Vercel no descargue navegadores).
 
+## SEO
+
+| Elemento | Implementación |
+| --- | --- |
+| `lang` SSR por idioma | El layout raíz vive en `src/app/[lang]/layout.tsx` → `/es` sale con `lang="es-CO"` y `/en` con `lang="en"` |
+| Metadatos por página | `src/lib/page-seo.ts` + `buildMetadata()`: title, description, **canonical** y **hreflang** (`es`, `en`, `x-default`) en las 16 rutas |
+| Open Graph / Twitter | `og:title/description/url/locale`, `twitter:summary_large_image` + **imagen OG dinámica 1200×630** por idioma (`/[lang]/opengraph-image`) |
+| Datos estructurados (JSON-LD) | `Organization` + `WebSite` (global), `Service` (servicios/IA/aerolíneas), `SoftwareApplication` (4 productos), `JobPosting` ×3 (carreras), `BreadcrumbList` (páginas internas vía `PageHero`) |
+| `sitemap.xml` | 32 URLs con `alternates.languages` (`src/app/sitemap.ts`) |
+| `robots.txt` | Allow total, `Disallow: /api/`, referencia al sitemap, `Host` |
+| `manifest.webmanifest` | Nombre, colores de marca, iconos (`src/app/manifest.ts`) |
+| Rendimiento | `optimizePackageImports` (lucide), AVIF/WebP, cache inmutable de assets, `poweredByHeader: false` |
+| Seguridad | `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, HSTS |
+| Keyword map | `dict.meta.keywords` (ES/EN) por industria |
+
+Verificación local: `/sitemap.xml`, `/robots.txt`, `/es/opengraph-image` y el JSON-LD embebido en el HTML (`"@type"`).
+
 ### Sistema de vida y originalidad (UI UX Pro Max)
 
 El skill `ui-ux-pro-max` (`.opencode/skills/`) aporta la capa de motion y estilos:

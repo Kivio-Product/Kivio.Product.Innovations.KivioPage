@@ -1,10 +1,19 @@
 import Image from "next/image";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
 import { Parallax } from "@/components/motion/motion";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import { PageHero } from "@/components/shared/PageHero";
 import { ContactBlock } from "@/components/shared/ContactForm";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: `${d.merkko.title} — ${d.portfolio.items[1].tag}`,
+    description: d.merkko.lead,
+    path: "portafolio/merkko",
+  }));
+}
 
 export default async function MerkkoPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -12,7 +21,7 @@ export default async function MerkkoPage({ params }: { params: Promise<{ lang: s
 
   return (
     <>
-      <PageHero title={dict.merkko.title} lead={dict.merkko.lead} leadScroll>
+      <PageHero lang={lang} path="portafolio/merkko" title={dict.merkko.title} lead={dict.merkko.lead} leadScroll>
         <Image src="/images/pages/merkko-logo-big.png" alt="Merkko" width={320} height={100} className="mb-6 h-16 w-auto object-contain" />
         <Button href="https://merkko.com.co/" external>
           {dict.common.viewResult}

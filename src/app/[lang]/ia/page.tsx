@@ -1,5 +1,8 @@
 import { ArrowUpRight, Brain, Compass, Database, Radar, ShieldCheck, Workflow } from "lucide-react";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { serviceSchema } from "@/lib/seo";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import { ActiveCard, FadeUp, SpotlightCard, Stagger, Typewriter } from "@/components/motion/motion";
@@ -11,13 +14,29 @@ import { href, routes, social } from "@/lib/utils";
 
 const useIcons = [Radar, Workflow, Database, Brain, Compass, ShieldCheck];
 
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: d.ai.title,
+    description: d.ai.lead,
+    path: "ia",
+  }));
+}
+
 export default async function AiPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (
     <>
-      <PageHero kicker={dict.ai.kicker} title={dict.ai.title} lead={dict.ai.lead} leadScroll>
+      <JsonLd
+        data={serviceSchema({
+          name: dict.ai.title,
+          description: dict.ai.lead,
+          path: "ia",
+          serviceType: "Inteligencia Artificial y transformación IA-Native",
+        })}
+      />
+      <PageHero lang={lang} path="ia" kicker={dict.ai.kicker} title={dict.ai.title} lead={dict.ai.lead} leadScroll>
         <div className="flex flex-wrap gap-3">
           <Button href={href(lang, routes.contact)}>{dict.common.contactUs}</Button>
           <Button href={href(lang, routes.kivi)} variant="outline">

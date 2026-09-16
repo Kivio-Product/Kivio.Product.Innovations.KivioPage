@@ -1,10 +1,19 @@
 import Image from "next/image";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
 import { ProductGrid } from "@/components/shared/ProductGrid";
 import { ContactBlock } from "@/components/shared/ContactForm";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: `${d.flyr.title} — ${d.portfolio.items[0].tag}`,
+    description: d.flyr.lead,
+    path: "portafolio/flyr",
+  }));
+}
 
 export default async function FlyrPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -12,7 +21,7 @@ export default async function FlyrPage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
-      <PageHero title={dict.flyr.title} lead={dict.flyr.lead} leadScroll>
+      <PageHero lang={lang} path="portafolio/flyr" title={dict.flyr.title} lead={dict.flyr.lead} leadScroll>
         <div className="mb-8 flex flex-wrap items-center gap-8">
           <Image src="/images/pages/flyr-logo-big.png" alt="FLYR" width={220} height={40} className="h-8 w-auto object-contain dark:invert-0" />
           <Image src="/images/pages/newshore-logo.png" alt="Newshore" width={220} height={48} className="h-10 w-auto object-contain" />

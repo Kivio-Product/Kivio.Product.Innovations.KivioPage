@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
 import { PageHero } from "@/components/shared/PageHero";
 import { SpotlightCard, Stagger } from "@/components/motion/motion";
 import { Container, Section } from "@/components/ui/Container";
@@ -12,13 +13,21 @@ const slugs: Record<string, string> = {
   bidmax: routes.bidmax,
 };
 
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: d.portfolio.title,
+    description: d.portfolio.lead,
+    path: "portafolio",
+  }));
+}
+
 export default async function PortfolioPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (
     <>
-      <PageHero title={dict.portfolio.title} lead={dict.portfolio.lead} leadScroll />
+      <PageHero lang={lang} path="portafolio" title={dict.portfolio.title} lead={dict.portfolio.lead} leadScroll />
       <Section>
         <Container>
           <Stagger className="grid gap-5 sm:grid-cols-2">

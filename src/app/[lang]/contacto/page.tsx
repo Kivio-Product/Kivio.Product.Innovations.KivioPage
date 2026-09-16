@@ -1,20 +1,28 @@
 import Image from "next/image";
 import { Mail, MapPin, MessageCircle } from "lucide-react";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
 import { PageHero } from "@/components/shared/PageHero";
 import { FadeUp } from "@/components/motion/motion";
 import { ContactForm } from "@/components/shared/ContactForm";
 import { Container, Section } from "@/components/ui/Container";
 import { social } from "@/lib/utils";
 
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: d.contact.title,
+    description: d.contact.lead,
+    path: "contacto",
+  }));
+}
+
 export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const dict = getDictionary(lang);
-  void lang;
 
   return (
     <>
-      <PageHero title={dict.contact.title} lead={dict.contact.lead} leadScroll />
+      <PageHero lang={lang} path="contacto" title={dict.contact.title} lead={dict.contact.lead} leadScroll />
       <Section className="pt-4">
         <Container className="grid gap-10 lg:grid-cols-2">
           <FadeUp>

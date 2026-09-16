@@ -1,10 +1,19 @@
 import Image from "next/image";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
 import { Parallax } from "@/components/motion/motion";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import { PageHero } from "@/components/shared/PageHero";
 import { ContactBlock } from "@/components/shared/ContactForm";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: `${d.nutrir.title} — ${d.portfolio.items[2].tag}`,
+    description: d.nutrir.lead,
+    path: "portafolio/nutrir",
+  }));
+}
 
 export default async function NutrirPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -12,7 +21,7 @@ export default async function NutrirPage({ params }: { params: Promise<{ lang: s
 
   return (
     <>
-      <PageHero title={dict.nutrir.title} lead={dict.nutrir.lead} leadScroll>
+      <PageHero lang={lang} path="portafolio/nutrir" title={dict.nutrir.title} lead={dict.nutrir.lead} leadScroll>
         <Image src="/images/pages/nutrir-logo-big.png" alt="Nutrir" width={220} height={160} className="mb-6 h-28 w-auto object-contain" />
         <Button href="https://www.nutrirong.com/" external>
           {dict.common.viewResult}

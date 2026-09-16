@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Heart, Lightbulb, Medal, Monitor, Scale, Sparkles } from "lucide-react";
 import { getDictionary } from "@/i18n";
+import { pageMetadata } from "@/lib/page-seo";
 import { Container, Section } from "@/components/ui/Container";
 import { PageHero } from "@/components/shared/PageHero";
 import { FadeUp, Parallax, ScrollText, SpotlightCard, Stagger } from "@/components/motion/motion";
@@ -10,13 +11,21 @@ import { ContactBlock } from "@/components/shared/ContactForm";
 
 const icons = [Medal, Heart, Lightbulb, Sparkles, Scale, Monitor];
 
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  return pageMetadata(params, (d) => ({
+    title: d.about.title,
+    description: d.about.lead,
+    path: "sobre-nosotros",
+  }));
+}
+
 export default async function AboutPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (
     <>
-      <PageHero title={dict.about.title} lead={dict.about.lead} leadScroll />
+      <PageHero lang={lang} path="sobre-nosotros" title={dict.about.title} lead={dict.about.lead} leadScroll />
       <Section>
         <Container className="grid items-center gap-12 lg:grid-cols-2">
           <div>
