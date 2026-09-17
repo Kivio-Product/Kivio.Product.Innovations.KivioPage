@@ -40,14 +40,34 @@ export function LogoMarquee({ lang, title }: { lang: string; title: string }) {
               className="logo-cell group flex h-[88px] w-[200px] shrink-0 items-center justify-center rounded-2xl border border-border bg-surface-2 px-6 transition duration-300 hover:-translate-y-0.5 hover:border-accent/45 hover:bg-surface dark:bg-surface dark:hover:bg-surface-2"
             >
               <span className={`relative block ${logoSizes[c.href] ?? "h-10 w-[150px]"}`}>
-                {/* grayscale art in light, color in dark — FLYR's color mark is white, so it uses the mono file */}
-                <Image
-                  src={c.href === "flyr" ? c.dark : c.color}
-                  alt={c.name}
-                  fill
-                  sizes="150px"
-                  className="object-contain transition duration-300 group-hover:scale-[1.04]"
-                />
+                {c.href === "flyr" ? (
+                  <>
+                    {/* FLYR's color mark is white + purple dots: crossfade to it on hover over the dark surface */}
+                    <Image
+                      src={c.dark}
+                      alt={c.name}
+                      fill
+                      sizes="150px"
+                      className="object-contain transition duration-300 group-hover:scale-[1.04] dark:group-hover:opacity-0"
+                    />
+                    <Image
+                      src={c.color}
+                      alt=""
+                      aria-hidden
+                      fill
+                      sizes="150px"
+                      className="object-contain opacity-0 transition duration-300 group-hover:scale-[1.04] dark:group-hover:opacity-100"
+                    />
+                  </>
+                ) : (
+                  <Image
+                    src={c.color}
+                    alt={c.name}
+                    fill
+                    sizes="150px"
+                    className="object-contain transition duration-300 group-hover:scale-[1.04]"
+                  />
+                )}
               </span>
             </Link>
           ))}
