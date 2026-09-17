@@ -93,6 +93,12 @@ Velo adaptativo por tema: `white/75` en claro · `black/45` en oscuro (secciones
 
 Verificación local: `/sitemap.xml`, `/robots.txt`, `/es/opengraph-image` y el JSON-LD embebido en el HTML (`"@type"`).
 
+### Google Search Console
+
+`public/google88210860d2a53fdc.html` es el archivo de verificación de propiedad del dominio (método "HTML file"). Se sirve en `https://www.kivio.com.co/google88210860d2a53fdc.html` (el middleware lo deja pasar porque la ruta contiene un punto). **No lo borres**, incluso después de verificar.
+
+Pasos tras el deploy: Search Console → Verificar → Sitemaps → enviar `sitemap.xml`.
+
 ### Sistema de vida y originalidad (UI UX Pro Max)
 
 El skill `ui-ux-pro-max` (`.opencode/skills/`) aporta la capa de motion y estilos:
