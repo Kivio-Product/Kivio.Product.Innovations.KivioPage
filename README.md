@@ -87,6 +87,7 @@ Velo adaptativo por tema: `white/75` en claro · `black/45` en oscuro (secciones
 | `sitemap.xml` | 32 URLs con `alternates.languages` (`src/app/sitemap.ts`) |
 | `robots.txt` | Allow total, `Disallow: /api/`, referencia al sitemap, `Host` |
 | `manifest.webmanifest` | Nombre, colores de marca, iconos (`src/app/manifest.ts`) |
+| Favicon / iconos | Zorro Kivio (`logo-mark.png`) en `16/32/48/96/192` + `apple-touch-icon.png` (180, fondo negro) + `favicon.ico` multi-tamaño; declarados en `icons` del layout |
 | Rendimiento | `optimizePackageImports` (lucide), AVIF/WebP, cache inmutable de assets, `poweredByHeader: false` |
 | Seguridad | `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, HSTS |
 | Keyword map | `dict.meta.keywords` (ES/EN) por industria |
