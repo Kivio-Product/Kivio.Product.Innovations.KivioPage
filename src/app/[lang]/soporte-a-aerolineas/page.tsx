@@ -6,7 +6,8 @@ import { serviceSchema } from "@/lib/seo";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { PageHero, FeatureGrid } from "@/components/shared/PageHero";
-import { Parallax, ScrollSteps, ScrollText } from "@/components/motion/motion";
+import { ScrollSteps, ScrollText } from "@/components/motion/motion";
+import { AmbientVideo } from "@/components/shared/AmbientVideo";
 import { ContactBlock } from "@/components/shared/ContactForm";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
@@ -77,20 +78,27 @@ export default async function AirlinesPage({ params }: { params: Promise<{ lang:
           />
         </Container>
       </Section>
-      <Section className="bg-bg-soft">
-        <Container>
-          <Eyebrow>{dict.airlines.ecosystemTitle}</Eyebrow>
-          <h2 className="max-w-3xl font-display text-3xl text-fg sm:text-4xl">{dict.airlines.supportTitle}</h2>
-          <ScrollText text={dict.airlines.supportLead} className="mt-4 max-w-2xl text-muted" />
-          <Parallax speed={0.06}>
-            <Image
-              src="/images/pages/kivio-avion.png"
-              alt=""
-              width={1025}
-              height={328}
-              className="my-10 w-full object-contain"
-            />
-          </Parallax>
+      <Section id="airline-ecosystem" className="relative isolate overflow-hidden">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-72 aspect-video sm:top-32 sm:aspect-auto sm:h-[620px] lg:top-20 lg:h-[760px] [mask-image:linear-gradient(to_bottom,transparent,black_22%,black_68%,transparent)]"
+          aria-hidden
+        >
+          <AmbientVideo
+            lg="/media/airplane-landing-v1-lg.mp4"
+            md="/media/airplane-landing-v1-md.mp4"
+            poster="/media/airplane-landing-v1-poster.webp"
+            veil="none"
+            blend={false}
+          />
+          <div className="absolute inset-0 bg-bg/55 dark:bg-bg/10" />
+          <div className="absolute inset-0 bg-linear-to-r from-bg via-transparent to-bg" />
+        </div>
+        <Container className="relative">
+          <div className="min-h-[440px] sm:min-h-[560px] lg:min-h-[620px]">
+            <Eyebrow>{dict.airlines.ecosystemTitle}</Eyebrow>
+            <h2 className="max-w-3xl font-display text-3xl text-fg sm:text-4xl">{dict.airlines.supportTitle}</h2>
+            <ScrollText text={dict.airlines.supportLead} className="mt-4 max-w-2xl text-muted" />
+          </div>
           <FeatureGrid items={dict.airlines.solutions} />
         </Container>
       </Section>

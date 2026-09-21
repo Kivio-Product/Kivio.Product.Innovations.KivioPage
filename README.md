@@ -69,6 +69,7 @@ Componente: `src/components/shared/AmbientVideo.tsx`.
 | `ai-chat` | Sección IA-Native (home) + hero de `/ia` | 580 / 258 KB |
 | `abstract-blue` | Sección "Lo que construimos, en acción" (carrusel) | 357 / 156 KB |
 | `servers` | Hero de `/soporte-a-aerolineas` | 388 / 158 KB |
+| `airplane-landing-v1` | Fondo ambiental del ecosistema de aerolíneas, a todo el ancho con degradados y velo por tema | 477 / 151 KB + poster WebP de 13 KB |
 | `glass-corridor` | Hero de `/servicios` | 395 / 161 KB |
 | `night-phone` | Sección de contacto del home · "responde mientras duermes" | 357 / 153 KB |
 | `ai-brain` (vertical 9:16) | Tarjeta de marca en `/productos/kivi-ia` (logo KIVI AI animado, sin velo) | 545 / 314 KB |
