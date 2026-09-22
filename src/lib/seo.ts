@@ -27,6 +27,9 @@ export function buildMetadata({
   const esUrl = absoluteUrl("es", clean);
   const enUrl = absoluteUrl("en", clean);
   const url = lang === "en" ? enUrl : esUrl;
+  /* the generated card lives in the [lang] segment (see app/[lang]/opengraph-image.tsx);
+     it must be referenced explicitly or Next omits it when openGraph is defined here */
+  const imageUrl = absoluteUrl(lang, "opengraph-image");
   return {
     title,
     description,
@@ -41,8 +44,9 @@ export function buildMetadata({
       siteName: SITE_NAME,
       type,
       locale: lang === "en" ? "en_US" : "es_CO",
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: SITE_NAME }],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: [imageUrl] },
   };
 }
 

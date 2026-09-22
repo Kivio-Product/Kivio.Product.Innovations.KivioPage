@@ -40,3 +40,6 @@ next-env.d.ts
 # local visual QA artifacts
 /shots
 /shots-report.json
+
+# local server/build logs
+*.log

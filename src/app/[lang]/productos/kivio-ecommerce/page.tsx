@@ -134,8 +134,8 @@ export default async function EcommercePage({ params }: { params: Promise<{ lang
           </Button>
         </Container>
       </Section>
-      {/* ── CTA (background video) ───────────────────────────── */}
-      <Section className="relative isolate overflow-hidden">
+      {/* ── CTA (full background video: tall band so the phones read in full) ── */}
+      <section className="relative isolate flex min-h-[460px] items-center overflow-hidden py-16 sm:min-h-[520px] lg:min-h-[620px]">
         <AmbientVideo
           lg="/media/ecommerce-cta-v1-lg.mp4"
           md="/media/ecommerce-cta-v1-md.mp4"
@@ -145,15 +145,13 @@ export default async function EcommercePage({ params }: { params: Promise<{ lang
           blend={false}
         />
         <div
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--bg)_50%,transparent)_0%,color-mix(in_srgb,var(--bg)_80%,transparent)_36%,color-mix(in_srgb,var(--bg)_80%,transparent)_64%,color-mix(in_srgb,var(--bg)_50%,transparent)_100%)] dark:bg-[linear-gradient(180deg,color-mix(in_srgb,var(--bg)_28%,transparent)_0%,color-mix(in_srgb,var(--bg)_64%,transparent)_36%,color-mix(in_srgb,var(--bg)_64%,transparent)_64%,color-mix(in_srgb,var(--bg)_28%,transparent)_100%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--bg)_44%,transparent)_0%,color-mix(in_srgb,var(--bg)_76%,transparent)_40%,color-mix(in_srgb,var(--bg)_76%,transparent)_60%,color-mix(in_srgb,var(--bg)_44%,transparent)_100%)] dark:bg-[linear-gradient(180deg,color-mix(in_srgb,var(--bg)_20%,transparent)_0%,color-mix(in_srgb,var(--bg)_58%,transparent)_40%,color-mix(in_srgb,var(--bg)_58%,transparent)_60%,color-mix(in_srgb,var(--bg)_20%,transparent)_100%)]"
           aria-hidden
         />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b from-bg to-transparent" aria-hidden />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-bg to-transparent" aria-hidden />
         <Container className="relative text-center">
           <h2 className="mx-auto max-w-3xl font-display text-3xl text-fg sm:text-4xl">{dict.ecommerce.ctaTitle}</h2>
         </Container>
-      </Section>
+      </section>
       <ContactBlock dict={dict} />
     </>
   );
