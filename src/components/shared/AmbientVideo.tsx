@@ -136,6 +136,21 @@ export function AmbientVideo({
     };
     document.addEventListener("visibilitychange", onVisibility);
 
+    /* iOS (Low Power Mode / Low Data Mode) blocks muted autoplay until the first user
+       gesture: retry on the first touch, scroll or key press, then stop listening. */
+    const gestureEvents: (keyof WindowEventMap)[] = ["touchstart", "pointerdown", "click", "scroll", "keydown"];
+    const removeGestureListeners = () => {
+      gestureEvents.forEach((event) => window.removeEventListener(event, onGesture));
+    };
+    const onGesture = () => {
+      if (!wantedRef.current || !video.src) return;
+      video
+        .play()
+        .then(() => removeGestureListeners())
+        .catch(() => {});
+    };
+    gestureEvents.forEach((event) => window.addEventListener(event, onGesture, { passive: true }));
+
     /* covers the theme-swap re-run: attaches the new source if the block is already wanted */
     maybeStart();
 
@@ -143,6 +158,7 @@ export function AmbientVideo({
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("load", kickoff);
+      removeGestureListeners();
     };
   }, [activeLg, activeMd]);
 

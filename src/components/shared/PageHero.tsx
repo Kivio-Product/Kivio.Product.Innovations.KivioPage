@@ -15,6 +15,7 @@ export function PageHero({
   lead,
   leadScroll,
   video,
+  grid = true,
   children,
 }: {
   lang?: string;
@@ -25,6 +26,8 @@ export function PageHero({
   lead?: string;
   leadScroll?: boolean;
   video?: { lg: string; md: string; poster: string; immersive?: boolean };
+  /** background blueprint grid (disable when a video already carries the texture) */
+  grid?: boolean;
   children?: React.ReactNode;
 }) {
   const dict = lang ? getDictionary(lang) : null;
@@ -58,7 +61,7 @@ export function PageHero({
           aria-hidden
         />
       )}
-      <div className="pointer-events-none absolute inset-0 grid-pattern opacity-30" aria-hidden />
+      {grid && <div className="pointer-events-none absolute inset-0 grid-pattern opacity-30" aria-hidden />}
       {lang && path !== undefined && (
         <JsonLd
           data={breadcrumbSchema(lang, [
