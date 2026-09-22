@@ -69,6 +69,9 @@ Componente: `src/components/shared/AmbientVideo.tsx`.
 | `ai-chat` | Sección IA-Native (home) + hero de `/ia` | 580 / 258 KB |
 | `abstract-blue` | Sección "Lo que construimos, en acción" (carrusel) | 357 / 156 KB |
 | `servers` | Hero de `/soporte-a-aerolineas` | 388 / 158 KB |
+| `critical-globe-v1` | Sistemas críticos de la home: globo como fondo a todo el ancho, con degradados por tema | 1.02 MB / 292 KB + poster WebP de 25 KB |
+| `cms-editor-v1` | Banner de Kivio CMS: fondo inmersivo, degradado por tema y poster prioritario | 1.28 MB / 370 KB + poster WebP de 34 KB |
+| `cms-publishing-v1` | Capacidades de Kivio CMS: fondo a todo el ancho con lista superpuesta y degradados por tema | 959 / 310 KB + poster WebP de 39 KB |
 | `airplane-landing-v1` | Fondo ambiental del ecosistema de aerolíneas, a todo el ancho con degradados y velo por tema | 477 / 151 KB + poster WebP de 13 KB |
 | `glass-corridor` | Hero de `/servicios` | 395 / 161 KB |
 | `night-phone` | Sección de contacto del home · "responde mientras duermes" | 357 / 153 KB |

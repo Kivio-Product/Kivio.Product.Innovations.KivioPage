@@ -24,20 +24,40 @@ export function PageHero({
   title: string;
   lead?: string;
   leadScroll?: boolean;
-  video?: { lg: string; md: string; poster: string };
+  video?: { lg: string; md: string; poster: string; immersive?: boolean };
   children?: React.ReactNode;
 }) {
   const dict = lang ? getDictionary(lang) : null;
   return (
     <section
       className={
-        video
+        video?.immersive
+          ? "relative isolate min-h-[580px] overflow-hidden pt-10 pb-16 sm:min-h-[600px] sm:pt-16 sm:pb-20 lg:min-h-[620px] lg:pt-20"
+          : video
           ? "relative overflow-hidden pt-20 pb-20 sm:pt-28 sm:pb-28"
           : "relative overflow-hidden pt-16 pb-14 sm:pt-24 sm:pb-18"
       }
     >
       <div className="aurora" aria-hidden />
-      {video && <AmbientVideo lg={video.lg} md={video.md} poster={video.poster} intensity="hero" />}
+      {video && (
+        <div className={video.immersive ? "pointer-events-none absolute inset-x-0 top-0 h-[440px] sm:h-full lg:left-[28%]" : "absolute inset-0"}>
+        <AmbientVideo
+          lg={video.lg}
+          md={video.md}
+          poster={video.poster}
+          intensity="hero"
+          priority={video.immersive}
+          veil={video.immersive ? "none" : undefined}
+          mediaClassName={video.immersive ? "object-top" : undefined}
+        />
+        </div>
+      )}
+      {video?.immersive && (
+        <div
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--bg)_82%,transparent)_0%,color-mix(in_srgb,var(--bg)_76%,transparent)_50%,var(--bg)_88%)] lg:bg-[linear-gradient(90deg,var(--bg)_28%,color-mix(in_srgb,var(--bg)_92%,transparent)_36%,color-mix(in_srgb,var(--bg)_55%,transparent)_48%,transparent_68%)]"
+          aria-hidden
+        />
+      )}
       <div className="pointer-events-none absolute inset-0 grid-pattern opacity-30" aria-hidden />
       {lang && path !== undefined && (
         <JsonLd
@@ -71,10 +91,10 @@ export function PageHero({
             (leadScroll ? (
               <ScrollText
                 text={lead}
-                className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg"
+                className={`mt-6 ${video?.immersive ? "max-w-lg" : "max-w-2xl"} text-base leading-relaxed text-muted sm:text-lg`}
               />
             ) : (
-              <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">{lead}</p>
+              <p className={`mt-6 ${video?.immersive ? "max-w-lg" : "max-w-2xl"} text-base leading-relaxed text-muted sm:text-lg`}>{lead}</p>
             ))}
           {children && <div className="mt-8">{children}</div>}
         </FadeUp>

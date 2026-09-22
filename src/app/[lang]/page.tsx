@@ -166,7 +166,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </Container>
       </Section>
 
-      {/* ── CASE STUDIES + OWN PRODUCTS ──────────────────────── */}
+      {/* ── CASE STUDIES ────────────────────────────────────── */}
       <Section className="border-y border-border bg-bg-soft">
         <Container>
           <SectionHeading
@@ -218,15 +218,57 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             ))}
           </Stagger>
 
-          {/* own products */}
-          <div className="mt-16 border-t border-border pt-12">
+        </Container>
+      </Section>
+
+      {/* ── CRITICAL SYSTEMS / SECTORS ───────────────────────── */}
+      <Section id="critical-systems" className="relative isolate overflow-hidden lg:min-h-[680px]">
+        <div className="pointer-events-none absolute inset-0" aria-hidden>
+          <AmbientVideo
+            lg="/media/critical-globe-v1-lg.mp4"
+            md="/media/critical-globe-v1-md.mp4"
+            poster="/media/critical-globe-v1-poster.webp"
+            mediaClassName="object-[25%_center] lg:object-center"
+            veil="none"
+            blend={false}
+          />
+          <div className="absolute inset-0 bg-bg/80 dark:bg-bg/65 lg:bg-transparent lg:bg-[linear-gradient(90deg,color-mix(in_srgb,var(--bg)_35%,transparent),color-mix(in_srgb,var(--bg)_40%,transparent)_35%,color-mix(in_srgb,var(--bg)_94%,transparent)_62%,var(--bg))] dark:lg:bg-transparent dark:lg:bg-[linear-gradient(90deg,transparent_25%,color-mix(in_srgb,var(--bg)_35%,transparent)_48%,color-mix(in_srgb,var(--bg)_90%,transparent)_75%,var(--bg))]" />
+          <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-bg to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-bg to-transparent" />
+        </div>
+        <Container className="relative flex justify-end">
+          <div className="w-full lg:w-[48%]">
+            <SectionHeading kicker={dict.home.criticalKicker} title={dict.home.criticalTitle} className="mb-5" />
+            <div>
+              <ScrollText text={dict.home.criticalP1} className="text-muted" />
+              <ScrollText text={dict.home.criticalP2} className="mt-3 text-muted" />
+              <Button href={href(lang, routes.airlines)} className="mt-8">
+                {dict.home.criticalCta}
+              </Button>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {dict.home.criticalSectors.map((sector, index) => (
+                <span key={sector} className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/65 px-3 py-2 text-xs font-medium text-fg backdrop-blur-sm">
+                  {index === 0 && <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden />}
+                  {sector}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── OWN PRODUCTS ──────────────────────────────────── */}
+      <Section id="own-products" className="bg-bg-soft">
+        <Container>
+          <div>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
                 <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
                   <span className="inline-block h-px w-6 bg-accent" aria-hidden />
                   {dict.home.productsKicker}
                 </p>
-                <h3 className="mt-3 font-display text-2xl text-fg sm:text-3xl">{dict.home.productsTitle}</h3>
+                <h2 className="mt-3 font-display text-2xl text-fg sm:text-3xl">{dict.home.productsTitle}</h2>
               </div>
               <p className="max-w-md text-sm leading-relaxed text-muted">{dict.home.showcase.lead}</p>
             </div>
@@ -254,7 +296,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                       />
                     </div>
                     <div className="flex flex-1 flex-col p-5">
-                      <h4 className="text-base font-semibold text-fg">{p.title}</h4>
+                      <h3 className="text-base font-semibold text-fg">{p.title}</h3>
                       <p className="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
                       <span className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold text-accent">
                         {dict.common.seeMore}{" "}
@@ -275,44 +317,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               {dict.home.resultsCta}
             </Button>
           </FadeUp>
-        </Container>
-      </Section>
-
-      {/* ── CRITICAL SYSTEMS / SECTORS ───────────────────────── */}
-      <Section className="overflow-hidden">
-        <Container className="grid items-center gap-12 lg:grid-cols-2">
-          <FadeUp>
-            <div className="relative overflow-hidden rounded-[25px] grain">
-              <Parallax speed={0.06}>
-                <Image
-                  src="/images/pages/avion-atardecer.png"
-                  alt=""
-                  width={900}
-                  height={680}
-                  className="h-[380px] w-full scale-110 object-cover grayscale-[35%] contrast-125 sm:h-[460px]"
-                />
-              </Parallax>
-              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
-              <div className="glass absolute bottom-5 left-5 right-5 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-2xl px-5 py-3.5 text-xs font-medium text-white">
-                {dict.home.criticalSectors.map((s, i) => (
-                  <span key={s} className="inline-flex items-center gap-2">
-                    {i === 0 && <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-emerald-400" />}
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </FadeUp>
-          <div>
-            <SectionHeading kicker={dict.home.criticalKicker} title={dict.home.criticalTitle} className="mb-5" />
-            <div>
-              <ScrollText text={dict.home.criticalP1} className="text-muted" />
-              <ScrollText text={dict.home.criticalP2} className="mt-3 text-muted" />
-              <Button href={href(lang, routes.airlines)} className="mt-8">
-                {dict.home.criticalCta}
-              </Button>
-            </div>
-          </div>
         </Container>
       </Section>
 
