@@ -114,6 +114,25 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
         </Container>
       </Section>
 
+      <Section id="diagnostico-ia" className="pt-0 sm:pt-0 lg:pt-0">
+        <Container>
+          <FadeUp>
+            <div className="gradient-border grid items-center gap-8 rounded-[25px] p-7 sm:p-10 lg:grid-cols-[1.3fr_0.7fr]">
+              <div>
+                <SectionHeading kicker={dict.services.aiOffer.kicker} title={dict.services.aiOffer.title} />
+                <p className="mt-5 max-w-2xl leading-relaxed text-muted">{dict.services.aiOffer.body}</p>
+              </div>
+              <div className="lg:justify-self-end">
+                <Button href={href(lang, routes.ai)} className="h-auto min-h-[52px] py-3 text-center">
+                  {dict.services.aiOffer.cta} <ArrowRight size={16} className="shrink-0" aria-hidden />
+                </Button>
+                <p className="mt-4 text-sm text-muted">{dict.services.aiOffer.note}</p>
+              </div>
+            </div>
+          </FadeUp>
+        </Container>
+      </Section>
+
       {/* ── COLLABORATION MODELS ─────────────────────────────── */}
       <Section className="border-y border-border bg-bg-soft">
         <Container>

@@ -136,11 +136,13 @@ export function serviceSchema({
   description,
   path,
   serviceType,
+  lang = "es",
 }: {
   name: string;
   description: string;
   path: string;
   serviceType: string;
+  lang?: "es" | "en";
 }) {
   return {
     "@context": "https://schema.org",
@@ -148,7 +150,7 @@ export function serviceSchema({
     name,
     description,
     serviceType,
-    url: absoluteUrl("es", path),
+    url: absoluteUrl(lang, path),
     provider: { "@id": `${SITE_URL}/#organization` },
     areaServed: [
       { "@type": "Country", name: "Colombia" },

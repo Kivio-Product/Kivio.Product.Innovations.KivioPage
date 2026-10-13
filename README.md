@@ -18,14 +18,14 @@ Abre [http://localhost:3000](http://localhost:3000). Redirige a `/es`. Inglés e
 3. Root Directory: esta carpeta (`KIMI K3` si el repo es el padre).
 4. Deploy. Sin variables de entorno.
 
-El formulario de contacto responde `200` en `/api/contact`. Conecta Resend, Formspree o un webhook si quieres correo real; si falla, el cliente abre `mailto:admin@kivio.com.co`.
+El formulario envía a `/api/contact`, que valida los datos y requiere Resend o un webhook configurado para entregar el mensaje. Ante un fallo, conserva los campos y ofrece un enlace de correo con el contenido preparado.
 
 ## Páginas
 
 | Ruta | Contenido |
 | --- | --- |
 | `/es` `/en` | Inicio |
-| `/es/ia` | IA-Native |
+| `/es/ia` `/en/ia` | Diagnóstico de procesos, formación en IA y automatización |
 | `/es/servicios` | Servicios y paquetes |
 | `/es/soporte-a-aerolineas` | Aerolíneas PSS/IBE |
 | `/es/sobre-nosotros` | Sobre nosotros |
@@ -49,7 +49,7 @@ Tokens y voz de `KIVIO-SAS---Inicio` (DESIGN.md): negro Kivio, naranja `#f66e4c`
 
 - Titular centrado con **palabra rotativa** (`RotatingWord`: Software → IA → eCommerce) en una línea propia con degradado de marca. Sin layout shift: las palabras se apilan en la misma celda de grid.
 - Visual editorial con **foto de workspace** + **tarjetas flotantes de cristal** ("IA que no duerme", "Deploy sin drama", "Resultados medibles", "Pasajeros primero") animadas con `float` (se detienen con `prefers-reduced-motion`).
-- Sin logos de clientes en el hero (viven en el marquee de abajo) y sin demo de chat (vive en `/es/ia`).
+- Los logos de clientes viven en el marquee de abajo. La página de IA presenta la oferta de diagnóstico y formación; KIVI es una solución relacionada al final.
 
 > Crédito de imagen: foto de Jakub Żerdzicki vía [Unsplash](https://unsplash.com/photos/coding-on-dual-monitors-S8E1yLUNAw8) (Unsplash License, uso comercial libre).
 
@@ -57,6 +57,18 @@ Tokens y voz de `KIVIO-SAS---Inicio` (DESIGN.md): negro Kivio, naranja `#f66e4c`
 
 `npm run shots` captura screenshots en 375/768/1024/1440 (claro y oscuro) y reporta scroll horizontal.
 Requiere instalar Playwright aparte: `npm i -D playwright && npx playwright install chromium` (no está en `package.json` para que Vercel no descargue navegadores).
+
+### Oferta de diagnóstico y formación
+
+`/es/ia` y `/en/ia` distinguen la conversación inicial gratuita de 30 minutos del diagnóstico y los talleres pagados. El alcance y el precio se definen por empresa; las iniciativas de implementación se cotizan por separado. Los ejemplos de procesos son ilustrativos.
+
+Todos los formularios capturan la ruta actual de la página, sin parámetros ni fragmento. `/api/contact` acepta el campo opcional `sourcePath`, lo valida y lo incluye en el asunto y el cuerpo del correo; también lo entrega al webhook. Las solicitudes antiguas sin este campo siguen siendo válidas y el correo indica «Página de origen: No informada». El enlace alternativo de correo también incluye la ruta.
+
+El formulario de IA añade empresa (opcional) y servicio dentro de `message`. El campo visible de empresa se llama `organizationName`; `company` sigue siendo el campo oculto antispam.
+
+Los scripts auxiliares `scripts/qa-*` son herramientas locales de verificación y están excluidos de Git. La revisión de esta oferta cubre ambos idiomas, claro/oscuro, 320–1440 px, teclado, movimiento reducido, SEO y entregas simuladas por correo/webhook; sus capturas e informes se guardan fuera del repositorio.
+
+Para evaluar la oferta comercial, registra por mes solicitudes desde `/es/ia` y `/en/ia`, conversaciones calificadas realizadas, propuestas solicitadas y diagnósticos contratados. El origen y el servicio incluidos en cada mensaje permiten identificar esta línea. La coordinación de llamadas se realiza manualmente.
 
 ## Videos ambientales
 
@@ -66,7 +78,7 @@ Componente: `src/components/shared/AmbientVideo.tsx`.
 | Video | Sección | Peso desktop / móvil |
 | --- | --- | --- |
 | `hero-geometric` (oscuro) + `space` (claro) | Hero de la home (variante por tema, zoom `scale-[1.3] origin-bottom`, `videoOpacity={0.8}` + velo `black/35`) | 1.3 MB/539 KB · 206/83 KB |
-| `ai-chat` | Sección IA-Native (home) + hero de `/ia` | 580 / 258 KB |
+| `ai-chat` | Sección de diagnóstico y formación (home) + hero de `/ia` | 580 / 258 KB |
 | `abstract-blue` | Sección "Lo que construimos, en acción" (carrusel) | 357 / 156 KB |
 | `servers` | Hero de `/soporte-a-aerolineas` | 388 / 158 KB |
 | `critical-globe-v1` | Sistemas críticos de la home: globo como fondo a todo el ancho, con degradados por tema | 1.02 MB / 292 KB + poster WebP de 25 KB |

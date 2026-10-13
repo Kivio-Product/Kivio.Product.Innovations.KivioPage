@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Brain, Check, Compass, Network, Rocket, Shield, ShieldCheck, Sparkles, Users } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, ClipboardList, Compass, GraduationCap, Network, Rocket, ShieldCheck, Users, Workflow } from "lucide-react";
 import { getDictionary } from "@/i18n";
 import { pageMetadata } from "@/lib/page-seo";
 import { SITE_NAME } from "@/lib/seo";
@@ -15,7 +15,6 @@ import {
   ScrollText,
   SpotlightCard,
   Stagger,
-  Typewriter,
 } from "@/components/motion/motion";
 import { AmbientVideo } from "@/components/shared/AmbientVideo";
 import { HeroDiagram } from "@/components/shared/HeroDiagram";
@@ -320,7 +319,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </Container>
       </Section>
 
-      {/* ── AI-NATIVE (modernization capability) ─────────────── */}
+      {/* ── PROCESS ASSESSMENT AND TRAINING ─────────────────── */}
       <Section className="relative overflow-hidden border-y border-border">
         <AmbientVideo
           lg="/media/ai-chat-lg.mp4"
@@ -335,18 +334,18 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <div className="grid gap-5 lg:grid-cols-12">
             <FadeUp className="lg:col-span-5">
               <SpotlightCard className="gradient-border h-full rounded-[25px] p-7 sm:p-8">
-                <p className="font-mono text-xs text-accent">$ kivio init --ai-native</p>
-                <p className="mt-5 font-display text-xl leading-snug text-fg sm:text-2xl">
-                  <Typewriter text={dict.home.aiLead} speed={14} startDelay={500} />
+                <p className="font-display text-xl leading-relaxed text-fg sm:text-2xl">
+                  {dict.home.aiLead}
                 </p>
-                <Button href={href(lang, routes.ai)} className="mt-8">
+                <Button href={href(lang, routes.ai)} className="mt-8 h-auto min-h-[52px] py-3 text-center">
                   {dict.home.aiCta} <ArrowRight size={16} />
                 </Button>
+                <p className="mt-4 text-sm text-muted">{dict.home.aiNote}</p>
               </SpotlightCard>
             </FadeUp>
             <Stagger className="grid gap-5 sm:grid-cols-2 lg:col-span-7">
               {aiSection.map((p, i) => {
-                const Icon = [Compass, Brain, Shield, Sparkles][i % 4];
+                const Icon = [Compass, GraduationCap, ClipboardList, Workflow][i % 4];
                 return (
                   <SpotlightCard
                     key={p.title}

@@ -13,6 +13,7 @@ type Lead = {
   phone: string;
   email: string;
   message: string;
+  sourcePath?: string;
 };
 
 function respond(data: Record<string, unknown>, status: number, headers?: HeadersInit) {
@@ -79,6 +80,14 @@ function cleanMessage(value: unknown, max: number) {
   return clean;
 }
 
+function cleanSourcePath(value: unknown): string | undefined | null {
+  if (value === undefined || value === null || value === "") return undefined;
+  if (typeof value !== "string" || value.length > 500) return null;
+  if (!value.startsWith("/") || value.startsWith("//")) return null;
+  if (/[\s?#\\\u0000-\u001f\u007f]/.test(value)) return null;
+  return value;
+}
+
 function validate(body: unknown): Lead | null {
   if (!body || typeof body !== "object" || Array.isArray(body)) return null;
   const raw = body as Record<string, unknown>;
@@ -88,12 +97,14 @@ function validate(body: unknown): Lead | null {
   const phone = cleanLine(raw.phone, 30);
   const email = cleanLine(raw.email, 254)?.toLowerCase() ?? null;
   const message = cleanMessage(raw.message, 3000);
+  const sourcePath = cleanSourcePath(raw.sourcePath);
 
   if (!firstName || !lastName || !phone || !email || !message) return null;
   if (!EMAIL_RE.test(email)) return null;
   if (!PHONE_RE.test(phone)) return null;
+  if (sourcePath === null) return null;
 
-  return { firstName, lastName, phone, email, message };
+  return { firstName, lastName, phone, email, message, ...(sourcePath ? { sourcePath } : {}) };
 }
 
 function parseRecipients(value: string | undefined) {
@@ -119,11 +130,12 @@ async function deliver(lead: Lead) {
         to: [primary],
         bcc: copy.length ? copy : undefined,
         reply_to: lead.email,
-        subject: `Nuevo contacto web — ${lead.firstName} ${lead.lastName}`,
+        subject: `Nuevo contacto web${lead.sourcePath ? ` [${lead.sourcePath}]` : ""} — ${lead.firstName} ${lead.lastName}`,
         text: [
           `Nombre: ${lead.firstName} ${lead.lastName}`,
           `Teléfono: ${lead.phone}`,
           `Correo: ${lead.email}`,
+          `Página de origen: ${lead.sourcePath ?? "No informada"}`,
           "",
           lead.message,
         ].join("\n"),
