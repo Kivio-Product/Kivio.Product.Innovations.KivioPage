@@ -84,6 +84,9 @@ export const en = {
   footer: {
     tagline: "Critical systems, always running.",
     contactTitle: "Contact us",
+    recognitionTitle: "Finalists · Premios Ingenio 2026",
+    recognitionCategory: "Breakthrough Technology Company of the Year",
+    recognitionLink: "View finalists at Fedesoft",
   },
   home: {
     heroKicker: "Engineering for systems that cannot fail",

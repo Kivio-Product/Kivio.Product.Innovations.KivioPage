@@ -81,6 +81,9 @@ export const es = {
   footer: {
     tagline: "Sistemas críticos, siempre en operación.",
     contactTitle: "Contáctanos",
+    recognitionTitle: "Finalistas · Premios Ingenio 2026",
+    recognitionCategory: "Empresa Revelación Tecnológica del Año",
+    recognitionLink: "Ver finalistas en Fedesoft",
   },
   home: {
     heroKicker: "Ingeniería para sistemas que no fallan",

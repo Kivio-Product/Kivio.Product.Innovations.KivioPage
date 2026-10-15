@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { ArrowUpRight, Facebook, Instagram, Linkedin } from "lucide-react";
 import type { Dictionary, Locale } from "@/i18n";
 import { href, routes, social } from "@/lib/utils";
 
@@ -23,7 +23,36 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
 
   return (
     <footer className="border-t border-border bg-bg-soft">
-      <div className="mx-auto grid w-full max-w-[1180px] gap-10 px-5 py-16 sm:px-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto w-full max-w-[1180px] px-5 pt-10 sm:px-8">
+        <div className="flex flex-col gap-4 rounded-2xl border border-border bg-bg p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div className="flex items-start gap-4">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+              <Image
+                src="/brand/premios-ingenio-symbol.png"
+                alt=""
+                width={16}
+                height={39}
+                className="h-9 w-auto object-contain"
+                aria-hidden="true"
+              />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-fg">{dict.footer.recognitionTitle}</p>
+              <p className="mt-1 text-sm text-muted">{dict.footer.recognitionCategory}</p>
+            </div>
+          </div>
+          <a
+            href="https://premiosingenio.fedesoft.org/#finalistas2026"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-accent transition-colors hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+          >
+            {dict.footer.recognitionLink}
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+      <div className="mx-auto grid w-full max-w-[1180px] gap-10 px-5 py-12 sm:px-8 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <Link href={href(lang)} className="inline-flex items-center gap-2">
             <Image src="/brand/logo-mark.png" alt="KIVIO" width={32} height={35} />
