@@ -528,3 +528,140 @@ p {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(246, 110, 76, 0.22);
 }
+
+/* ── 3D Stepped Staircase / Escalones 3D (Light & Dark calibrated) ── */
+:root {
+  --step-top: linear-gradient(155deg, #ffffff 0%, #f7f0e8 100%);
+  --step-top-active: linear-gradient(155deg, #ffffff 0%, #fde9de 100%);
+  --step-plate-1: linear-gradient(160deg, #f1e7dc 0%, #e5d7c9 100%);
+  --step-plate-2: linear-gradient(160deg, #e7d9cb 0%, #dac8b7 100%);
+  --step-plate-3: linear-gradient(160deg, #ddccbc 0%, #cfb9a5 100%);
+  --step-plate-active-1: linear-gradient(160deg, #fbd6c6 0%, #f5b89e 100%);
+  --step-plate-active-2: linear-gradient(160deg, #f7bfa8 0%, #ee9c7a 100%);
+  --step-plate-active-3: linear-gradient(160deg, #f2a687 0%, #e67f56 100%);
+  --step-border: #dfd2c5;
+  --step-border-active: rgba(246, 110, 76, 0.78);
+  --step-shadow:
+    0 20px 38px -18px rgba(64, 34, 20, 0.2),
+    0 2px 6px rgba(64, 34, 20, 0.06);
+  --step-shadow-active:
+    0 30px 58px -18px rgba(246, 110, 76, 0.36),
+    0 4px 12px rgba(246, 110, 76, 0.14);
+  --step-grid-line: rgba(189, 64, 32, 0.1);
+}
+
+.dark {
+  --step-top: linear-gradient(155deg, #18181c 0%, #101013 100%);
+  --step-top-active: linear-gradient(155deg, #24140e 0%, #131011 100%);
+  --step-plate-1: linear-gradient(160deg, #202026 0%, #151519 100%);
+  --step-plate-2: linear-gradient(160deg, #1a1a1f 0%, #101014 100%);
+  --step-plate-3: linear-gradient(160deg, #141418 0%, #0b0b0e 100%);
+  --step-plate-active-1: linear-gradient(160deg, #4b2115 0%, #2c130c 100%);
+  --step-plate-active-2: linear-gradient(160deg, #3a1910 0%, #200e09 100%);
+  --step-plate-active-3: linear-gradient(160deg, #2b120c 0%, #150906 100%);
+  --step-border: #2c2c32;
+  --step-border-active: rgba(246, 110, 76, 0.82);
+  --step-shadow:
+    0 24px 48px -18px rgba(0, 0, 0, 0.85),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+  --step-shadow-active:
+    0 32px 64px -16px rgba(246, 110, 76, 0.42),
+    0 0 28px -6px rgba(246, 110, 76, 0.28);
+  --step-grid-line: rgba(246, 110, 76, 0.15);
+}
+
+.perspective-stage {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.grid-plane-3d {
+  background-image:
+    linear-gradient(to right, var(--step-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--step-grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  transform: perspective(700px) rotateX(66deg) scale(1.7);
+  transform-origin: center bottom;
+  animation: grid-flow-3d 10s linear infinite;
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 80%, #000 10%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 80%, #000 10%, transparent 78%);
+}
+
+@keyframes grid-flow-3d {
+  from { background-position: 0 0; }
+  to { background-position: 0 48px; }
+}
+
+/* 3D architectural step tiers underneath each card (Escalones volumétricos hasta el suelo) */
+.step-tier-3d {
+  position: relative;
+  border-radius: 14px;
+  border: 1px solid var(--step-border);
+  background: var(--step-plate-1);
+  box-shadow:
+    5px 5px 0 0 var(--step-border),
+    0 10px 20px -10px rgba(0, 0, 0, 0.25);
+  transform-style: preserve-3d;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.step-tier-3d[data-tier="2"] { background: var(--step-plate-2); }
+.step-tier-3d[data-tier="3"],
+.step-tier-3d[data-tier="4"] { background: var(--step-plate-3); }
+
+.step-tier-3d[data-active="true"] {
+  background: var(--step-plate-active-1);
+  border-color: var(--step-border-active);
+  box-shadow:
+    6px 6px 0 0 rgba(246, 110, 76, 0.38),
+    0 14px 28px -10px rgba(246, 110, 76, 0.32);
+}
+
+.step-tier-3d[data-active="true"][data-tier="2"] {
+  background: var(--step-plate-active-2);
+}
+.step-tier-3d[data-active="true"][data-tier="3"],
+.step-tier-3d[data-active="true"][data-tier="4"] {
+  background: var(--step-plate-active-3);
+}
+
+.step-card-3d {
+  background: var(--step-top);
+  border: 1px solid var(--step-border);
+  box-shadow:
+    6px 6px 0 0 var(--step-border),
+    var(--step-shadow);
+  transform-style: preserve-3d;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    background 0.35s ease;
+}
+
+.step-card-3d[data-active="true"] {
+  background: var(--step-top-active);
+  border-color: var(--step-border-active);
+  box-shadow:
+    7px 7px 0 0 rgba(246, 110, 76, 0.45),
+    var(--step-shadow-active);
+}
+
+@keyframes step-float-wave {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.step-wave-motion {
+  animation: step-float-wave 5.2s ease-in-out infinite;
+}
+
+

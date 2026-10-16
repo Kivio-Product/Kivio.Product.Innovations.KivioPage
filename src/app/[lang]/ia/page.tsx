@@ -8,6 +8,7 @@ import { Container, Section } from "@/components/ui/Container";
 import { FadeUp, SpotlightCard, Stagger } from "@/components/motion/motion";
 import { PageHero } from "@/components/shared/PageHero";
 import { AmbientVideo } from "@/components/shared/AmbientVideo";
+import { AiJourney3D } from "@/components/shared/AiJourney3D";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ContactBlock } from "@/components/shared/ContactForm";
 import { href, routes } from "@/lib/utils";
@@ -204,20 +205,13 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
 
       <Section id="camino" className="scroll-mt-24">
         <Container>
-          <SectionHeading title={ai.journeyTitle} lead={ai.journeyLead} className="mb-12 max-w-3xl" />
-          <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {ai.journey.map((step, i) => (
-              <li key={step.title} className="border-t-2 border-border pt-5 first:border-accent">
-                <span className="font-display text-3xl text-accent" aria-hidden>0{i + 1}</span>
-                <p className="mt-4 text-xs font-semibold text-accent-ink">{step.label}</p>
-                <h3 className="mt-2 text-lg font-semibold text-fg">{step.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{step.body}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="mt-10">
-            <Button href="#contacto" className="h-auto min-h-[52px] py-3 text-center">{ai.conversationCta}</Button>
-          </div>
+          <AiJourney3D
+            title={ai.journeyTitle}
+            lead={ai.journeyLead}
+            steps={ai.journey}
+            ctaLabel={ai.conversationCta}
+            ctaHref="#contacto"
+          />
         </Container>
       </Section>
 
