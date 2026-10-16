@@ -181,7 +181,8 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
           blend={false}
         />
         <div className="pointer-events-none absolute inset-0 bg-bg-soft/70 dark:bg-black/65" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-bg-soft via-transparent to-bg-soft" aria-hidden />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-linear-to-b from-bg-soft/50 to-transparent sm:h-16" aria-hidden />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-linear-to-t from-bg-soft/50 to-transparent sm:h-16" aria-hidden />
         <Container className="relative grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <SectionHeading title={ai.collaborationTitle} lead={ai.collaborationLead} className="[&_p]:text-fg/80 dark:[&_p]:text-muted" />
           <div className="space-y-7">
