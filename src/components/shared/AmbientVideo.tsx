@@ -11,11 +11,13 @@ import { cn } from "@/lib/utils";
  * - Skips entirely on prefers-reduced-motion, saveData or low-memory devices
  * - Pauses offscreen and on hidden tabs; fades in once playing
  * - Optional per-theme variant: light themes play `lightLg/lightMd` with `lightPoster`
+ * - Optional WebM sources, with capability detection and MP4 retry on media errors
  */
 export function AmbientVideo({
   lg,
   md,
   poster,
+  webm,
   lightLg,
   lightMd,
   lightPoster,
@@ -29,6 +31,7 @@ export function AmbientVideo({
   lg: string;
   md: string;
   poster: string;
+  webm?: { lg: string; md: string; codecs?: string };
   lightLg?: string;
   lightMd?: string;
   lightPoster?: string;
@@ -68,6 +71,7 @@ export function AmbientVideo({
 
   const activeLg = isLight && lightLg ? lightLg : lg;
   const activeMd = isLight && lightMd ? lightMd : md;
+  const activeWebm = isLight && (lightLg || lightMd) ? undefined : webm;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -79,7 +83,10 @@ export function AmbientVideo({
     if (typeof nav.deviceMemory === "number" && nav.deviceMemory < 2) return;
 
     /* keep the active source in a ref so late callbacks always use the current one */
-    srcRef.current = window.innerWidth < 768 ? activeMd : activeLg;
+    const mobile = window.innerWidth < 768;
+    const fallback = mobile ? activeMd : activeLg;
+    const canPlayWebm = activeWebm && video.canPlayType(`video/webm; codecs="${activeWebm.codecs ?? "vp9"}"`);
+    srcRef.current = canPlayWebm ? (mobile ? activeWebm.md : activeWebm.lg) : fallback;
 
     /* theme switched → drop the previous source; maybeStart() below re-attaches */
     if (video.src && !video.src.endsWith(srcRef.current)) {
@@ -99,6 +106,20 @@ export function AmbientVideo({
       video.load();
       video.play().catch(() => {});
     };
+
+    const onSourceError = () => {
+      if (srcRef.current === fallback) {
+        setPlaying(false);
+        return;
+      }
+      // An advertised codec can still fail to decode on a particular device.
+      srcRef.current = fallback;
+      setPlaying(false);
+      video.src = fallback;
+      video.load();
+      if (wantedRef.current && !document.hidden) video.play().catch(() => {});
+    };
+    video.addEventListener("error", onSourceError);
 
     const markReady = () => {
       readyRef.current = true;
@@ -159,8 +180,9 @@ export function AmbientVideo({
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("load", kickoff);
       removeGestureListeners();
+      video.removeEventListener("error", onSourceError);
     };
-  }, [activeLg, activeMd]);
+  }, [activeLg, activeMd, activeWebm?.lg, activeWebm?.md, activeWebm?.codecs]);
 
   return (
     <div ref={wrapRef} className="absolute inset-0 overflow-hidden" aria-hidden>

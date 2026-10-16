@@ -78,7 +78,10 @@ Componente: `src/components/shared/AmbientVideo.tsx`.
 | Video | Sección | Peso desktop / móvil |
 | --- | --- | --- |
 | `hero-geometric` (oscuro) + `space` (claro) | Hero de la home (variante por tema, zoom `scale-[1.3] origin-bottom`, `videoOpacity={0.8}` + velo `black/35`) | 1.3 MB/539 KB · 206/83 KB |
-| `ai-chat` | Sección de diagnóstico y formación (home) + hero de `/ia` | 580 / 258 KB |
+| `ai-chat` | Sección de diagnóstico y formación (home) | 580 / 258 KB |
+| `ai-workflows-v1` | Hero de `/ia`: WebM AV1 con MP4 de respaldo, sin cuadrícula adicional | WebM: 848 / 368 KB; MP4: 1.51 MB / 506 KB + poster WebP de 7 KB |
+| `ai-data-v1` | Fondo de diagnóstico en `/ia`: WebM AV1, con MP4 de respaldo | WebM: 682 / 238 KB; MP4: 1.55 MB / 377 KB + poster WebP de 33 KB |
+| `ai-team-v1` | Fondo de colaboración con el equipo en `/ia`, con contraste por tema | WebM AV1: 797 / 338 KB; MP4: 1.12 MB / 340 KB + poster WebP de 61 KB |
 | `abstract-blue` | Sección "Lo que construimos, en acción" (carrusel) | 357 / 156 KB |
 | `servers` | Hero de `/soporte-a-aerolineas` | 388 / 158 KB |
 | `critical-globe-v1` | Sistemas críticos de la home: globo como fondo a todo el ancho, con degradados por tema | 1.02 MB / 292 KB + poster WebP de 25 KB |
@@ -90,6 +93,7 @@ Componente: `src/components/shared/AmbientVideo.tsx`.
 | `ai-brain` (vertical 9:16) | Tarjeta de marca en `/productos/kivi-ia` (logo KIVI AI animado, sin velo) | 545 / 314 KB |
 
 **Carga**: el HTML solo trae el poster (imagen). El `src` del video se asigna tras `window.load` + `requestIdleCallback`, y además solo cuando la sección está a ~600 px del viewport (IntersectionObserver). Se salta por completo con `prefers-reduced-motion`, `saveData` o `deviceMemory < 2 GB`. Pausa al salir del viewport o con la pestaña oculta.
+La opción `webm` de `AmbientVideo` declara las rutas y el códec preferido. Se comprueba con `canPlayType`; si el navegador no lo soporta o falla la reproducción, se usa el MP4 del tamaño correspondiente. Solo se descarga la fuente elegida, salvo que falle y sea necesario recurrir al respaldo. Las variantes por tema que solo tienen MP4 conservan ese formato.
 Velo adaptativo por tema: `white/75` en claro · `black/45` en oscuro (secciones: 88/65) + degradado inferior que funde con el fondo.
 
 ## SEO

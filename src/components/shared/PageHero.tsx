@@ -25,7 +25,13 @@ export function PageHero({
   title: string;
   lead?: string;
   leadScroll?: boolean;
-  video?: { lg: string; md: string; poster: string; immersive?: boolean };
+  video?: {
+    lg: string;
+    md: string;
+    poster: string;
+    immersive?: boolean;
+    webm?: { lg: string; md: string; codecs?: string };
+  };
   /** background blueprint grid (disable when a video already carries the texture) */
   grid?: boolean;
   children?: React.ReactNode;
@@ -48,6 +54,7 @@ export function PageHero({
           lg={video.lg}
           md={video.md}
           poster={video.poster}
+          webm={video.webm}
           intensity="hero"
           priority={video.immersive}
           veil={video.immersive ? "none" : undefined}

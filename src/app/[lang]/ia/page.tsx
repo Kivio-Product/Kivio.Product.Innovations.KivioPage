@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import { FadeUp, SpotlightCard, Stagger } from "@/components/motion/motion";
 import { PageHero } from "@/components/shared/PageHero";
+import { AmbientVideo } from "@/components/shared/AmbientVideo";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ContactBlock } from "@/components/shared/ContactForm";
 import { href, routes } from "@/lib/utils";
@@ -36,7 +37,13 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
         kicker={ai.kicker}
         title={ai.title}
         lead={ai.lead}
-        video={{ lg: "/media/ai-chat-lg.mp4", md: "/media/ai-chat-md.mp4", poster: "/media/ai-chat-poster.jpg" }}
+        grid={false}
+        video={{
+          lg: "/media/ai-workflows-v1-lg.mp4",
+          md: "/media/ai-workflows-v1-md.mp4",
+          poster: "/media/ai-workflows-v1-poster.webp",
+          webm: { lg: "/media/ai-workflows-v1-lg.webm", md: "/media/ai-workflows-v1-md.webm", codecs: "av01.0.05M.08" },
+        }}
       >
         <div className="flex flex-wrap gap-3">
           <Button href="#contacto" className="h-auto min-h-[52px] py-3 text-center">{ai.conversationCta}</Button>
@@ -63,8 +70,21 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
         </Container>
       </Section>
 
-      <Section id="diagnostico" className="scroll-mt-24 border-y border-border bg-bg-soft">
-        <Container>
+      <Section id="diagnostico" className="relative isolate scroll-mt-24 overflow-hidden border-y border-border bg-bg-soft">
+        <AmbientVideo
+          lg="/media/ai-data-v1-lg.mp4"
+          md="/media/ai-data-v1-md.mp4"
+          poster="/media/ai-data-v1-poster.webp"
+          webm={{ lg: "/media/ai-data-v1-lg.webm", md: "/media/ai-data-v1-md.webm", codecs: "av01.0.05M.08" }}
+          intensity="section"
+          veil="none"
+          mediaClassName="contrast-125 saturate-110 dark:contrast-100 dark:saturate-100"
+          blend={false}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-white/45 dark:bg-black/65" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-bg-soft/90 via-bg-soft/35 to-transparent dark:hidden" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-bg-soft via-transparent to-bg-soft" aria-hidden />
+        <Container className="relative">
           <SectionHeading kicker={ai.kicker} title={ai.offerTitle} lead={ai.offerLead} className="mb-12 max-w-3xl" />
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
             <ol className="space-y-7">
@@ -127,9 +147,20 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
         </Container>
       </Section>
 
-      <Section id="equipo" className="scroll-mt-24 border-y border-border bg-bg-soft">
-        <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <SectionHeading title={ai.collaborationTitle} lead={ai.collaborationLead} />
+      <Section id="equipo" className="relative isolate scroll-mt-24 overflow-hidden border-y border-border bg-bg-soft">
+        <AmbientVideo
+          lg="/media/ai-team-v1-lg.mp4"
+          md="/media/ai-team-v1-md.mp4"
+          poster="/media/ai-team-v1-poster.webp"
+          webm={{ lg: "/media/ai-team-v1-lg.webm", md: "/media/ai-team-v1-md.webm", codecs: "av01.0.05M.08" }}
+          veil="none"
+          mediaClassName="contrast-110 dark:contrast-100"
+          blend={false}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-bg-soft/70 dark:bg-black/65" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-bg-soft via-transparent to-bg-soft" aria-hidden />
+        <Container className="relative grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          <SectionHeading title={ai.collaborationTitle} lead={ai.collaborationLead} className="[&_p]:text-fg/80 dark:[&_p]:text-muted" />
           <div className="space-y-7">
             {ai.collaboration.map((item, i) => {
               const Icon = controlIcons[i];
@@ -138,7 +169,7 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
                   <Icon size={23} className="mt-1 shrink-0 text-accent" aria-hidden />
                   <div>
                     <h3 className="text-lg font-semibold text-fg">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-fg/80 dark:text-muted">{item.body}</p>
                   </div>
                 </article>
               );
