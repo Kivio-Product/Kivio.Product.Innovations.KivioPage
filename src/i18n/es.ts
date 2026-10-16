@@ -744,11 +744,12 @@ export const es = {
       "KIVI nace de cómo modernizamos empresas reales: primero entendemos el proceso, luego entrenamos al asistente sobre tu conocimiento y recién entonces lo ponemos a hablar con clientes.",
   },
   ai: {
-    seoTitle: "Consultoría en IA, diagnóstico de procesos y formación empresarial",
+    seoTitle: "Consultoría en IA y automatización para empresas",
+    seoDescription: "Diagnóstico de procesos, formación en inteligencia artificial y hoja de ruta de automatización para empresas. Agenda una conversación gratuita con Kivio.",
     serviceType: "Diagnóstico de procesos, formación empresarial en IA y automatización",
     title: "Descubre dónde la IA y la automatización pueden mejorar tu operación",
     kicker: "Diagnóstico y formación empresarial",
-    lead: "Analizamos tus procesos, formamos a tu equipo y te ayudamos a priorizar inversiones. Una mirada externa que trabaja con tus líderes y tu equipo de TI, desde los sistemas que ya usas.",
+    lead: "Con nuestro diagnóstico de IA y automatización analizamos tus procesos, formamos a tu equipo y te ayudamos a priorizar inversiones. Trabajamos con tus líderes y tu equipo de TI, desde los sistemas que ya usas.",
     conversationCta: "Solicitar una conversación gratuita",
     conversationNote: "Virtual · 30 minutos · Coordinamos el horario contigo",
     guideCta: "Leer la guía para empezar",
@@ -794,7 +795,7 @@ export const es = {
       { label: "Cotización independiente", title: "Implementación", body: "Definimos alcance, responsables e indicadores para las iniciativas que elijas llevar adelante." },
       { label: "Según el alcance acordado", title: "Seguimiento", body: "Revisamos resultados, resolvemos dudas y acompañamos los ajustes bajo las condiciones contratadas." },
     ],
-    faqTitle: "Antes de empezar",
+    faqTitle: "Preguntas sobre consultoría en IA",
     faq: [
       { question: "¿La conversación gratuita incluye el diagnóstico?", answer: "La sesión virtual de 30 minutos sirve para conocer tu necesidad y orientar la propuesta. El diagnóstico y los talleres son un servicio pagado con alcance e inversión acordados antes de comenzar." },
       { question: "¿Podemos trabajar de forma virtual?", answer: "Sí. Podemos trabajar de forma virtual o híbrida según los procesos y la disponibilidad del equipo. Si se requieren visitas, su alcance y logística se incluyen en la propuesta." },

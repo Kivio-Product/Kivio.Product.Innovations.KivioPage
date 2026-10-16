@@ -2,7 +2,7 @@ import { ArrowRight, Check, ChevronDown, ClipboardList, Database, FileCheck, Gra
 import { getDictionary, getLocale } from "@/i18n";
 import { pageMetadata } from "@/lib/page-seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { serviceSchema } from "@/lib/seo";
+import { absoluteUrl, serviceSchema, SITE_URL } from "@/lib/seo";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import { FadeUp, SpotlightCard, Stagger } from "@/components/motion/motion";
@@ -18,8 +18,9 @@ const controlIcons = [ShieldCheck, Database, Users];
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   return pageMetadata(params, (d) => ({
     title: d.ai.seoTitle,
-    description: d.ai.lead,
+    description: d.ai.seoDescription,
     path: "ia",
+    socialImage: { path: "ia/opengraph-image", alt: d.ai.seoTitle },
   }));
 }
 
@@ -27,10 +28,30 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
   const { lang } = await params;
   const dict = getDictionary(lang);
   const ai = dict.ai;
+  const locale = getLocale(lang);
+  const pageUrl = absoluteUrl(locale, "ia");
 
   return (
     <>
-      <JsonLd data={serviceSchema({ name: ai.seoTitle, description: ai.lead, path: "ia", serviceType: ai.serviceType, lang: getLocale(lang) })} />
+      <JsonLd data={[
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": `${pageUrl}#webpage`,
+          url: pageUrl,
+          name: ai.seoTitle,
+          description: ai.seoDescription,
+          inLanguage: locale === "es" ? "es-CO" : "en",
+          isPartOf: { "@id": `${SITE_URL}/#website` },
+          mainEntity: { "@id": `${pageUrl}#service` },
+          primaryImageOfPage: { "@type": "ImageObject", url: absoluteUrl(locale, "ia/opengraph-image"), width: 1200, height: 630 },
+        },
+        {
+          ...serviceSchema({ name: ai.serviceName, description: ai.lead, path: "ia", serviceType: ai.serviceType, lang: locale }),
+          "@id": `${pageUrl}#service`,
+          mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
+        },
+      ]} />
       <PageHero
         lang={lang}
         path="ia"
@@ -38,10 +59,12 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
         title={ai.title}
         lead={ai.lead}
         grid={false}
+        reveal={false}
         video={{
           lg: "/media/ai-workflows-v1-lg.mp4",
           md: "/media/ai-workflows-v1-md.mp4",
           poster: "/media/ai-workflows-v1-poster.webp",
+          priority: true,
           webm: { lg: "/media/ai-workflows-v1-lg.webm", md: "/media/ai-workflows-v1-md.webm", codecs: "av01.0.05M.08" },
         }}
       >

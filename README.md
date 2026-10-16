@@ -62,6 +62,8 @@ Requiere instalar Playwright aparte: `npm i -D playwright && npx playwright inst
 
 `/es/ia` y `/en/ia` distinguen la conversación inicial gratuita de 30 minutos del diagnóstico y los talleres pagados. El alcance y el precio se definen por empresa; las iniciativas de implementación se cotizan por separado. Los ejemplos de procesos son ilustrativos.
 
+SEO de `/ia`: títulos y descripciones propios por idioma, imagen social específica en `/{lang}/ia/opengraph-image`, y datos `WebPage`/`Service` vinculados con la organización. El alias `/ia` redirige permanentemente a `/es/ia`. El título del banner se muestra desde el HTML inicial y su portada se precarga; los videos siguen con carga diferida. Los archivos `ai-workflows-v1`, `ai-data-v1` y `ai-team-v1` tienen caché inmutable: al sustituirlos, cambia su versión en el nombre y actualiza las referencias y la regla de caché.
+
 Todos los formularios capturan la ruta actual de la página, sin parámetros ni fragmento. `/api/contact` acepta el campo opcional `sourcePath`, lo valida y lo incluye en el asunto y el cuerpo del correo; también lo entrega al webhook. Las solicitudes antiguas sin este campo siguen siendo válidas y el correo indica «Página de origen: No informada». El enlace alternativo de correo también incluye la ruta.
 
 El formulario de IA añade empresa (opcional) y servicio dentro de `message`. El campo visible de empresa se llama `organizationName`; `company` sigue siendo el campo oculto antispam.

@@ -16,6 +16,7 @@ export function PageHero({
   leadScroll,
   video,
   grid = true,
+  reveal = true,
   children,
 }: {
   lang?: string;
@@ -30,13 +31,17 @@ export function PageHero({
     md: string;
     poster: string;
     immersive?: boolean;
+    priority?: boolean;
     webm?: { lg: string; md: string; codecs?: string };
   };
   /** background blueprint grid (disable when a video already carries the texture) */
   grid?: boolean;
+  /** Keep critical headings visible in the initial HTML when disabled. */
+  reveal?: boolean;
   children?: React.ReactNode;
 }) {
   const dict = lang ? getDictionary(lang) : null;
+  const HeroContent = reveal ? FadeUp : "div";
   return (
     <section
       className={
@@ -56,7 +61,7 @@ export function PageHero({
           poster={video.poster}
           webm={video.webm}
           intensity="hero"
-          priority={video.immersive}
+          priority={video.priority ?? video.immersive}
           veil={video.immersive ? "none" : undefined}
           mediaClassName={video.immersive ? "object-top" : undefined}
         />
@@ -78,7 +83,7 @@ export function PageHero({
         />
       )}
       <Container className="relative">
-        <FadeUp>
+        <HeroContent>
           {iconSrc && (
             <Image
               src={iconSrc}
@@ -107,7 +112,7 @@ export function PageHero({
               <p className={`mt-6 ${video?.immersive ? "max-w-lg" : "max-w-2xl"} text-base leading-relaxed text-muted sm:text-lg`}>{lead}</p>
             ))}
           {children && <div className="mt-8">{children}</div>}
-        </FadeUp>
+        </HeroContent>
       </Container>
     </section>
   );

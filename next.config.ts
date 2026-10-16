@@ -19,6 +19,9 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 2678400,
   },
+  async redirects() {
+    return [{ source: "/ia", destination: "/es/ia", permanent: true }];
+  },
   async headers() {
     return [
       { source: "/(.*)", headers: securityHeaders },
@@ -34,6 +37,10 @@ const nextConfig: NextConfig = {
         source: "/fonts/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
+      ...["ai-workflows-v1", "ai-data-v1", "ai-team-v1"].map((name) => ({
+        source: `/media/${name}-:asset`,
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      })),
     ];
   },
 };

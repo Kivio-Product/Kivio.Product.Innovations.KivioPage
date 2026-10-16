@@ -704,11 +704,12 @@ export const en = {
       "KIVI comes from how we modernize real companies: first we understand the process, then we train the assistant on your knowledge, and only then do we let it talk to customers.",
   },
   ai: {
-    seoTitle: "AI consulting, business process assessment and team training",
+    seoTitle: "AI consulting and automation for businesses",
+    seoDescription: "Assess business processes, train your team in AI and prioritize automation with a clear roadmap. Book a free introductory conversation with Kivio.",
     serviceType: "Business process assessment, AI training and automation",
     title: "Discover where AI and automation can improve your operation",
     kicker: "Business process assessment & training",
-    lead: "We analyze your processes, train your team and help you prioritize investments. An independent perspective that works with your leaders and IT team, starting with the systems you already use.",
+    lead: "Our AI and automation assessment analyzes your processes, trains your team and helps you prioritize investments. We work with your leaders and IT team, starting with the systems you already use.",
     conversationCta: "Request a free conversation",
     conversationNote: "Video call · 30 minutes · We arrange a time with you",
     guideCta: "Read the getting-started guide",
@@ -754,7 +755,7 @@ export const en = {
       { label: "Separate quote", title: "Implementation", body: "We define scope, owners and indicators for the initiatives you choose to take forward." },
       { label: "As agreed in the scope", title: "Follow-up", body: "We review results, answer questions and support adjustments under the contracted terms." },
     ],
-    faqTitle: "Before we start",
+    faqTitle: "AI consulting questions",
     faq: [
       { question: "Does the free conversation include the assessment?", answer: "The 30-minute video call helps us understand your need and prepare a proposal. Assessment and workshops are a paid service with scope and pricing agreed before work begins." },
       { question: "Can we work remotely?", answer: "Yes. We can work remotely or in a hybrid format depending on the processes and your team’s availability. If visits are needed, their scope and logistics are included in the proposal." },

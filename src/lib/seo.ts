@@ -15,12 +15,14 @@ export function buildMetadata({
   path = "",
   title,
   description,
+  socialImage,
   type = "website",
 }: {
   lang: string;
   path?: string;
   title: string;
   description: string;
+  socialImage?: { path: string; alt: string };
   type?: "website" | "article";
 }): Metadata {
   const clean = path.replace(/^\/+|\/+$/g, "");
@@ -29,7 +31,7 @@ export function buildMetadata({
   const url = lang === "en" ? enUrl : esUrl;
   /* the generated card lives in the [lang] segment (see app/[lang]/opengraph-image.tsx);
      it must be referenced explicitly or Next omits it when openGraph is defined here */
-  const imageUrl = absoluteUrl(lang, "opengraph-image");
+  const imageUrl = absoluteUrl(lang, socialImage?.path ?? "opengraph-image");
   return {
     title,
     description,
@@ -44,7 +46,7 @@ export function buildMetadata({
       siteName: SITE_NAME,
       type,
       locale: lang === "en" ? "en_US" : "es_CO",
-      images: [{ url: imageUrl, width: 1200, height: 630, alt: SITE_NAME }],
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: socialImage?.alt ?? SITE_NAME }],
     },
     twitter: { card: "summary_large_image", title, description, images: [imageUrl] },
   };
