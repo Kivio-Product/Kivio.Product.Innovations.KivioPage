@@ -95,22 +95,31 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
       </Section>
 
       <Section id="diagnostico" className="relative isolate scroll-mt-24 overflow-hidden border-y border-border bg-bg-soft">
-        <AmbientVideo
-          lg="/media/ai-data-v1-lg.mp4"
-          md="/media/ai-data-v1-md.mp4"
-          poster="/media/ai-data-v1-poster.webp"
-          webm={{ lg: "/media/ai-data-v1-lg.webm", md: "/media/ai-data-v1-md.webm", codecs: "av01.0.05M.08" }}
-          intensity="section"
-          veil="none"
-          mediaClassName="contrast-125 saturate-110 dark:contrast-100 dark:saturate-100"
-          blend={false}
-        />
-        <div className="pointer-events-none absolute inset-0 bg-white/45 dark:bg-black/65" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-bg-soft/90 via-bg-soft/35 to-transparent dark:hidden" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-bg-soft via-transparent to-bg-soft" aria-hidden />
-        <Container className="relative">
-          <SectionHeading kicker={ai.kicker} title={ai.offerTitle} lead={ai.offerLead} className="mb-12 max-w-3xl" />
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+        <Container>
+          <div className="lg:max-w-[480px] xl:max-w-[620px]">
+            <SectionHeading kicker={ai.kicker} title={ai.offerTitle} lead={ai.offerLead} />
+          </div>
+
+          {/* Ambient video: unframed side band, dissolving into the section with gradients */}
+          <div className="diag-video-band -z-10" aria-hidden>
+            <AmbientVideo
+              lg="/media/ai-data-v1-lg.mp4"
+              md="/media/ai-data-v1-md.mp4"
+              poster="/media/ai-data-v1-poster.webp"
+              webm={{ lg: "/media/ai-data-v1-lg.webm", md: "/media/ai-data-v1-md.webm", codecs: "av01.0.05M.08" }}
+              intensity="section"
+              veil="none"
+              blend={false}
+              mediaClassName="object-center"
+            />
+            {/* dissolve toward the content column */}
+            <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,var(--bg-soft)_0%,color-mix(in_srgb,var(--bg-soft)_62%,transparent)_12%,transparent_40%)] lg:block" />
+            {/* blend into the section above and below */}
+            <div className="absolute inset-x-0 top-0 h-14 bg-linear-to-b from-bg-soft to-transparent lg:h-24" />
+            <div className="absolute inset-x-0 bottom-0 h-14 bg-linear-to-t from-bg-soft to-transparent lg:h-24" />
+          </div>
+
+          <div className="mt-10 lg:mt-14 lg:max-w-[480px] xl:max-w-[620px]">
             <ol className="space-y-7">
               {ai.offerSteps.map((step, i) => (
                 <li key={step.title} className="flex gap-5">
@@ -122,7 +131,8 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
                 </li>
               ))}
             </ol>
-            <FadeUp>
+
+            <FadeUp className="mt-12">
               <aside className="gradient-border rounded-[25px] p-6 sm:p-8">
                 <ClipboardList size={24} className="mb-5 text-accent" aria-hidden />
                 <h3 className="text-xl font-semibold text-fg">{ai.deliverablesTitle}</h3>

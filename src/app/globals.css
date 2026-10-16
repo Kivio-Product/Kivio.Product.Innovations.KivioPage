@@ -664,4 +664,42 @@ p {
   animation: step-float-wave 5.2s ease-in-out infinite;
 }
 
+/* ── Diagnostics section: unframed ambient video anchored to the right edge ─
+   Mobile/tablet: full-bleed band in the flow. Desktop: absolute side band that
+   always starts clear of the copy column (max 620px + 32px gutter + 24px gap). */
+.diag-video-band {
+  pointer-events: none;
+  position: relative;
+  margin-top: 2.5rem;
+  aspect-ratio: 16 / 9;
+  margin-inline: -1.25rem;
+}
+
+@media (min-width: 640px) {
+  .diag-video-band {
+    margin-inline: -2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .diag-video-band {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    height: clamp(440px, 74vh, 780px);
+    margin: 0;
+    aspect-ratio: auto;
+    transform: translateY(-50%);
+    /* copy column at lg is 480px + 32px gutter + 20px gap */
+    left: max(560px, calc((100vw - 1180px) / 2 + 532px));
+  }
+}
+
+@media (min-width: 1280px) {
+  .diag-video-band {
+    /* copy column grows to 620px at xl */
+    left: calc((100vw - 1180px) / 2 + 672px);
+  }
+}
+
 
