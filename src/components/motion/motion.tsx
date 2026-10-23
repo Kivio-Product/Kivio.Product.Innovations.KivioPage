@@ -45,15 +45,19 @@ export function FadeUp({
   y?: number;
 }) {
   const { ref, inView } = useInView<HTMLDivElement>();
+  useEffect(() => {
+    const element = ref.current;
+    if (!element || !inView || reduced() || !element.animate) return;
+    const animation = element.animate(
+      [{ opacity: 0, transform: `translateY(${y}px)` }, { opacity: 1, transform: "translateY(0)" }],
+      { duration: 450, delay, easing: "cubic-bezier(.215,.61,.355,1)", fill: "backwards" },
+    );
+    return () => animation.cancel();
+  }, [inView, ref, delay, y]);
   return (
     <div
       ref={ref}
       className={cn("motion-reduce:transition-none", className)}
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? "translateY(0)" : `translateY(${y}px)`,
-        transition: `opacity .45s cubic-bezier(.215,.61,.355,1) ${delay}ms, transform .45s cubic-bezier(.215,.61,.355,1) ${delay}ms`,
-      }}
     >
       {children}
     </div>

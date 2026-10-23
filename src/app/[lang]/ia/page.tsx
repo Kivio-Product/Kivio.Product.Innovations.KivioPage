@@ -45,12 +45,23 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
           inLanguage: locale === "es" ? "es-CO" : "en",
           isPartOf: { "@id": `${SITE_URL}/#website` },
           mainEntity: { "@id": `${pageUrl}#service` },
+          hasPart: [
+            { "@type": "WebPageElement", "@id": `${pageUrl}#consultoria-ia`, name: ai.summaryTitle },
+            { "@type": "WebPageElement", "@id": `${pageUrl}#diagnostico`, name: ai.deliverablesTitle },
+            { "@type": "WebPageElement", "@id": `${pageUrl}#guia`, name: ai.guideTitle },
+          ],
           primaryImageOfPage: { "@type": "ImageObject", url: absoluteUrl(locale, "ia/opengraph-image"), width: 1200, height: 630 },
         },
         {
           ...serviceSchema({ name: ai.serviceName, description: ai.lead, path: "ia", serviceType: ai.serviceType, lang: locale }),
           "@id": `${pageUrl}#service`,
           mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
+          audience: { "@type": "BusinessAudience", audienceType: ai.summary[0].body },
+          serviceOutput: {
+            "@type": "ItemList",
+            name: ai.deliverablesTitle,
+            itemListElement: ai.deliverables.map((name, index) => ({ "@type": "ListItem", position: index + 1, name })),
+          },
         },
       ]} />
       <PageHero
@@ -70,11 +81,31 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
         }}
       >
         <div className="flex flex-wrap gap-3">
-          <Button href="#contacto" className="h-auto min-h-[52px] py-3 text-center">{ai.conversationCta}</Button>
-          <Button href="#guia" variant="outline" className="h-auto min-h-[52px] py-3 text-center">{ai.guideCta}</Button>
+          <Button href="#contacto" analyticsId="ai_hero_contact" className="h-auto min-h-[52px] py-3 text-center">{ai.conversationCta}</Button>
+          <Button href="#guia" analyticsId="ai_hero_guide" variant="outline" className="h-auto min-h-[52px] py-3 text-center">{ai.guideCta}</Button>
         </div>
         <p className="mt-4 text-sm text-muted">{ai.conversationNote}</p>
       </PageHero>
+
+      <section id="consultoria-ia" className="scroll-mt-24 border-y border-border bg-bg-soft py-12 sm:py-16" aria-labelledby="ai-summary-title">
+        <Container>
+          <h2 id="ai-summary-title" className="max-w-3xl font-display text-3xl leading-tight text-fg sm:text-4xl">{ai.summaryTitle}</h2>
+          <p className="mt-4 max-w-3xl leading-relaxed text-muted">{ai.summaryLead}</p>
+          <dl className="mt-8 grid gap-x-12 gap-y-6 sm:grid-cols-2">
+            {ai.summary.map((item) => (
+              <div key={item.label} className="border-t border-border pt-4">
+                <dt className="text-sm font-semibold text-fg">{item.label}</dt>
+                <dd className="mt-2 text-sm leading-relaxed text-muted">{item.body}</dd>
+              </div>
+            ))}
+          </dl>
+          <nav aria-label={ai.navigationLabel} className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t border-border pt-6 text-sm">
+            {["diagnostico", "oportunidades", "preguntas", "guia"].map((id, index) => (
+              <a key={id} href={`#${id}`} className="font-medium text-accent-ink underline decoration-accent/30 underline-offset-4 hover:decoration-accent">{ai.navigation[index]}</a>
+            ))}
+          </nav>
+        </Container>
+      </section>
 
       <Section id="retos" className="scroll-mt-24">
         <Container>
@@ -195,7 +226,10 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
         <div className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-linear-to-b from-bg-soft/50 to-transparent sm:h-16" aria-hidden />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-linear-to-t from-bg-soft/50 to-transparent sm:h-16" aria-hidden />
         <Container className="relative grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <SectionHeading title={ai.collaborationTitle} lead={ai.collaborationLead} className="[&_p]:text-fg/80 dark:[&_p]:text-muted" />
+          <div>
+            <SectionHeading title={ai.collaborationTitle} lead={ai.collaborationLead} className="[&_p]:text-fg/80 dark:[&_p]:text-muted" />
+            <Button href={href(lang, routes.portfolio)} analyticsId="ai_experience" variant="outline" className="mt-6 h-auto min-h-[52px] py-3 text-center">{ai.experienceCta}</Button>
+          </div>
           <div className="space-y-7">
             {ai.collaboration.map((item, i) => {
               const Icon = controlIcons[i];
@@ -221,6 +255,7 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
             steps={ai.journey}
             ctaLabel={ai.conversationCta}
             ctaHref="#contacto"
+            ctaAnalyticsId="ai_journey_contact"
           />
         </Container>
       </Section>
@@ -229,8 +264,8 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
         <Container className="grid gap-10 lg:grid-cols-[0.65fr_1.35fr] lg:gap-16">
           <SectionHeading title={ai.faqTitle} />
           <div className="divide-y divide-border border-y border-border">
-            {ai.faq.map((item) => (
-              <details key={item.question} className="group">
+            {ai.faq.map((item, index) => (
+              <details id={`pregunta-${index + 1}`} key={item.question} className="group scroll-mt-24">
                 <summary className="flex cursor-pointer list-none items-start justify-between gap-5 py-5 font-semibold text-fg [&::-webkit-details-marker]:hidden">
                   {item.question}
                   <ChevronDown size={20} className="mt-0.5 shrink-0 text-accent transition-transform group-open:rotate-180 motion-reduce:transition-none" aria-hidden />
@@ -247,7 +282,7 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
           <SectionHeading kicker={dict.nav.ai} title={ai.guideTitle} lead={ai.guideLead} className="mb-12 max-w-3xl" />
           <ol className="grid gap-x-12 gap-y-8 sm:grid-cols-2">
             {ai.guideQuestions.map((question, i) => (
-              <li key={question.title} className="flex gap-4 border-t border-border pt-5">
+              <li id={`guia-paso-${i + 1}`} key={question.title} className="flex scroll-mt-24 gap-4 border-t border-border pt-5">
                 <span className="font-mono text-sm text-accent" aria-hidden>0{i + 1}</span>
                 <div>
                   <h3 className="font-semibold text-fg">{question.title}</h3>
@@ -257,6 +292,7 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
             ))}
           </ol>
           <p className="mt-10 max-w-2xl text-sm text-muted">{ai.guideNote}</p>
+          <Button href="#contacto" analyticsId="ai_guide_contact" className="mt-6 h-auto min-h-[52px] py-3 text-center">{ai.conversationCta}</Button>
         </Container>
       </Section>
 
@@ -279,7 +315,7 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
             <h2 className="font-display text-2xl text-fg sm:text-3xl">{ai.relatedTitle}</h2>
             <p className="mt-3 text-sm leading-relaxed text-muted">{ai.relatedLead}</p>
           </div>
-          <Button href={href(lang, routes.kivi)} variant="outline" className="h-auto min-h-[52px] py-3 text-center">
+          <Button href={href(lang, routes.kivi)} analyticsId="ai_related_product" variant="outline" className="h-auto min-h-[52px] py-3 text-center">
             {ai.relatedCta}<ArrowRight size={16} className="shrink-0" aria-hidden />
           </Button>
         </Container>

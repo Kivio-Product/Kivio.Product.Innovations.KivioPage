@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { cn } from "@/lib/utils";
+import type { CtaId } from "@/lib/analytics";
 
 export type JourneyStep = {
   label: string;
@@ -267,12 +268,14 @@ export function AiJourney3D({
   steps,
   ctaLabel,
   ctaHref = "#contacto",
+  ctaAnalyticsId,
 }: {
   title: string;
   lead: string;
   steps: JourneyStep[];
   ctaLabel: string;
   ctaHref?: string;
+  ctaAnalyticsId?: CtaId;
 }) {
   const [activeStep, setActiveStep] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -357,7 +360,7 @@ export function AiJourney3D({
 
       {/* ── CTA Button & Ascending Progress Bar ── */}
       <div className="mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-border pt-8">
-        <Button href={ctaHref} className="h-auto min-h-[52px] py-3 text-center">
+        <Button href={ctaHref} analyticsId={ctaAnalyticsId} className="h-auto min-h-[52px] py-3 text-center">
           {ctaLabel}
           <ArrowUpRight size={17} className="shrink-0" aria-hidden />
         </Button>

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { FadeUp } from "@/components/motion/motion";
 import { AmbientVideo } from "@/components/shared/AmbientVideo";
 import { social } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 type ContactFormOptions = {
   context?: { service: string };
@@ -24,6 +25,7 @@ export function ContactForm({
 }: { dict: Dictionary; id?: string } & ContactFormOptions) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
+  const started = useRef(false);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -58,7 +60,11 @@ export function ContactForm({
         body: JSON.stringify(body),
       });
       if (!res.ok) throw new Error("fail");
+      const result: { ok?: boolean } = await res.json();
+      if (result.ok !== true) throw new Error("fail");
       setStatus("sent");
+      if (!String(data.get("company") ?? "").trim()) trackEvent("generate_lead");
+      started.current = false;
       form.reset();
     } catch {
       setFallbackUrl(`mailto:${social.email}?subject=${encodeURIComponent(`[${sourcePath}] ${context?.service ?? "Contacto KIVIO"}`)}&body=${encodeURIComponent(
@@ -69,7 +75,17 @@ export function ContactForm({
   }
 
   return (
-    <form id={id} onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2">
+    <form
+      id={id}
+      onSubmit={onSubmit}
+      onFocusCapture={(event) => {
+        const target = event.target;
+        if (started.current || !(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) || target.name === "company") return;
+        started.current = true;
+        trackEvent("ai_form_start");
+      }}
+      className="grid gap-4 sm:grid-cols-2"
+    >
       <label className="block">
         <span className="mb-1.5 block text-sm font-medium text-muted">
           {dict.form.firstName} *

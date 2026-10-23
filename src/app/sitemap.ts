@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 import { locales } from "@/i18n/config";
 import { SITE_URL, absoluteUrl } from "@/lib/seo";
 
-const routes: { path: string; priority: number; changeFrequency: "weekly" | "monthly" | "yearly" }[] = [
+const routes: { path: string; priority: number; changeFrequency: "weekly" | "monthly" | "yearly"; lastModified?: string }[] = [
   { path: "", priority: 1, changeFrequency: "weekly" },
-  { path: "ia", priority: 0.9, changeFrequency: "weekly" },
+  { path: "ia", priority: 0.9, changeFrequency: "weekly", lastModified: "2026-10-23" },
   { path: "servicios", priority: 0.9, changeFrequency: "monthly" },
   { path: "soporte-a-aerolineas", priority: 0.8, changeFrequency: "monthly" },
   { path: "productos/kivio-cms", priority: 0.8, changeFrequency: "monthly" },
@@ -22,11 +22,10 @@ const routes: { path: string; priority: number; changeFrequency: "weekly" | "mon
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
   return locales.flatMap((lang) =>
     routes.map((route) => ({
       url: absoluteUrl(lang, route.path),
-      lastModified,
+      ...(route.lastModified ? { lastModified: route.lastModified } : {}),
       changeFrequency: route.changeFrequency,
       priority: route.priority,
       alternates: {

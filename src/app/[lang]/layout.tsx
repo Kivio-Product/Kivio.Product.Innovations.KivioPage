@@ -9,6 +9,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/motion/motion";
 import { GoogleTagManagerHead, GoogleTagManagerNoScript } from "@/components/analytics/GoogleTagManager";
+import { InteractionTracking } from "@/components/analytics/InteractionTracking";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema, SITE_URL, SITE_NAME } from "@/lib/seo";
 import "../globals.css";
@@ -116,6 +117,7 @@ export default async function LangLayout({
       </head>
       <body className="min-h-dvh bg-bg font-sans text-fg antialiased">
         <GoogleTagManagerNoScript />
+        <InteractionTracking />
         <JsonLd data={[organizationSchema(), websiteSchema(locale)]} />
         <ThemeProvider>
           <ScrollProgress />
