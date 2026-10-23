@@ -20,7 +20,16 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 2678400,
   },
   async redirects() {
-    return [{ source: "/ia", destination: "/es/ia", permanent: true }];
+    return [
+      { source: "/ia", destination: "/es/ia", permanent: true },
+      /* legacy URLs that still receive impressions in Search Console */
+      { source: "/es/nuestros-servicios", destination: "/es/servicios", permanent: true },
+      { source: "/en/our-services", destination: "/en/servicios", permanent: true },
+      { source: "/en/contact", destination: "/en/contacto", permanent: true },
+      { source: "/en/about-us", destination: "/en/sobre-nosotros", permanent: true },
+      { source: "/en/our-clients", destination: "/en/portafolio", permanent: true },
+      { source: "/:lang(es|en)/portafolio/bidmax", destination: "/:lang/productos/kivio-bidmax", permanent: true },
+    ];
   },
   async headers() {
     return [

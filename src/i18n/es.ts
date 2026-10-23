@@ -3,7 +3,7 @@ export const es = {
     site: "KIVIO",
     titleSuffix: "KIVIO SAS",
     description:
-      "Sostenemos la tecnología de operaciones que no pueden detenerse: continuidad operacional, equipos dedicados, integración y modernización de sistemas críticos. Resultados medibles, no horas de desarrollo.",
+      "Sostenemos la tecnología de operaciones que no pueden detenerse: continuidad operacional, integración y modernización de sistemas críticos en Colombia.",
     keywords: [
       "continuidad operacional",
       "sistemas críticos",
@@ -392,6 +392,10 @@ export const es = {
       "Cuéntanos qué sistema crítico necesitas sostener, integrar o modernizar. Empezamos con un diagnóstico breve y una propuesta concreta.",
   },
   about: {
+    seo: {
+      title: "Sobre nosotros: equipo en sistemas críticos",
+      description: "Somos un equipo colombiano fundado en 2023 en Manizales que sostiene la tecnología de operaciones críticas, con ingeniería senior y alta disponibilidad.",
+    },
     title: "Sobre nosotros",
     lead: "Somos un equipo colombiano que sostiene la tecnología de operaciones que no pueden detenerse. Combinamos ingeniería senior, estándares de alta disponibilidad y una forma de trabajar profundamente consultiva.",
     storyTitle: "Nacimos para sostener lo que no puede fallar",
@@ -428,6 +432,10 @@ export const es = {
       note: "Primera conversación virtual gratuita · 30 minutos",
     },
     kicker: "Portafolio de soluciones",
+    seo: {
+      title: "Soluciones para sistemas que no pueden fallar",
+      description: "Continuidad operacional, equipos dedicados, integración de plataformas y modernización de sistemas críticos, con acuerdos de servicio claros y equipo senior.",
+    },
     title: "Soluciones para sistemas que no pueden fallar",
     lead: "Diseñamos, integramos y sostenemos la tecnología que tu operación no puede soltar. Trabajamos por resultados concretos —disponibilidad, respuesta, estabilidad— con equipos especializados y acuerdos de servicio claros.",
     portfolioTitle: "Cómo podemos asumir tu operación",
@@ -593,6 +601,11 @@ export const es = {
       "Cuéntanos qué sistema necesitas sostener, integrar o modernizar. Te respondemos con un diagnóstico inicial y una propuesta clara.",
   },
   careers: {
+    seo: {
+      title: "Carreras en KIVIO: desarrollo y diseño",
+      description: "Perfiles que abriremos pronto en KIVIO: desarrollo Flutter, Full Stack y diseño UI/UX Senior. Escríbenos aunque no veas tu rol.",
+    },
+    nextCall: "Próxima convocatoria",
     title: "Estamos buscando gente talentosa",
     lead: "Kivio está creciendo rápidamente, y siempre estamos buscando personas apasionadas, dinámicas y con talento para unirse a nuestro equipo distribuido por todo el mundo. Pronto abriremos nuevas convocatorias para los perfiles listados a continuación.",
     jobs: [
@@ -622,6 +635,10 @@ export const es = {
   },
   cms: {
     title: "Kivio CMS",
+    seo: {
+      title: "Kivio CMS: gestor de contenidos para tu sitio web",
+      description: "Kivio CMS es un gestor de contenidos para crear y administrar tu sitio web sin escribir código: edición en tiempo real, usuarios, permisos y acompañamiento.",
+    },
     subtitle: "Administra tu sitio web de forma fácil y sin complicaciones",
     lead: "KIVIO CMS permite crear y gestionar páginas web sin saber de código, con módulos personalizables para actualizar contenido fácilmente. También ofrece opciones avanzadas para desarrolladores que buscan personalización a detalle.",
     canDoTitle: "¿Qué puedes hacer con tu CMS?",
@@ -646,6 +663,10 @@ export const es = {
   },
   ecommerce: {
     title: "Kivio eCommerce",
+    seo: {
+      title: "Kivio eCommerce: plataforma para tu tienda online",
+      description: "Kivio eCommerce permite crear y gestionar tu tienda online: catálogo, inventario, pasarelas de pago, envíos y multimoneda, con acompañamiento de KIVIO.",
+    },
     subtitle: "Convierte visitas en ventas con un eCommerce diseñado para crecer",
     lead: "KIVIO eCommerce es una plataforma intuitiva y poderosa que te permite crear, gestionar y hacer crecer tu tienda online sin complicaciones. Ideal para adaptarse al mercado digital en constante evolución.",
     includesTitle: "¿Qué incluye tu eCommerce?",
@@ -677,6 +698,10 @@ export const es = {
     ctaTitle: "¡Empieza hoy a vender más con una plataforma creada para crecer contigo!",
   },
   bidmax: {
+    seo: {
+      title: "Kivio BidMax: plataforma de subastas digitales",
+      description: "Kivio BidMax es una plataforma de subastas digitales para vender excedentes y productos próximos a vencer, con pujas en tiempo real y pagos seguros.",
+    },
     title: "Kivio BidMax",
     lead: "Bidmax es una plataforma de subastas digitales que permite a empresas vender productos de forma ágil y segura, subastando artículos individuales o en lotes con valores mínimos y máximos. Es ideal para productos próximos a vencer o excedentes de inventario, integrando pagos seguros y una experiencia confiable para vendedores y compradores.",
     featuresTitle: "Características del producto",
@@ -727,6 +752,10 @@ export const es = {
   },
   kivi: {
     title: "KIVI IA Assistant",
+    seo: {
+      title: "KIVI IA Assistant: IA y WhatsApp para tu empresa",
+      description: "KIVI automatiza la atención al cliente por WhatsApp 24/7 con IA conectada a tu base de conocimiento y escala a un agente humano cuando hace falta.",
+    },
     subtitle: "IA y WhatsApp para tu empresa",
     lead: "Automatiza tu servicio al cliente, gestiona documentos inteligentes y conecta tu base de conocimiento con WhatsApp en minutos. Responde a tus clientes 24/7 con un asistente que conoce tu negocio.",
     openProduct: "Abrir KIVI",
@@ -840,6 +869,10 @@ export const es = {
     relatedCta: "Conocer KIVI IA Assistant",
   },
   airlines: {
+    seo: {
+      title: "Tecnología para la operación crítica de aerolíneas",
+      description: "Soporte y desarrollo de sistemas PSS e IBE para aerolíneas: operación estable, plataformas críticas disponibles y mejora continua con equipo senior.",
+    },
     title: "Tecnología para la operación crítica de aerolíneas",
     lead: "Sostenemos la operación digital de las aerolíneas: optimizamos procesos, damos soporte a sistemas PSS e IBE y mantenemos plataformas críticas estables y disponibles. Más que desarrollar software, nos hacemos responsables de que la operación no se detenga.",
     featuresTitle: "Características del servicio",
@@ -886,6 +919,10 @@ export const es = {
     ],
   },
   flyr: {
+    seo: {
+      title: "FLYR / Newshore: soporte IBE y PSS para aerolíneas",
+      description: "Caso FLYR / Newshore: consultoría, soporte y desarrollo de sistemas IBE y PSS para aerolíneas, con foco en estabilidad y mejora continua.",
+    },
     title: "FLYR / Newshore",
     lead: "En KIVIO ofrecemos consultoría y desarrollo especializado para aerolíneas, incluyendo IBE, gestión y creación B2C de reservas y soporte a sistemas PSS. Acompañamos la operación y evolución de estas plataformas para garantizar eficiencia, estabilidad y mejora continua en los procesos.",
     featuresTitle: "Características del servicio",
@@ -896,6 +933,10 @@ export const es = {
     ],
   },
   merkko: {
+    seo: {
+      title: "Merkko: tienda virtual y app móvil de e-commerce",
+      description: "Caso Merkko: KIVIO desarrolló el sitio web, la tienda virtual y las apps móviles publicadas en Play Store y App Store de este mercado multicategoría.",
+    },
     title: "Merkko",
     lead: "Merkko es un mercado virtual que reúne múltiples categorías de productos en una sola plataforma, ofreciendo una forma práctica y rápida de comprar en línea. En KIVIO desarrollamos su sitio web y tienda virtual, creando una solución enfocada en la usabilidad, el rendimiento y el crecimiento del e-commerce.",
     featuresTitle: "Características de la página web",
@@ -914,6 +955,10 @@ export const es = {
     quoteBy: "David Trujillo Sánchez · Marketplace Director, Merkko",
   },
   nutrir: {
+    seo: {
+      title: "Fundación Nutrir: sitio web con Kivio CMS",
+      description: "Caso Fundación Nutrir: sitio web informativo sobre Kivio CMS que comunica su misión de nutrición infantil y conecta con canales de donación y contacto.",
+    },
     title: "Fundación Nutrir",
     lead: "Fundación Nutrir es una organización sin ánimo de lucro que mejora la nutrición y el bienestar de niños, niñas y familias en condición de vulnerabilidad mediante programas de alimentación y educación nutricional. En KIVIO desarrollamos su sitio web informativo, una plataforma clara que comunica su misión y conecta a los usuarios con canales de donación y contacto.",
     featuresTitle: "Características de la página web — CMS",

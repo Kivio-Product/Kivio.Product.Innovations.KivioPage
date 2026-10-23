@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getDictionary } from "@/i18n";
+import { getDictionary, getLocale } from "@/i18n";
 import { pageMetadata } from "@/lib/page-seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { serviceSchema } from "@/lib/seo";
@@ -12,8 +12,8 @@ import { ContactBlock } from "@/components/shared/ContactForm";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   return pageMetadata(params, (d) => ({
-    title: d.airlines.title,
-    description: d.airlines.lead,
+    title: d.airlines.seo.title,
+    description: d.airlines.seo.description,
     path: "soporte-a-aerolineas",
   }));
 }
@@ -29,7 +29,11 @@ export default async function AirlinesPage({ params }: { params: Promise<{ lang:
           name: dict.airlines.title,
           description: dict.airlines.lead,
           path: "soporte-a-aerolineas",
-          serviceType: "Soporte y desarrollo de sistemas para aerolíneas (PSS/IBE)",
+          serviceType:
+            getLocale(lang) === "en"
+              ? "Support and development of airline systems (PSS/IBE)"
+              : "Soporte y desarrollo de sistemas para aerolíneas (PSS/IBE)",
+          lang: getLocale(lang),
         })}
       />
       <PageHero

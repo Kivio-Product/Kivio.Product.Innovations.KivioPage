@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getDictionary } from "@/i18n";
+import { getDictionary, getLocale } from "@/i18n";
 import { pageMetadata } from "@/lib/page-seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { softwareAppSchema } from "@/lib/seo";
@@ -12,8 +12,8 @@ import { href, routes } from "@/lib/utils";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   return pageMetadata(params, (d) => ({
-    title: `${d.cms.title} — ${d.cms.subtitle}`,
-    description: d.cms.lead,
+    title: d.cms.seo.title,
+    description: d.cms.seo.description,
     path: "productos/kivio-cms",
   }));
 }
@@ -25,7 +25,7 @@ export default async function CmsPage({ params }: { params: Promise<{ lang: stri
   return (
     <>
       <JsonLd
-        data={softwareAppSchema({ name: dict.cms.title, description: dict.cms.lead, path: "productos/kivio-cms" })}
+        data={softwareAppSchema({ name: dict.cms.title, description: dict.cms.lead, path: "productos/kivio-cms", lang: getLocale(lang) })}
       />
       <PageHero
         lang={lang}

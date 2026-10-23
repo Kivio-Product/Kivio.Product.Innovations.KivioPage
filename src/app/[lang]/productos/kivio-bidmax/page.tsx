@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getDictionary } from "@/i18n";
+import { getDictionary, getLocale } from "@/i18n";
 import { pageMetadata } from "@/lib/page-seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { softwareAppSchema } from "@/lib/seo";
@@ -12,8 +12,8 @@ import { ContactBlock } from "@/components/shared/ContactForm";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   return pageMetadata(params, (d) => ({
-    title: d.bidmax.title,
-    description: d.bidmax.lead,
+    title: d.bidmax.seo.title,
+    description: d.bidmax.seo.description,
     path: "productos/kivio-bidmax",
   }));
 }
@@ -29,6 +29,7 @@ export default async function BidmaxPage({ params }: { params: Promise<{ lang: s
           name: dict.bidmax.title,
           description: dict.bidmax.lead,
           path: "productos/kivio-bidmax",
+          lang: getLocale(lang),
         })}
       />
       <PageHero lang={lang} path="productos/kivio-bidmax" kicker={dict.nav.products} title={dict.bidmax.title} lead={dict.bidmax.lead} leadScroll>

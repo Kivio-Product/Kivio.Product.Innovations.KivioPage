@@ -2,7 +2,7 @@ import { ArrowRight, Check, ChevronDown, ClipboardList, Database, FileCheck, Gra
 import { getDictionary, getLocale } from "@/i18n";
 import { pageMetadata } from "@/lib/page-seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { absoluteUrl, serviceSchema, SITE_URL } from "@/lib/seo";
+import { absoluteUrl, serviceSchema, PAGE_MODIFIED, SITE_URL } from "@/lib/seo";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import { FadeUp, SpotlightCard, Stagger } from "@/components/motion/motion";
@@ -43,6 +43,7 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
           name: ai.seoTitle,
           description: ai.seoDescription,
           inLanguage: locale === "es" ? "es-CO" : "en",
+          dateModified: PAGE_MODIFIED.ia,
           isPartOf: { "@id": `${SITE_URL}/#website` },
           mainEntity: { "@id": `${pageUrl}#service` },
           hasPart: [
@@ -63,10 +64,23 @@ export default async function AiPage({ params }: { params: Promise<{ lang: strin
             itemListElement: ai.deliverables.map((name, index) => ({ "@type": "ListItem", position: index + 1, name })),
           },
         },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "@id": `${pageUrl}#faq`,
+          url: pageUrl,
+          inLanguage: locale === "es" ? "es-CO" : "en",
+          mainEntity: ai.faq.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: { "@type": "Answer", text: item.answer },
+          })),
+        },
       ]} />
       <PageHero
         lang={lang}
         path="ia"
+        webPage={false}
         kicker={ai.kicker}
         title={ai.title}
         lead={ai.lead}

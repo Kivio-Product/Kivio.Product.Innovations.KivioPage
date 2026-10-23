@@ -6,7 +6,7 @@ export const en = {
     site: "KIVIO",
     titleSuffix: "KIVIO SAS",
     description:
-      "We keep the technology behind operations that cannot stop: operational continuity, dedicated teams, integration and modernization of critical systems. Measurable outcomes — not development hours.",
+      "We keep the technology behind operations that cannot stop: operational continuity, integration and modernization of critical systems from Colombia.",
     keywords: [
       "operational continuity",
       "critical systems",
@@ -359,6 +359,10 @@ export const en = {
       "Tell us which critical system you need to sustain, integrate or modernize. We start with a short diagnosis and a concrete proposal.",
   },
   about: {
+    seo: {
+      title: "About us: a Colombian team for critical systems",
+      description: "We are a Colombian team founded in 2023 in Manizales that keeps mission-critical operations running, with senior engineering and high-availability standards.",
+    },
     title: "About us",
     lead: "We are a Colombian team that sustains the technology behind operations that cannot stop. We combine senior engineering, high-availability standards and a deeply consultative way of working.",
     storyTitle: "Born to sustain what cannot fail",
@@ -395,6 +399,10 @@ export const en = {
       note: "Free initial video call · 30 minutes",
     },
     kicker: "Solutions portfolio",
+    seo: {
+      title: "Solutions for systems that cannot fail",
+      description: "Operational continuity, dedicated teams, platform integration and modernization of critical systems, with clear service agreements and a senior team.",
+    },
     title: "Solutions for systems that cannot fail",
     lead: "We design, integrate and sustain the technology your operation can't let go of. We work for concrete outcomes — uptime, response, stability — with specialized teams and clear service agreements.",
     portfolioTitle: "How we can take on your operation",
@@ -560,6 +568,11 @@ export const en = {
       "Tell us which system you need to sustain, integrate or modernize. We'll reply with an initial diagnosis and a clear proposal.",
   },
   careers: {
+    seo: {
+      title: "Careers at KIVIO: engineering and design",
+      description: "Roles opening soon at KIVIO: Flutter, full-stack and senior UI/UX. Write to us even if you don’t see your role.",
+    },
+    nextCall: "Opening soon",
     title: "We’re looking for talented people",
     lead: "Kivio is growing fast, and we’re always looking for passionate, dynamic, talented people to join our distributed team. We’ll soon open new calls for the roles listed below.",
     jobs: [
@@ -589,6 +602,10 @@ export const en = {
   },
   cms: {
     title: "Kivio CMS",
+    seo: {
+      title: "Kivio CMS: content management for your website",
+      description: "Kivio CMS is a content management system to build and manage your website without code: real-time publishing, users, permissions and hands-on support.",
+    },
     subtitle: "Manage your website easily — no complications",
     lead: "KIVIO CMS lets you create and manage websites without writing code, with customizable modules to update content. It also offers advanced options for developers who need deep customization.",
     canDoTitle: "What can you do with your CMS?",
@@ -613,6 +630,10 @@ export const en = {
   },
   ecommerce: {
     title: "Kivio eCommerce",
+    seo: {
+      title: "Kivio eCommerce: platform for your online store",
+      description: "Kivio eCommerce lets you create and run your online store: catalog, inventory, payment gateways, shipping and multi-currency, backed by the KIVIO team.",
+    },
     subtitle: "Turn visits into sales with an eCommerce built to grow",
     lead: "KIVIO eCommerce is an intuitive, powerful platform to create, manage and grow your online store without friction. Built for a market that never stops changing.",
     includesTitle: "What’s included",
@@ -638,6 +659,10 @@ export const en = {
     ctaTitle: "Start selling more today with a platform built to grow with you",
   },
   bidmax: {
+    seo: {
+      title: "Kivio BidMax: digital auction platform",
+      description: "Kivio BidMax is a digital auction platform to sell surplus and near-expiry inventory, with real-time bidding and secure payments.",
+    },
     title: "Kivio BidMax",
     lead: "BidMax is a digital auction platform that lets companies sell products quickly and securely — individual items or lots, with minimum and maximum values. Ideal for near-expiry goods or surplus inventory, with secure payments and a reliable experience for sellers and buyers.",
     featuresTitle: "Product features",
@@ -687,6 +712,10 @@ export const en = {
   },
   kivi: {
     title: "KIVI AI Assistant",
+    seo: {
+      title: "KIVI AI Assistant: AI and WhatsApp for business",
+      description: "KIVI automates customer service on WhatsApp 24/7 with AI connected to your knowledge base, and hands off to a human agent when needed.",
+    },
     subtitle: "AI and WhatsApp for your company",
     lead: "Automate customer service, manage intelligent documents and connect your knowledge base to WhatsApp in minutes. Answer customers 24/7 with an assistant that knows your business.",
     openProduct: "Open KIVI",
@@ -800,6 +829,10 @@ export const en = {
     relatedCta: "Explore KIVI AI Assistant",
   },
   airlines: {
+    seo: {
+      title: "Technology for the critical operation of airlines",
+      description: "Support and development of PSS and IBE systems for airlines: stable operations, always-available critical platforms and continuous improvement.",
+    },
     title: "Technology for the critical operation of airlines",
     lead: "We sustain the digital operation of airlines: we optimize processes, support PSS and IBE systems, and keep critical platforms stable and available. More than building software, we take responsibility for the operation never stopping.",
     featuresTitle: "How we work",
@@ -846,6 +879,10 @@ export const en = {
     ],
   },
   flyr: {
+    seo: {
+      title: "FLYR / Newshore: IBE and PSS support for airlines",
+      description: "FLYR / Newshore case: consulting, support and development of IBE and PSS systems for airlines, focused on stability and continuous improvement.",
+    },
     title: "FLYR / Newshore",
     lead: "We offer specialized consulting and development for airlines, including IBE, B2C booking management and PSS support. We accompany the operation and evolution of these platforms for efficiency, stability and continuous improvement.",
     featuresTitle: "Service features",
@@ -856,6 +893,10 @@ export const en = {
     ],
   },
   merkko: {
+    seo: {
+      title: "Merkko: online store and mobile app for e-commerce",
+      description: "Merkko case: KIVIO built the website, virtual store and mobile apps published on Play Store and App Store for this multi-category marketplace.",
+    },
     title: "Merkko",
     lead: "Merkko is a virtual marketplace that brings multiple product categories into one platform — a practical, fast way to shop online. At KIVIO we built the website and virtual store, focused on usability, performance and e-commerce growth.",
     featuresTitle: "Website features",
@@ -874,6 +915,10 @@ export const en = {
     quoteBy: "David Trujillo Sánchez · Marketplace Director, Merkko",
   },
   nutrir: {
+    seo: {
+      title: "Fundación Nutrir: website built on Kivio CMS",
+      description: "Fundación Nutrir case: an informational website on Kivio CMS that communicates its child-nutrition mission and links to donation and contact channels.",
+    },
     title: "Fundación Nutrir",
     lead: "Fundación Nutrir is a nonprofit that improves nutrition and wellbeing for children and families in vulnerable conditions through food programs and nutrition education. At KIVIO we built their informational website — a clear platform that communicates the mission and connects users to donation and contact channels.",
     featuresTitle: "Website features — CMS",

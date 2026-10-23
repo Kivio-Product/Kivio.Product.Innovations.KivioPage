@@ -13,8 +13,8 @@ const icons = [Medal, Heart, Lightbulb, Sparkles, Scale, Monitor];
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   return pageMetadata(params, (d) => ({
-    title: d.about.title,
-    description: d.about.lead,
+    title: d.about.seo.title,
+    description: d.about.seo.description,
     path: "sobre-nosotros",
   }));
 }

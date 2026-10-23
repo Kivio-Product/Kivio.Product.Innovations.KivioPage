@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check, ClipboardList, Compass, GraduationCap, Network, Rocket, ShieldCheck, Users, Workflow } from "lucide-react";
-import { getDictionary } from "@/i18n";
+import { getDictionary, getLocale } from "@/i18n";
 import { pageMetadata } from "@/lib/page-seo";
-import { SITE_NAME } from "@/lib/seo";
+import { SITE_NAME, webPageSchema } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/Button";
 import { Container, Section } from "@/components/ui/Container";
 import {
@@ -55,6 +56,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
+      <JsonLd
+        data={webPageSchema({
+          lang: getLocale(lang),
+          path: "",
+          name: dict.home.heroTitle,
+          description: dict.meta.description,
+        })}
+      />
       {/* ── HERO (centered, Shopify-style) ───────────────────── */}
       <section className="relative overflow-hidden pt-14 pb-20 sm:pt-20 sm:pb-28">
         <div className="aurora" aria-hidden />

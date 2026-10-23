@@ -9,8 +9,8 @@ import { ContactBlock } from "@/components/shared/ContactForm";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   return pageMetadata(params, (d) => ({
-    title: `${d.merkko.title} — ${d.portfolio.items[1].tag}`,
-    description: d.merkko.lead,
+    title: d.merkko.seo.title,
+    description: d.merkko.seo.description,
     path: "portafolio/merkko",
   }));
 }

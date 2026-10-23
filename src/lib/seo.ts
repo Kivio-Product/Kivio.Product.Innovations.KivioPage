@@ -54,13 +54,75 @@ export function buildMetadata({
 
 /* ── JSON-LD builders (schema.org) ── */
 
-export function organizationSchema() {
+/**
+ * Last meaningful content change per route (YYYY-MM-DD). Feeds JSON-LD dateModified and the
+ * sitemap lastmod: bump the entry when the page's content really changes.
+ */
+export const PAGE_MODIFIED: Record<string, string> = {
+  "": "2026-10-23",
+  ia: "2026-10-23",
+  servicios: "2026-10-23",
+  "soporte-a-aerolineas": "2026-10-23",
+  "productos/kivio-cms": "2026-10-23",
+  "productos/kivio-ecommerce": "2026-10-23",
+  "productos/kivio-bidmax": "2026-10-23",
+  "productos/kivi-ia": "2026-10-23",
+  portafolio: "2026-09-16",
+  "portafolio/flyr": "2026-10-23",
+  "portafolio/merkko": "2026-10-23",
+  "portafolio/nutrir": "2026-10-23",
+  "sobre-nosotros": "2026-10-23",
+  contacto: "2026-09-16",
+  carreras: "2026-10-23",
+  "politicas-de-privacidad": "2026-09-16",
+};
+
+const orgCopy = {
+  es: {
+    knowsAbout: [
+      "Continuidad operacional",
+      "Sistemas críticos",
+      "Alta disponibilidad",
+      "Sistemas PSS e IBE para aerolíneas",
+      "Integración de plataformas",
+      "Consultoría en inteligencia artificial y automatización",
+      "Comercio electrónico",
+      "Gestores de contenido (CMS)",
+    ],
+    award: "Finalista Premios Ingenio 2026 (Fedesoft): Empresa Revelación Tecnológica del Año",
+    slogan: "Sistemas críticos, siempre en operación",
+    description:
+      "KIVIO SAS sostiene sistemas críticos para compañías que no pueden detenerse: continuidad operacional, equipos dedicados, integración de plataformas y modernización, con experiencia en aviación, comercio digital y otros sectores de alta exigencia.",
+    areaServed: ["Colombia", "Latinoamérica"],
+  },
+  en: {
+    knowsAbout: [
+      "Operational continuity",
+      "Critical systems",
+      "High availability",
+      "PSS and IBE systems for airlines",
+      "Platform integration",
+      "AI consulting and process automation",
+      "E-commerce",
+      "Content management systems (CMS)",
+    ],
+    award: "Finalist, Premios Ingenio 2026 (Fedesoft): Breakthrough Technology Company of the Year",
+    slogan: "Critical systems, always running",
+    description:
+      "KIVIO SAS keeps critical systems running for companies that cannot stop: operational continuity, dedicated teams, platform integration and modernization, with experience in aviation, digital commerce and other demanding sectors.",
+    areaServed: ["Colombia", "Latin America"],
+  },
+} as const;
+
+export function organizationSchema(lang = "es") {
+  const copy = lang === "en" ? orgCopy.en : orgCopy.es;
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
     legalName: "KIVIO SAS",
+    alternateName: ["KIVIO", "Kivio"],
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
@@ -71,9 +133,25 @@ export function organizationSchema() {
     email: social.email,
     telephone: "+573012839049",
     foundingDate: "2023",
-    slogan: "Sistemas críticos, siempre en operación",
-    description:
-      "KIVIO SAS sostiene sistemas críticos para compañías que no pueden detenerse: continuidad operacional, equipos dedicados, integración de plataformas y modernización, con experiencia en aviación, comercio digital y otros sectores de alta exigencia.",
+    foundingLocation: {
+      "@type": "Place",
+      address: { "@type": "PostalAddress", addressLocality: "Manizales", addressRegion: "Caldas", addressCountry: "CO" },
+    },
+    slogan: copy.slogan,
+    description: copy.description,
+    award: copy.award,
+    knowsAbout: copy.knowsAbout,
+    areaServed: copy.areaServed.map((name, i) => ({ "@type": i === 0 ? "Country" : "Place", name })),
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        email: social.email,
+        telephone: "+573012839049",
+        availableLanguage: ["es", "en"],
+        areaServed: "CO",
+      },
+    ],
     address: {
       "@type": "PostalAddress",
       streetAddress: "Cl. 7b #12",
@@ -110,24 +188,55 @@ export function breadcrumbSchema(lang: string, items: { name: string; path: stri
   };
 }
 
+export function webPageSchema({
+  lang,
+  path,
+  name,
+  description,
+}: {
+  lang: string;
+  path: string;
+  name: string;
+  description?: string;
+}) {
+  const url = absoluteUrl(lang, path);
+  const dateModified = PAGE_MODIFIED[path.replace(/^\/+|\/+$/g, "")];
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name,
+    ...(description ? { description } : {}),
+    inLanguage: lang === "en" ? "en" : "es-CO",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#organization` },
+    ...(dateModified ? { dateModified } : {}),
+  };
+}
+
 export function softwareAppSchema({
   name,
   description,
   path,
+  lang = "es",
 }: {
   name: string;
   description: string;
   path: string;
+  lang?: "es" | "en";
 }) {
+  const url = absoluteUrl(lang, path);
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": `${url}#software`,
     name,
     description,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    url: absoluteUrl("es", path),
-    inLanguage: ["es", "en"],
+    url,
+    inLanguage: lang === "en" ? "en" : "es-CO",
     author: { "@id": `${SITE_URL}/#organization` },
     publisher: { "@id": `${SITE_URL}/#organization` },
   };
@@ -153,40 +262,11 @@ export function serviceSchema({
     description,
     serviceType,
     url: absoluteUrl(lang, path),
+    inLanguage: lang === "en" ? "en" : "es-CO",
     provider: { "@id": `${SITE_URL}/#organization` },
     areaServed: [
       { "@type": "Country", name: "Colombia" },
-      { "@type": "Place", name: "Latinoamérica" },
+      { "@type": "Place", name: lang === "en" ? "Latin America" : "Latinoamérica" },
     ],
-  };
-}
-
-export function jobPostingSchema({
-  title,
-  description,
-  city,
-  datePosted,
-}: {
-  title: string;
-  description: string;
-  city: string;
-  datePosted: string;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "JobPosting",
-    title,
-    description,
-    datePosted,
-    employmentType: "FULL_TIME",
-    hiringOrganization: { "@id": `${SITE_URL}/#organization` },
-    jobLocation: {
-      "@type": "Place",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: city,
-        addressCountry: "CO",
-      },
-    },
   };
 }

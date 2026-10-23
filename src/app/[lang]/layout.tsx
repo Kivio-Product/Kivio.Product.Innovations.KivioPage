@@ -118,7 +118,7 @@ export default async function LangLayout({
       <body className="min-h-dvh bg-bg font-sans text-fg antialiased">
         <GoogleTagManagerNoScript />
         <InteractionTracking />
-        <JsonLd data={[organizationSchema(), websiteSchema(locale)]} />
+        <JsonLd data={[organizationSchema(locale), websiteSchema(locale)]} />
         <ThemeProvider>
           <ScrollProgress />
           <Header lang={locale} dict={dict} />

@@ -373,13 +373,17 @@ export function RotatingWord({
           <span
             key={word}
             aria-hidden={i !== index}
+            /* only the first word is real text: the others are drawn from data-word so crawlers and
+               answer engines read a coherent headline instead of every rotating word concatenated */
+            data-word={i === 0 ? undefined : word}
             className={cn(
               "block h-[1.16em] overflow-hidden leading-[1.16em] whitespace-nowrap",
+              i > 0 && "before:content-[attr(data-word)]",
               /* gradient lives on the row: a translated descendant breaks parent background-clip:text */
               gradient && "text-gradient",
             )}
           >
-            {word}
+            {i === 0 ? word : null}
           </span>
         ))}
       </span>

@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { FadeUp, ScrollText, SpotlightCard, Stagger } from "@/components/motion/motion";
 import { AmbientVideo } from "@/components/shared/AmbientVideo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbSchema } from "@/lib/seo";
+import { breadcrumbSchema, webPageSchema } from "@/lib/seo";
 import { getDictionary } from "@/i18n";
 
 export function PageHero({
@@ -17,6 +17,7 @@ export function PageHero({
   video,
   grid = true,
   reveal = true,
+  webPage = true,
   children,
 }: {
   lang?: string;
@@ -38,6 +39,8 @@ export function PageHero({
   grid?: boolean;
   /** Keep critical headings visible in the initial HTML when disabled. */
   reveal?: boolean;
+  /** Emit the generic WebPage JSON-LD; disable when the page declares its own. */
+  webPage?: boolean;
   children?: React.ReactNode;
 }) {
   const dict = lang ? getDictionary(lang) : null;
@@ -76,10 +79,13 @@ export function PageHero({
       {grid && <div className="pointer-events-none absolute inset-0 grid-pattern opacity-30" aria-hidden />}
       {lang && path !== undefined && (
         <JsonLd
-          data={breadcrumbSchema(lang, [
-            { name: dict?.nav.home ?? "Inicio", path: "" },
-            { name: title, path },
-          ])}
+          data={[
+            breadcrumbSchema(lang, [
+              { name: dict?.nav.home ?? "Inicio", path: "" },
+              { name: title, path },
+            ]),
+            ...(webPage ? [webPageSchema({ lang, path, name: title })] : []),
+          ]}
         />
       )}
       <Container className="relative">

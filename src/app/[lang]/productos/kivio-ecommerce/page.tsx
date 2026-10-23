@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getDictionary } from "@/i18n";
+import { getDictionary, getLocale } from "@/i18n";
 import { pageMetadata } from "@/lib/page-seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { softwareAppSchema } from "@/lib/seo";
@@ -19,8 +19,8 @@ const resultImgs = [
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   return pageMetadata(params, (d) => ({
-    title: `${d.ecommerce.title} — ${d.ecommerce.subtitle}`,
-    description: d.ecommerce.lead,
+    title: d.ecommerce.seo.title,
+    description: d.ecommerce.seo.description,
     path: "productos/kivio-ecommerce",
   }));
 }
@@ -36,6 +36,7 @@ export default async function EcommercePage({ params }: { params: Promise<{ lang
           name: dict.ecommerce.title,
           description: dict.ecommerce.lead,
           path: "productos/kivio-ecommerce",
+          lang: getLocale(lang),
         })}
       />
       <PageHero

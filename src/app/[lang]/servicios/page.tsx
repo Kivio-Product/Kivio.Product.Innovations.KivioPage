@@ -13,7 +13,7 @@ import {
   Truck,
   Users,
 } from "lucide-react";
-import { getDictionary } from "@/i18n";
+import { getDictionary, getLocale } from "@/i18n";
 import { pageMetadata } from "@/lib/page-seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { serviceSchema } from "@/lib/seo";
@@ -32,8 +32,8 @@ const traitIcons = [Handshake, FileCheck, Lock, BarChart3];
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   return pageMetadata(params, (d) => ({
-    title: d.services.title,
-    description: d.services.lead,
+    title: d.services.seo.title,
+    description: d.services.seo.description,
     path: "servicios",
   }));
 }
@@ -49,7 +49,11 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
           name: dict.services.title,
           description: dict.services.lead,
           path: "servicios",
-          serviceType: "Continuidad operacional y estabilidad de sistemas críticos",
+          serviceType:
+            getLocale(lang) === "en"
+              ? "Operational continuity and stability of critical systems"
+              : "Continuidad operacional y estabilidad de sistemas críticos",
+          lang: getLocale(lang),
         })}
       />
       <PageHero
