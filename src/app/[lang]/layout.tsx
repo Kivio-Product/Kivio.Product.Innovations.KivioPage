@@ -8,6 +8,7 @@ import { ThemeScript } from "@/theme/theme-script";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/motion/motion";
+import { GoogleTagManagerHead, GoogleTagManagerNoScript } from "@/components/analytics/GoogleTagManager";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema, SITE_URL, SITE_NAME } from "@/lib/seo";
 import "../globals.css";
@@ -107,12 +108,14 @@ export default async function LangLayout({
       suppressHydrationWarning
     >
       <head>
+        <GoogleTagManagerHead />
         <ThemeScript />
         <style>{`
           :root { --font-sans: var(--font-poppins), Poppins, system-ui, sans-serif; --font-display: var(--font-neutra), NeutraText, var(--font-poppins), sans-serif; }
         `}</style>
       </head>
       <body className="min-h-dvh bg-bg font-sans text-fg antialiased">
+        <GoogleTagManagerNoScript />
         <JsonLd data={[organizationSchema(), websiteSchema(locale)]} />
         <ThemeProvider>
           <ScrollProgress />

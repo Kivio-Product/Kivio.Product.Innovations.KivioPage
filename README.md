@@ -122,6 +122,12 @@ Verificación local: `/sitemap.xml`, `/robots.txt`, `/es/opengraph-image` y el J
 
 Pasos tras el deploy: Search Console → Verificar → Sitemaps → enviar `sitemap.xml`.
 
+### Google Tag Manager
+
+El contenedor `GTM-NMJ63BV4` está instalado en el layout raíz de ambos idiomas. `src/components/analytics/GoogleTagManager.tsx` mantiene el identificador y los dos fragmentos oficiales: inicialización de `dataLayer` y carga asíncrona de `gtm.js` en el `<head>`, más el respaldo `<noscript>` al inicio del `<body>`. El layout compartido conserva una sola inicialización durante la navegación interna.
+
+Tras publicar, comprobar la detección del contenedor con **Tag Assistant** o con **Test** en el diálogo de instalación de GTM. Esta instalación prepara el contenedor; la etiqueta de GA4, los eventos de contacto y demo y la clasificación de referencias de IA se configurarán en la siguiente fase. Para evitar duplicar mediciones, configurar la etiqueta de Google desde este contenedor al conectar GA4.
+
 ### Sistema de vida y originalidad (UI UX Pro Max)
 
 El skill `ui-ux-pro-max` (`.opencode/skills/`) aporta la capa de motion y estilos:
