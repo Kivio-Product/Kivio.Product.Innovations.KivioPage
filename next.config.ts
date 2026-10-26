@@ -29,6 +29,9 @@ const nextConfig: NextConfig = {
       { source: "/en/about-us", destination: "/en/sobre-nosotros", permanent: true },
       { source: "/en/our-clients", destination: "/en/portafolio", permanent: true },
       { source: "/:lang(es|en)/portafolio/bidmax", destination: "/:lang/productos/kivio-bidmax", permanent: true },
+      { source: "/es/nuestros-servicios/kivio-cms-ecommerce", destination: "/es/productos/kivio-cms", permanent: true },
+      { source: "/es/reactiva-manizales", destination: "/es", permanent: true },
+      { source: "/es/pagos", destination: "/es", permanent: true },
     ];
   },
   async headers() {
