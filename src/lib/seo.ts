@@ -154,8 +154,7 @@ export function organizationSchema(lang = "es") {
     ],
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Cl. 7b #12",
-      addressLocality: "Villamaría",
+      addressLocality: "Manizales",
       addressRegion: "Caldas",
       addressCountry: "CO",
     },

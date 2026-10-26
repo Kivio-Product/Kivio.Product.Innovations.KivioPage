@@ -30,11 +30,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             <ul className="mt-8 space-y-5 text-muted">
               <li className="flex gap-3">
                 <MapPin className="mt-0.5 shrink-0 text-accent" size={18} aria-hidden />
-                <span>
-                  {dict.contact.city}
-                  <br />
-                  {social.address}
-                </span>
+                <span>{dict.contact.city}</span>
               </li>
               <li className="flex gap-3">
                 <MessageCircle className="mt-0.5 shrink-0 text-accent" size={18} aria-hidden />

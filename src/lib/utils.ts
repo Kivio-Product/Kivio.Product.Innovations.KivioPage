@@ -31,11 +31,10 @@ export const social = {
   emailAlt: "kivio@kivio.com.co",
   whatsapp: "573012839049",
   whatsappLink: "https://wa.me/573012839049",
-  linkedin: "https://www.linkedin.com/company/kivio-sas/",
-  facebook: "https://www.facebook.com/share/16cZaZYDQa/",
+  linkedin: "https://www.linkedin.com/company/kivio-sas",
+  facebook: "https://www.facebook.com/p/KIVIO-SAS-61576612461918/",
   instagram: "https://www.instagram.com/kivio.co",
   tiktok: "https://www.tiktok.com/@kivio.co",
-  address: "Cl. 7b #12, Villamaría, Caldas, Colombia",
   city: "Manizales — Caldas — Colombia",
   kiviExternal: "https://kivi-ai.kivio.com.co/",
 };
